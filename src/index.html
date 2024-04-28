@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>reaksicakimin | 3D Engine</title>
+  <link rel="icon" type="image/x-icon" href="../public/logo-ic.ico">
+
+  <!-- Styles -->
+  <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/navbar.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/object-list.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/canvas.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/property-bar.css" />
+
+  <!-- Font awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
+    type='text/css'>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav>
+    <ul>
+      <li id="logo" class="dropdown">
+        <img src="../public/logo-ic.png" alt="reaksicakimin logo">
+        <i class="fa-solid fa-chevron-down"></i>
+        <ul class="dropdown-menu">
+          <li>New File</li>
+          <li>Import Model</li>
+        </ul>
+      </li>
+      <li id="cursor" class="tool-btn active">
+        <img src="../public/cursor-ic.svg" class="nav-icon">
+      </li>
+      <li id="canvas" class="tool-btn">
+        <img src="../public/canvas-ic.svg" class="nav-icon">
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Object list -->
+  <div id="object-list-container">
+
+    <!-- Line objects -->
+    <div id="line-objects" class="object-list">
+      <div class="object-label list">
+        <span>List of objects</span>
+      </div>
+      <div class="items">
+      </div>
+    </div>
+    
+  </div>
+
+  <!-- Property bar -->
+  <div class="property-bar-container">
+
+    <!-- Canvas property -->
+    <div id="canvas-properties" class="property-container">
+      <!-- Canvas color -->
+      <div class="property">
+        <label for="canvas-color">Background</label>
+        <div class="color-input">
+          <input type="color" id="canvas-color-input" name="canvas-color" value="#141414">
+          <span id="canvas-color-value">#141414</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shape property -->
+    <div id="shape-properties" class="property-container">
+      <!-- Shape color -->
+      <div class="property">
+        <label for="shape-color">Color</label>
+        <div class="color-input">
+          <input type="color" id="shape-color-input" name="shape-color" value="#e5e5e5">
+          <span id="shape-color-value">#e5e5e5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit property -->
+    <div id="edit-properties" class="property-container active">
+      <!-- Edit color -->
+      <div class="property">
+        <label for="edit-color">Color</label>
+        <div class="color-input">
+          <input type="color" id="edit-color-input" name="edit-color" value="#e5e5e5">
+          <span id="edit-color-value">#e5e5e5</span>
+        </div>
+      </div>
+
+      <!-- Properties -->
+      <div class="property">
+        <label>Properties</label>
+      </div>
+
+      <!-- Save -->
+      <div id="save-property" class="property">
+        <label for="save-btn">Save</label>
+        <button id="save-btn">Save Model</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Canvas -->
+  <canvas>
+
+  </canvas>
+
+  <!-- Utilities -->
+  <script src="./script/converter.js"></script>
+
+  <!-- Shaders -->
+  <script src="./script/shaders.js"></script>
+
+  <!-- Draw functions -->
+  <script src="./script/draw.js"></script>
+
+  <!-- Shapes class -->
+
+  <!-- Selectors -->
+  <script src="./script/selectors.js"></script>
+
+  <!-- Global state -->
+  <script src="./script/states.js"></script>
+
+  <!-- Transform functions -->
+
+  <!-- Dropdown menu -->
+  <script src="./script/dropdown.js"></script>
+
+  <!-- Main app -->
+  <script src="./script/index.js"></script>
+
+</body>
+
+</html>

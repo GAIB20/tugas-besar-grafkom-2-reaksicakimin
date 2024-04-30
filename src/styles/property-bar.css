@@ -109,3 +109,25 @@
   padding: 0px 8px;
   padding-top: 25px;
 }
+
+.projection #projection-type {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.reset {
+  display: flex;
+  justify-content: center;
+  padding: 0px 8px;
+  padding-top: 25px;
+}
+
+.reset .reset-btn {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}

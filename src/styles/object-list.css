@@ -9,6 +9,7 @@
   padding-top: 61px;
   padding-bottom: 5px;
   overflow-y: auto;
+  overflow-x: hidden;
 
   background-color: var(--secondary-color);
   border-right: solid 1px var(--tertiary-color);
@@ -111,6 +112,13 @@
   padding-top: 8px;
   display: flex;
   justify-content: space-between;
+}
+
+.material #material-type {
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .others-group .material .color-input, .others-group .material .input, .others-group .material #bump-map {

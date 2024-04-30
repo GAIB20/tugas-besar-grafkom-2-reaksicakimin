@@ -15,11 +15,15 @@
   <link rel="stylesheet" type="text/css" href="./styles/property-bar.css" />
 
   <!-- Font awesome -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet"
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"
     type='text/css'>
 </head>
 
 <body>
+  <!-- Canvas -->
+  <canvas>
+  </canvas>
+
   <!-- Navbar -->
   <nav>
     <ul>
@@ -40,18 +44,191 @@
     </ul>
   </nav>
 
-  <!-- Object list -->
-  <div id="object-list-container">
+  <!-- Others -->
+  <div id="others-bar-container">
 
-    <!-- Line objects -->
-    <div id="line-objects" class="object-list">
-      <div class="object-label list">
-        <span>List of objects</span>
-      </div>
-      <div class="items">
+    <!-- Component tree (DUMMY)-->
+    <div class="others-group">
+      <div id="component-tree" class="component-tree-list">
+        <label class="component-tree-label" for="component-tree-label">Component Tree</label>
+        <div class="items">
+
+          <!-- Object -->
+          <div class="body list">
+            <input type="checkbox" id="body" name="body">
+            <label for="body">Body</label>
+            <div class="items">
+              <div class="head list">
+                <input type="checkbox" id="head" name="head">
+                <label for="head">Head</label>
+              </div>
+              <div class="hand list">
+                <input type="checkbox" id="hand" name="hand">
+                <label for="hand">Hand</label>
+                <div class="items">
+                  <div class="left list">
+                    <input type="checkbox" id="left" name="left">
+                    <label for="left">Left</label>
+                  </div>
+                  <div class="right list">
+                    <input type="checkbox" id="right" name="right">
+                    <label for="right">Right</label>
+                  </div>
+                </div>
+              </div>
+              <div class="leg list">
+                <input type="checkbox" id="leg" name="leg">
+                <label for="leg">Leg</label>
+                <div class="items">
+                  <div class="left list">
+                    <input type="checkbox" id="left" name="left">
+                    <label for="left">Left</label>
+                  </div>
+                  <div class="right list">
+                    <input type="checkbox" id="right" name="right">
+                    <label for="right">Right</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Light -->
+          <div class="light list">
+            <input type="checkbox" id="light" name="light">
+            <label for="light">Light</label>
+          </div>
+
+          <!-- Camera -->
+          <div class="camera list">
+            <input type="checkbox" id="camera" name="camera">
+            <label for="camera">Camera</label>
+          </div>
+
+        </div>
       </div>
     </div>
-    
+
+    <!-- Animation -->
+    <div class="others-group">
+      <label for="animation">Animation</label>
+
+      <!-- Frame per second -->
+      <div id="frame-per-second" class="frame">
+        <label for="frame-per-second">FPS:</label>
+        <input type="number" id="frame-per-second-input" name="frame-per-second" value="30">
+      </div>
+
+      <!-- Frame indicator -->
+      <div id="frame-indicator" class="frame">
+        <label for="frame-indicator">Frame:</label>
+        <div class="frame-number"></div>
+      </div>
+      
+      <!-- Frame controller -->
+      <div id="frame-controller">
+        <div class="frame-label">
+          <label for="frame-player">Controller</label>
+        </div>
+        <div class="frame">
+          <button id="frame-prev" class="frame-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button id="frame-next" class="frame-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+          <button id="frame-first" class="frame-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <button id="frame-last" class="frame-btn">
+            <i class="fa-solid fa-chevron-right"></i>
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Frame player -->
+      <div id="frame-player">
+        <div class="frame-label">
+          <label for="frame-player">Player</label>
+        </div>
+        <div class="frame">
+          <button id="frame-play" class="frame-btn">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button id="frame-pause" class="frame-btn">
+            <i class="fa-solid fa-pause"></i>
+          </button>
+          <button id="frame-reverse" class="frame-btn">
+            <i class="fa-solid fa-play"></i>
+            <i class="fa-solid fa-undo"></i>
+          </button>
+          <button id="frame-autoreplay" class="frame-btn">
+            <i class="fa-solid fa-play"></i>
+            <i class="fa-solid fa-sync"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Material -->
+    <div class="others-group">
+      <label for="material">Material</label>
+        <!-- Material type -->
+        <div class="material">
+          <label for="material-type">Choose Material</label>
+          <select id="material-type">
+            <option value="off">Off</option>
+            <option value="basic">Basic</option>
+            <option value="phong">Phong</option>
+          </select>
+        </div>
+
+        <!-- Basic param -->
+        <div id="basic-params" class="material" style="display:none;">
+          <!-- Diffuse Color -->
+          <label for="basic-diffuse">Diffuse Color</label>
+          <div class="color-input">
+            <input type="color" id="basic-diffuse" name="basic-diffuse" value="#e5e5e5">
+            <span id="basic-diffuse-value">#e5e5e5</span>
+          </div>
+        </div>
+
+        <!-- Phong param -->
+        <div id="phong-params" class="material" style="display:none;">
+          <!-- Diffuse Color -->
+          <label for="phong-diffuse">Diffuse Color</label>
+          <div class="color-input">
+            <input type="color" id="phong-diffuse" name="phong-diffuse" value="#e5e5e5">
+            <span id="phong-diffuse-value">#e5e5e5</span>
+          </div>
+          
+          <!-- Specular Color -->
+          <label for="phong-specular">Specular Color</label>
+          <div class="color-input">
+            <input type="color" id="phong-specular" name="phong-specular" value="#ffffff">
+            <span id="phong-specular-value">#ffffff</span>
+          </div>
+
+          <!-- Shininess -->
+          <label for="shininess">Shininess</label>
+          <div class="input">
+            <input type="range" id="shininess-slider" class="prop-slider" name="shininess" min="0" max="100"
+              step="1" value="50">
+            <input type="number" id="shininess-input" class="prop-input" name="shininess-input" min="0" max="100"
+              step="1" value="50">
+          </div>
+          
+          <!-- Bump Map -->
+          <label for="bump-map">Bump Map</label>
+          <input type="file" id="bump-map" name="bump-map" accept="image/*">
+
+        </div>
+
+    </div>
+
   </div>
 
   <!-- Property bar -->
@@ -92,50 +269,221 @@
         </div>
       </div>
 
-      <!-- Properties -->
+      <!-- View Properties -->
       <div class="property">
-        <label>Properties</label>
+
+        <!-- Translate -->
+        <div class="property-group">
+          <label>Translate</label>
+
+          <!-- Translate X -->
+          <div class="label-value">
+            <label for="translate-x">X</label>
+            <div class="input">
+              <input type="range" id="translate-x-slider" class="prop-slider" name="translate-x" min="-100" max="100"
+                step="1" value="0">
+              <input type="number" id="translate-x-input" class="prop-input" name="translate-x-input" min="-100"
+                max="100" step="1" value="0">
+            </div>
+          </div>
+
+          <!-- Translate Y -->
+          <div class="label-value">
+            <label for="translate-y">Y</label>
+            <div class="input">
+              <input type="range" id="translate-y-slider" class="prop-slider" name="translate-y" min="-100" max="100"
+                step="1" value="0">
+              <input type="number" id="translate-y-input" class="prop-input" name="translate-y-input" min="-100"
+                max="100" step="1" value="0">
+            </div>
+          </div>
+
+          <!-- Translate Z -->
+          <div class="label-value">
+            <label for="translate-z">Z</label>
+            <div class="input">
+              <input type="range" id="translate-z-slider" class="prop-slider" name="translate-z" min="-100" max="100"
+                step="1" value="0">
+              <input type="number" id="translate-z-input" class="prop-input" name="translate-z-input" min="-100"
+                max="100" step="1" value="0">
+            </div>
+          </div>
+        </div>
+
+        <!-- Scale -->
+        <div class="property-group">
+          <label>Scale</label>
+
+          <!-- Scale X -->
+          <div class="label-value">
+            <label for="scale-x">X</label>
+            <div class="input">
+              <input type="range" id="scale-x-slider" class="prop-slider" name="scale-x" min="0.1" max="5" step="0.01"
+                value="1">
+              <input type="number" id="scale-x-input" class="prop-input" name="scale-x-input" min="0.1" max="5"
+                step="0.1" value="1">
+            </div>
+          </div>
+
+          <!-- Scale Y -->
+          <div class="label-value">
+            <label for="scale-y">Y</label>
+            <div class="input">
+              <input type="range" id="scale-y-slider" class="prop-slider" name="scale-y" min="0.1" max="5" step="0.01"
+                value="1">
+              <input type="number" id="scale-y-input" class="prop-input" name="scale-y-input" min="0.1" max="5"
+                step="0.01" value="1">
+            </div>
+          </div>
+
+          <!-- Scale Z -->
+          <div class="label-value">
+            <label for="scale-z">Z</label>
+            <div class="input">
+              <input type="range" id="scale-z-slider" class="prop-slider" name="scale-z" min="0.1" max="5" step="0.01"
+                value="1">
+              <input type="number" id="scale-z-input" class="prop-input" name="scale-z-input" min="0.1" max="5"
+                step="0.01" value="1">
+            </div>
+          </div>
+        </div>
+
+        <!-- Rotation -->
+        <div class="property-group">
+          <label>Rotation</label>
+
+          <!-- Rotation X -->
+          <div class="label-value">
+            <label for="rotation-x">X</label>
+            <div class="input">
+              <input type="range" id="rotation-x-slider" class="prop-slider" name="rotation-x" min="-180" max="180" step="1"
+                value="0">
+              <input type="number" id="rotation-x-input" class="prop-input" name="rotation-x-input" min="-180" max="180"
+                step="1" value="0">
+            </div>
+          </div>
+
+          <!-- Rotation Y -->
+          <div class="label-value">
+            <label for="rotation-y">Y</label>
+            <div class="input">
+              <input type="range" id="rotation-y-slider" class="prop-slider" name="rotation-y" min="-180" max="180" step="1"
+                value="0">
+              <input type="number" id="rotation-y-input" class="prop-input" name="rotation-y-input" min="-180" max="180"
+                step="1" value="0">
+            </div>
+          </div>
+
+          <!-- Rotation Z -->
+          <div class="label-value">
+            <label for="rotation-z">Z</label>
+            <div class="input">
+              <input type="range" id="rotation-z-slider" class="prop-slider" name="rotation-z" min="-180" max="180" step="1"
+                value="0">
+              <input type="number" id="rotation-z-input" class="prop-input" name="rotation-z-input" min="-180" max="180"
+                step="1" value="0">
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Save -->
-      <div id="save-property" class="property">
-        <label for="save-btn">Save</label>
-        <button id="save-btn">Save Model</button>
+      <!-- Camera Properties -->
+      <div class="property">
+
+        <!-- Camera -->
+        <div class="property-group">
+          <label>Camera</label>
+
+          <!-- Camera X -->
+          <div class="label-value">
+            <label for="camera-x">X</label>
+            <div class="input">
+              <input type="range" id="camera-x-slider" class="prop-slider" name="camera-x" min="-10" max="10" step="0.1"
+                value="0">
+              <input type="number" id="camera-x-input" class="prop-input" name="camera-x-input" min="-10" max="10"
+                step="0.1" value="0">
+            </div>
+          </div>
+
+          <!-- Camera Y -->
+          <div class="label-value">
+            <label for="camera-y">Y</label>
+            <div class="input">
+              <input type="range" id="camera-y-slider" class="prop-slider" name="camera-y" min="-10" max="10" step="0.1"
+                value="0">
+              <input type="number" id="camera-y-input" class="prop-input" name="camera-y-input" min="-10" max="10"
+                step="0.1" value="0">
+            </div>
+          </div>
+
+          <!-- Camera Z -->
+          <div class="label-value">
+            <label for="camera-z">Z</label>
+            <div class="input">
+              <input type="range" id="camera-z-slider" class="prop-slider" name="camera-z" min="-10" max="10" step="0.1"
+                value="0">
+              <input type="number" id="camera-z-input" class="prop-input" name="camera-z-input" min="-10" max="10"
+                step="0.1" value="0">
+            </div>
+          </div>
+
+          <!-- Camera Radius -->
+          <div class="label-value">
+            <label for="camera-radius">Radius</label>
+            <div class="input">
+              <input type="range" id="camera-radius-slider" class="prop-slider" name="camera-radius" min="0" max="50"
+                step="1" value="25">
+              <input type="number" id="camera-radius-input" class="prop-input" name="camera-radius-input" min="0"
+                max="50" step="1" value="25">
+            </div>
+          </div>
+          
+          <!-- Projection Type -->
+          <div class="projection">
+            <label>Projection</label>
+            <div class="input">
+              <select id="projection-type">
+                <option value="orthographic">Orthographic</option>
+                <option value="oblique">Oblique</option>
+                <option value="perspective">Perspective</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
 
-  </div>
+    <!-- Utilities -->
+    <script src="./script/converter.js"></script>
 
-  <!-- Canvas -->
-  <canvas>
+    <!-- Shaders -->
+    <script src="./script/shaders.js"></script>
 
-  </canvas>
+    <!-- Draw functions -->
+    <script src="./script/draw.js"></script>
 
-  <!-- Utilities -->
-  <script src="./script/converter.js"></script>
+    <!-- Shapes class -->
 
-  <!-- Shaders -->
-  <script src="./script/shaders.js"></script>
+    <!-- Selectors -->
+    <script src="./script/selectors.js"></script>
 
-  <!-- Draw functions -->
-  <script src="./script/draw.js"></script>
+    <!-- Global state -->
+    <script src="./script/states.js"></script>
 
-  <!-- Shapes class -->
+    <!-- Transform functions -->
 
-  <!-- Selectors -->
-  <script src="./script/selectors.js"></script>
+    <!-- Web utils -->
+    <script src="./script/utils/menuDropdown.js"></script>
+    <script src="./script/utils/propSlider.js"></script>
+    <script src="./script/utils/treeCheckbox.js"></script>
+    <script src="./script/utils/frameController.js"></script>
+    <script src="./script/utils/materialController.js"></script>
 
-  <!-- Global state -->
-  <script src="./script/states.js"></script>
-
-  <!-- Transform functions -->
-
-  <!-- Dropdown menu -->
-  <script src="./script/dropdown.js"></script>
-
-  <!-- Main app -->
-  <script src="./script/index.js"></script>
+    <!-- Main app -->
+    <script src="./script/index.js"></script>
 
 </body>
 

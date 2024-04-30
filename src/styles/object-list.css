@@ -1,4 +1,4 @@
-#object-list-container {
+#others-bar-container {
   position: absolute;
   left: 0;
   bottom: 0;
@@ -14,59 +14,125 @@
   border-right: solid 1px var(--tertiary-color);
 }
 
-#object-list-container::-webkit-scrollbar {
+#others-container::-webkit-scrollbar {
   width: 6px;
 }
 
-#object-list-container::-webkit-scrollbar-thumb {
+#others-container::-webkit-scrollbar-thumb {
   background-color: var(--tertiary-color);
   border-radius: 5px;
 }
 
-#dev-box {
-  left: 0;
-  bottom: 0;
-  /* display: none; */
-
+.others-group {
   width: 100%;
   height: fit-content;
-  margin-top: 5px;
-  padding: 16px 16px 16px 16px;
-  background-color: var(--secondary-color);
-  border-top: solid 1px var(--tertiary-color);
+  padding: 16px;
+  border-bottom: solid 1px var(--tertiary-color);
 
-  font-size: x-small;
+  display: flex;
+  flex-direction: column;
 }
 
-.object-list .object-label {
+.component-tree-list .component-tree-label {
+  padding-bottom: 10px;
+}
+
+.component-tree-list .component-tree-label {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.object-list .list {
-  padding: 6px 16px;
+.component-tree-list .list {
+  padding: 0 16px;
   border: solid 1px var(--secondary-color);
 
   cursor: pointer;
 }
 
-.object-list .list:hover {
-  border: solid 1px var(--accent-color);
-}
-
-.object-list .object-item {
+.component-tree-list .component-tree-item {
   padding-left: 40px;
 }
 
-.object-list .object-item.selected {
-  border: solid 1px var(--accent-color);
+.others-group .frame {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.object-list .point-item {
-  padding-left: 60px;
+.others-group #frame-per-second-input {
+  height: 30px;
+  width: 50px;
+  padding: 0 8px;
+  border: none;
+  text-align: end;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
 }
 
-.object-list .point-item.selected {
-  border: solid 1px var(--accent-color);
+.others-group .frame .frame-btn {
+  padding: 8px 12px;
+  display: flex;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.others-group .frame-label {
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 5px;
+}
+
+#basic-diffuse {
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+}
+
+#phong-diffuse, #phong-specular {
+  background-color: transparent;
+  border: none;
+  border-radius: 3px;
+}
+
+.material .color-input {
+  width: 100%;
+  height: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.others-group .material {
+  padding: 0px 12px;
+  padding-top: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.others-group .material .color-input, .others-group .material .input, .others-group .material #bump-map {
+  margin-bottom: 5px;
+}
+
+.others-group .material .color-input input {
+  cursor: pointer;
+}
+
+.material .input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.input .prop-input {
+  height: 30px;
+  width: 50px;
+  padding: 0 8px;
+  border: none;
+  text-align: end;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
 }

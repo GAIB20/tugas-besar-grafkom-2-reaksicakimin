@@ -38,7 +38,10 @@
 
   display: flex;
   flex-direction: column;
-  gap: 16px;
+}
+
+.property-bar-container .property .property-group {
+  margin-bottom: 20px;
 }
 
 .property-bar-container .color-input {
@@ -63,36 +66,30 @@
 }
 
 .label-value {
-  width: fit-content;
   border: 1px solid var(--secondary-color);
   border-radius: 3px;
-  padding-left: 8px;
+  padding: 4px 8px;
 
-  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .label-value:hover {
   border: 1px solid var(--tertiary-color);
 }
 
-.label-value input {
-  width: 60px;
+.label-value .input .prop-input {
   height: 30px;
+  width: 50px;
   padding: 0 8px;
   border: none;
-  background-color: var(--secondary-color);
+  text-align: end;
+  background-color: var(--primary-color);
+  border-radius: 3px;
   color: var(--text-color);
 }
 
-.label-value img {
-  width: 12px;
-  height: 12px;
-}
-
 .label-value label {
-  width: 15px;
   height: 20px;
 
   display: flex;
@@ -100,28 +97,15 @@
   justify-content: left;
 }
 
-.property-rows {
+.label-value .input {
   display: flex;
-  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.property-columns {
+.projection {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-#save-btn {
-  background-color: var(--secondary-color);
-  border: solid 1px var(--white);
-  padding: 10px;
-  border-radius: 8px;
-  color: var(--white);
-  font-family: "Poppins", sans-serif;
-
-  cursor: pointer;
-}
-
-#save-btn:active {
-  background-color: var(--tertiary-color);
+  justify-content: space-between;
+  padding: 0px 8px;
+  padding-top: 25px;
 }

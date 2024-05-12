@@ -8,8 +8,8 @@ class Scene extends Object3D {
   // JSON parser
   toJSON() {
     return {
-      ...super.toJSON(),
       background: this.background,
+      ...super.toJSON(),
     };
   }
 

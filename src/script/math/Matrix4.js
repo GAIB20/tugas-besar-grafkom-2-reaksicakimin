@@ -13,7 +13,7 @@ class Matrix4 extends Matrix {
     ]);
   }
 
-  // Rotation
+  // Rotations
   static rotationX(degAngle) {
     const radAngle = degToRad(degAngle);
     const c = Math.cos(radAngle);
@@ -95,5 +95,15 @@ class Matrix4 extends Matrix {
     const scaleMatrix = Matrix4.scale(...scale);
 
     return translationMatrix.premul(rotationMatrix).premul(scaleMatrix);
+  }
+
+  // Identity
+  static identity() {
+    return new Matrix4([
+      1,  0,  0,  0,
+      0,  1,  0,  0,
+      0,  0,  1,  0,
+      0,  0,  0,  1,
+    ]);
   }
 }

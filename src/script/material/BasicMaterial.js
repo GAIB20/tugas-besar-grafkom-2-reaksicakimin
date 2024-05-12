@@ -1,8 +1,10 @@
+import ShaderMaterial from './ShaderMaterial.js';
+
 // TODO: not in guidebook yet, modify if necessary
 class BasicMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this._color = new Color(1, 1, 1);
+    this._color = [1, 1, 1, 1]
   }
 
   // Public getter
@@ -28,3 +30,5 @@ class BasicMaterial extends ShaderMaterial {
     return material;
   }
 }
+
+export default BasicMaterial;

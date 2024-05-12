@@ -1,9 +1,9 @@
-const ShaderType = {
+export const ShaderType = {
   VERTEX: WebGLRenderingContext.VERTEX_SHADER,
   FRAGMENT: WebGLRenderingContext.FRAGMENT_SHADER,
 };
 
-const WebGLType = {
+export const WebGLType = {
   UNSIGNED_BYTE: WebGLRenderingContext.UNSIGNED_BYTE,
   UNSIGNED_SHORT: WebGLRenderingContext.UNSIGNED_SHORT,
   UNSIGNED_INT: WebGLRenderingContext.UNSIGNED_INT,
@@ -28,7 +28,7 @@ const WebGLType = {
   SAMPLER_CUBE: WebGLRenderingContext.SAMPLER_CUBE,
 }
 
-const UniformSetterWebGLType = {
+export const UniformSetterWebGLType = {
   [WebGLRenderingContext.FLOAT]: "1f",
   [WebGLRenderingContext.FLOAT_VEC2]: "2f",
   [WebGLRenderingContext.FLOAT_VEC3]: "3f",

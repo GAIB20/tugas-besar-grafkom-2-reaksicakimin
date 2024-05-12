@@ -1,3 +1,6 @@
+import BufferGeometry from './BufferGeometry.js';
+import BufferAttribute from './BufferAttribute.js';
+
 class PlaneGeometry extends BufferGeometry {
   constructor(width = 1, height = 1) {
     super();
@@ -30,3 +33,5 @@ class PlaneGeometry extends BufferGeometry {
     return new PlaneGeometry(json.width, json.height);
   }
 }
+
+export default PlaneGeometry;

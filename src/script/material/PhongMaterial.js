@@ -1,3 +1,5 @@
+import ShaderMaterial from './ShaderMaterial.js';
+
 // TODO: not in guidebook yet, modify if necessary
 class PhongMaterial extends ShaderMaterial {
   constructor() {
@@ -43,3 +45,5 @@ class PhongMaterial extends ShaderMaterial {
     return material;
   }
 }
+
+export default PhongMaterial;

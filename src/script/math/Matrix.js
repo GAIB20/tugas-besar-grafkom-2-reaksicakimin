@@ -45,6 +45,11 @@ class Matrix {
     return new Matrix(result, this._colLength, this._rowLength);
   }
 
+  // Clone matrix
+  clone() {
+    return new Matrix([...this._data], this._rowLength, this._colLength);
+  }
+
   // Print matrix
   print() {
     let str = "";
@@ -58,3 +63,5 @@ class Matrix {
     console.log(str);
   }
 }
+
+export default Matrix;

@@ -1,7 +1,9 @@
+import BufferAttribute from "./BufferAttribute.js";
+
 class BufferGeometry {
 	constructor() {
-			this._attributes = {};
-			this._indices = undefined;
+		this._attributes = {};
+		this._indices = undefined;
 	}
 
 	// Public getter
@@ -127,3 +129,5 @@ class BufferGeometry {
 	}
 
 }
+
+export default BufferGeometry;

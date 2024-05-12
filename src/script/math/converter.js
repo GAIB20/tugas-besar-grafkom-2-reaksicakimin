@@ -1,9 +1,9 @@
 // Degree to radian
-function degToRad(degree) {
+export function degToRad(degree) {
   return ((degree % 360) * Math.PI) / 180;
 }
 
 // Radian to degree
-function radToDeg(radian) {
+export function radToDeg(radian) {
   return ((radian * 180) / Math.PI) % 360;
 }

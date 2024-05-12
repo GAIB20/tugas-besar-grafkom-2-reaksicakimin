@@ -106,3 +106,5 @@ class BufferAttribute {
     });
   }
 }
+
+export default BufferAttribute;

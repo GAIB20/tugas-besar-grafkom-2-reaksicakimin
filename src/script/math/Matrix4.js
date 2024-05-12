@@ -1,3 +1,6 @@
+import Matrix from './Matrix.js';
+import { degToRad } from './Converter.js';
+
 class Matrix4 extends Matrix {
   constructor(data) {
     super(data, 4, 4);
@@ -200,3 +203,5 @@ class Matrix4 extends Matrix {
     ]);
   }
 }
+
+export default Matrix4;

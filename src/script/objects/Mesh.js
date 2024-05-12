@@ -1,3 +1,5 @@
+import Object3D from './Object3D.js';
+
 class Mesh extends Object3D {
   constructor(geometry, material) {
     super();
@@ -24,3 +26,5 @@ class Mesh extends Object3D {
     return mesh;
   }
 }
+
+export default Mesh;

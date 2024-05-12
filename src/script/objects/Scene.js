@@ -1,3 +1,5 @@
+import Object3D from "../objects/Object3D.js";
+
 class Scene extends Object3D {
   constructor() {
     super();
@@ -21,3 +23,5 @@ class Scene extends Object3D {
     return object;
   }
 }
+
+export default Scene;

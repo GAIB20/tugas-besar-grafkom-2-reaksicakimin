@@ -19,3 +19,5 @@ class OrthographicCamera extends Camera {
     );
   }
 }
+
+export default OrthographicCamera;

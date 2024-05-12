@@ -1,5 +1,7 @@
+import { UniformSetterWebGLType } from './Types.js';
+
 class WebGLUtils {
-  createShader(gl, source, type) {
+  static createShader(gl, source, type) {
     let shader = gl.createShader(type);
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
@@ -12,21 +14,25 @@ class WebGLUtils {
     return null;
   }
 
-  createProgram(gl, vert, frag) {
+  static createProgram(gl, vert, frag) {
     let program = gl.createProgram();
     gl.attachShader(program, vert);
     gl.attachShader(program, frag);
     gl.linkProgram(program);
   
     if (gl.getProgramParameter(program, gl.LINK_STATUS))
-      return program;
+      return {
+        program: program,
+        attributeSetters: this.createAttributeSetters(gl, program),
+        uniformSetters: this.createUniformSetters(gl, program)
+      }
   
     console.error(gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
   }
 
-  createAttributeSetters(gl, program) {
+  static createAttributeSetters(gl, program) {
     function createAttributeSetter(info) {
       const loc = gl.getAttribLocation(program, info.name);
       const buf = gl.createBuffer();
@@ -61,7 +67,7 @@ class WebGLUtils {
     return attribSetters;
   }
 
-  createUniformSetters(gl, program) {
+  static createUniformSetters(gl, program) {
     function createUniformSetter(info) {
       const loc = gl.getUniformLocation(program, info.name);
       const type = info.type;
@@ -88,13 +94,13 @@ class WebGLUtils {
     return uniformSetters;
   }
 
-  setAttributes(programInfo, attributes) {
+  static setAttributes(programInfo, attributes) {
     for (let attributeName in attributes) {
-      setAttribute(programInfo, attributeName, attributes[attributeName]);
+      this.setAttribute(programInfo, attributeName, attributes[attributeName]);
     }
   }
 
-  setAttribute(programInfo, attributeName, ...data) {
+  static setAttribute(programInfo, attributeName, ...data) {
     const setters = programInfo.attributeSetters;
     if (attributeName in setters) {
       const shaderName = `a_${attributeName}`;
@@ -102,13 +108,13 @@ class WebGLUtils {
     }
   }
 
-  setUniforms(programInfo, uniforms) {
+  static setUniforms(programInfo, uniforms) {
     for (let uniformName in uniforms) {
-      setUniform(programInfo, uniformName, uniforms[uniformName]);
+      this.setUniform(programInfo, uniformName, uniforms[uniformName]);
     }
   }
 
-  setUniform(programInfo, uniformName, ...data) {
+  static setUniform(programInfo, uniformName, ...data) {
     const setters = programInfo.uniformSetters;
     if (uniformName in setters) {
       const shaderName = `u_${uniformName}`;
@@ -116,3 +122,5 @@ class WebGLUtils {
     }
   }
 }
+
+export default WebGLUtils;

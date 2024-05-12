@@ -1,6 +1,12 @@
+import Mesh from '../objects/Mesh.js';
+import ShaderMaterial from '../material/ShaderMaterial.js';
+import WebGLUtils from './WebGLUtils.js';
+import { ShaderType } from './Types.js';
+import { vertexShaderSource, fragmentShaderSource } from './Shaders.js';
+
 class WebGLRenderer {
   constructor(canvas) {
-    this._canvas = document.querySelector(canvas);
+    this._canvas = canvas;
     this._gl = canvas.getContext('webgl');
     this._shaderCache = {};
     this._currentProgram = null;
@@ -25,7 +31,7 @@ class WebGLRenderer {
     if (canvas.width !== width || canvas.height !== height) {
       canvas.width = width;
       canvas.height = height;
-      gl.viewport(0, 0, width, height);
+      this._gl.viewport(0, 0, width, height);
     }
   }
 
@@ -33,9 +39,9 @@ class WebGLRenderer {
     if (material instanceof ShaderMaterial) {
       const progId = material.id;
       if (!this._shaderCache[progId]) {
-        const vertexShader = createShader(this._gl, material.vertexShader, ShaderType.VERTEX);
-        const fragmentShader = createShader(this._gl, material.fragmentShader, ShaderType.FRAGMENT);
-        const program = createProgram(this._gl, vertexShader, fragmentShader);
+        const vertexShader = WebGLUtils.createShader(this._gl, vertexShaderSource, ShaderType.VERTEX);
+        const fragmentShader = WebGLUtils.createShader(this._gl, fragmentShaderSource, ShaderType.FRAGMENT);
+        const program = WebGLUtils.createProgram(this._gl, vertexShader, fragmentShader);
         this._shaderCache[progId] = program;
       }
 
@@ -62,19 +68,19 @@ class WebGLRenderer {
 
     const renderObject = (object, uniforms) => {
       if (!object.visible) return;
-      object.updateWorldMatrix(false, true);
-      if (object instanceof Mesh && object.geometry.attributes.position) {
-        const material = object.material;
+      object.computeWorldMatrix(false, true);
+      if (object instanceof Mesh && object._geometry._attributes.position) {
+        const material = object._material;
         const info = this.createOrGetMaterial(material);
-        setProgramInfo(info);
-        setAttributes(info, object.geometry.attributes);
-        setUniforms(info, {
-          ...material.uniforms,
+        this.setProgramInfo(info);
+        WebGLUtils.setAttributes(info, object._geometry._attributes);
+        WebGLUtils.setUniforms(info, {
+          ...material._uniforms,
           ...uniforms,
-          worldMatrix: object.worldMatrix,
-          useVertexColor: object.geometry.useVertexColors,
+          worldMatrix: object._worldMatrix,
+          useVertexColor: object._geometry.useVertexColors,
         });
-        this._gl.drawArrays(this._gl.TRIANGLES, 0, object.geometry.attributes.position.count);
+        this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
       }
       object.children.forEach(child => renderObject(child, uniforms));
     };
@@ -83,3 +89,5 @@ class WebGLRenderer {
   }
 
 }
+
+export default WebGLRenderer;

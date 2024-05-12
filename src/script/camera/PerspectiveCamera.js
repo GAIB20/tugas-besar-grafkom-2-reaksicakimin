@@ -15,3 +15,5 @@ class PerspectiveCamera extends Camera {
     );
   }
 }
+
+export default PerspectiveCamera;

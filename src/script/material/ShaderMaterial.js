@@ -45,3 +45,5 @@ class ShaderMaterial {
     return material;
   }
 }
+
+export default ShaderMaterial;

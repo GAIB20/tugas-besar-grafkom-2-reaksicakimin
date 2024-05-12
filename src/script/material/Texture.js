@@ -59,3 +59,5 @@ class Texture {
     return texture;
   }
 }
+
+export default Texture;

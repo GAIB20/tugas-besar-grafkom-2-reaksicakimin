@@ -22,3 +22,5 @@ class ObliqueCamera extends Camera {
     );
   }
 }
+
+export default ObliqueCamera;

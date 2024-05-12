@@ -1,3 +1,6 @@
+import Object3D from "../objects/Object3D.js";
+import Matrix4 from "../math/Matrix4.js";
+
 class Camera extends Object3D {
   constructor() {
     super();
@@ -22,3 +25,5 @@ class Camera extends Object3D {
     throw new Error("Camera.computeProjectionMatrix() must be implemented in derived classes.");
   }
 }
+
+export default Camera;

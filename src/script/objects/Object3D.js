@@ -1,3 +1,5 @@
+import Matrix4 from "../math/Matrix4.js";
+
 class Object3D {
   constructor() {
     this._position = [0, 0, 0];
@@ -29,9 +31,9 @@ class Object3D {
 
   // Compute local matrix
   computeLocalMatrix() {
-    const translationMatrix = Matrix4.translation(...position);
-    const rotationMatrix = Matrix4.rotation(...rotation);
-    const scaleMatrix = Matrix4.scale(...scale);
+    const translationMatrix = Matrix4.translation(...this._position);
+    const rotationMatrix = Matrix4.rotation(...this._rotation);
+    const scaleMatrix = Matrix4.scale(...this._scale);
 
     this._localMatrix = translationMatrix.mul(rotationMatrix).mul(scaleMatrix);
   }
@@ -125,3 +127,5 @@ class Object3D {
     return object;
   }
 }
+
+export default Object3D;

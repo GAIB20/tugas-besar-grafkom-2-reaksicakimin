@@ -1,16 +1,16 @@
 class Mesh extends Object3D {
   constructor(geometry, material) {
     super();
-    this.geometry = geometry;
-    this.material = material;
+    this._geometry = geometry;
+    this._material = material;
   }
 
-  
+
   // JSON parser
   toJSON() {
     return {
-      geometry: this.geometry,
-      material: this.material,
+      geometry: this._geometry,
+      material: this._material,
       ...super.toJSON(),
     };
   }

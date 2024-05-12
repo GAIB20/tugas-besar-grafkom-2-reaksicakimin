@@ -2,7 +2,7 @@
 class BasicMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this.color = new Color(1, 1, 1);
+    this._color = new Color(1, 1, 1);
   }
 
   // Public getter

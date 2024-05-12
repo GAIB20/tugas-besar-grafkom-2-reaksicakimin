@@ -1,8 +1,8 @@
 class PlaneGeometry extends BufferGeometry {
   constructor(width = 1, height = 1) {
     super();
-    this.width = width;
-    this.height = height;
+    this._width = width;
+    this._height = height;
     const hw = width / 2, hh = height / 2;
     const vertices = new Float32Array([
       -hw,  0,  -hh,
@@ -20,8 +20,8 @@ class PlaneGeometry extends BufferGeometry {
   // JSON parser
   toJSON() {
     return {
-      width: this.width,
-      height: this.height,
+      width: this._width,
+      height: this._height,
       ...super.toJSON(),
     };
   }

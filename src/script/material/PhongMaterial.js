@@ -2,10 +2,10 @@
 class PhongMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this.ambient = new Color(0.2, 0.2, 0.2);
-    this.diffuse = new Color(0.8, 0.8, 0.8);
-    this.specular = new Color(1, 1, 1);
-    this.shininess = 32;
+    this._ambient = new Color(0.2, 0.2, 0.2);
+    this._diffuse = new Color(0.8, 0.8, 0.8);
+    this._specular = new Color(1, 1, 1);
+    this._shininess = 32;
   }
 
   // Public getters

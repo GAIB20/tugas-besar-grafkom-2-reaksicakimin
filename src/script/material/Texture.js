@@ -1,14 +1,14 @@
 // TODO: not in guidebook yet, modify if necessary
 class Texture {
   constructor(image) {
-    this.image = image;
-    this.wrapS = WebGLRenderingContext.REPEAT;
-    this.wrapT = WebGLRenderingContext.REPEAT;
-    this.magFilter = WebGLRenderingContext.LINEAR;
-    this.minFilter = WebGLRenderingContext.LINEAR;
-    this.format = WebGLRenderingContext.RGBA;
-    this.dtype = WebGLRenderingContext.UNSIGNED_BYTE;
-    this.generateMipmaps = true;
+    this._image = image;
+    this._wrapS = WebGLRenderingContext.REPEAT;
+    this._wrapT = WebGLRenderingContext.REPEAT;
+    this._magFilter = WebGLRenderingContext.LINEAR;
+    this._minFilter = WebGLRenderingContext.LINEAR;
+    this._format = WebGLRenderingContext.RGBA;
+    this._dtype = WebGLRenderingContext.UNSIGNED_BYTE;
+    this._generateMipmaps = true;
   }
 
   // Public getter

@@ -1,10 +1,10 @@
 // TODO: not in guidebook yet, modify if necessary
 class ShaderMaterial {
   constructor() {
-    this.fragmentShader = '';
-    this.vertexShader = '';
-    this.uniforms = {};
-    this.id = '';
+    this._fragmentShader = '';
+    this._vertexShader = '';
+    this._uniforms = {};
+    this._id = '';
   }
 
   // Public getter

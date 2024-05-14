@@ -8,33 +8,52 @@ import { vertexShaderSource, fragmentShaderSource } from "../script/webgl/Shader
 
 const canvas = document.querySelector('canvas');
 
-const webgl = new WebGLRenderer(canvas);
-console.log(webgl)
-
-// render
 const scene = new Scene();
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
+
+const renderer = new WebGLRenderer(canvas);
+// renderer.setSize(window.innerWidth, window.innerHeight);
+console.log(renderer)
+
+// Create the camera
+const camera = new PerspectiveCamera(
+  75, // Field of view
+  window.innerWidth / window.innerHeight, // Aspect ratio
+  0.1, // Near clipping plane
+  1000 // Far clipping plane
+);
+camera.position.z = 5; // Move the camera away from the origin
 console.log(camera)
 
-// make a mesh
+// Create a geometry
 const geometry = new PlaneGeometry(5, 5);
 console.log(geometry)
 
+// Create a custom shader material
 const material = new ShaderMaterial({
   vertexShader: vertexShaderSource,
   fragmentShader: fragmentShaderSource
 });
 console.log(material)
 
-const mesh = new Mesh(geometry, material);
-console.log(mesh)
+// Combine geometry and material into a mesh
+const plane = new Mesh(geometry, material);
+console.log(plane)
 
-scene.add(mesh);
+// Add the mesh to the scene
+scene.add(plane);
 console.log(scene)
 
+// Render the scene from the perspective of the camera
 function render() {
   webgl.render(scene, camera);
 }
 
+// // Handle window resize
+// window.addEventListener('resize', () => {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// });
+
+// Start the rendering loop
 render();

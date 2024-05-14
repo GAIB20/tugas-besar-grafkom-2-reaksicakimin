@@ -1,23 +1,27 @@
 import WebGLRenderer from "../script/webgl/WebGLRenderer.js";
 import Scene from "../script/objects/Scene.js";
 import PerspectiveCamera from "../script/camera/PerspectiveCamera.js";
+import OrthographicCamera from "../script/camera/OrthographicCamera.js";
 import Mesh from "../script/objects/Mesh.js";
 import BasicMaterial from "../script/material/BasicMaterial.js";
 import PlaneGeometry from "../script/geometry/PlaneGeometry.js";
 
 const canvas = document.querySelector('canvas');
-
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+console.log(canvas);
 const webgl = new WebGLRenderer(canvas);
-
 // render
 const scene = new Scene();
-const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+// const camera = new OrthographicCamera(-canvas.width/2, canvas.width/2, -canvas.height/2, canvas.width/2, -1000, 1000);
+const camera = new PerspectiveCamera(60, canvas.width/canvas.height, 0.01, 9999);
 camera.position[2] = 700;
-camera.position[1] = 100;
+// camera.position[1] = -250;
+// camera.position[0] = -400;
 console.log(camera)
 
 // make a mesh
-const geometry = new PlaneGeometry(100, 100);
+const geometry = new PlaneGeometry(1000, 1000);
 console.log(geometry)
 
 

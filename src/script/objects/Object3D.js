@@ -29,6 +29,25 @@ class Object3D {
     }
   }
 
+  get worldPosition() {
+    this.updateWorldMatrix(true, false);
+    return Matrix4.getTranslation(this._worldMatrix);
+  }
+
+  updateWorldMatrix(updateParent = true, updateChildren = true) {
+    if (updateParent && this.parent)
+      this.parent.updateWorldMatrix(true, false);
+    this.computeLocalMatrix();
+    if (this.parent) {
+      this._worldMatrix = this.parent.worldMatrix.mul(this._localMatrix);
+    } else {
+      this._worldMatrix = this._localMatrix.clone();
+    }
+    if (updateChildren)
+      for (let i = 0; i < this._children.length; i++)
+        this._children[i].updateWorldMatrix(false, true);
+  }
+
   // Compute local matrix
   computeLocalMatrix() {
     const translationMatrix = Matrix4.translation(...this._position);

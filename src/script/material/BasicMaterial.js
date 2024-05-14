@@ -4,7 +4,7 @@ import ShaderMaterial from './ShaderMaterial.js';
 class BasicMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this._color = [1, 1, 1, 1]
+    this._color = this._uniforms['color']
   }
 
   // Public getter

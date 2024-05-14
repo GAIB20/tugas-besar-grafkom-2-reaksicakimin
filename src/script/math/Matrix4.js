@@ -16,6 +16,14 @@ class Matrix4 extends Matrix {
     ]);
   }
 
+  static getTranslation(m, v=null) {
+    if (!v) v = [0, 0, 0];
+    v[0] = m.get(0, 3);
+    v[1] = m.get(1, 3);
+    v[2] = m.get(2, 3);
+    return v;
+  }
+
   // Rotations
   static rotationX(degAngle) {
     const radAngle = degToRad(degAngle);

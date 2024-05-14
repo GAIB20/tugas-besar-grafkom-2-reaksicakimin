@@ -19,7 +19,7 @@ class WebGLRenderer {
   }
 
   setViewport() {
-    this._gl.viewport(0, 0, this._canvas.width, this._canvas.height);
+    this._gl.viewport(0, 0, this._canvas.clientWidth, this._canvas.clientHeight);
   }
 
   adjustCanvas() {
@@ -56,7 +56,7 @@ class WebGLRenderer {
 
   render(scene, camera) {
     const gl = this._gl;
-    gl.clearColor(0, 0, 0, 1);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
@@ -75,7 +75,7 @@ class WebGLRenderer {
         this.setProgramInfo(info);
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         WebGLUtils.setUniforms(info, {
-          ...material._uniforms,
+          ...object._material._uniforms,
           ...uniforms,
           worldMatrix: object._worldMatrix,
           useVertexColor: object._geometry.useVertexColors,

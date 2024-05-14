@@ -7,7 +7,6 @@ const scene = new THREE.Scene();
 
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(window.innerWidth, window.innerHeight);
-console.log(renderer)
 
 // Create the camera
 const camera = new THREE.PerspectiveCamera(
@@ -49,6 +48,8 @@ console.log(scene)
 // Render the scene from the perspective of the camera
 function render() {
   renderer.render(scene, camera);
+  
+console.log(renderer)
 }
 
 // Handle window resize

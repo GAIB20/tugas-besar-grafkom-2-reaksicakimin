@@ -1,3 +1,4 @@
+import { Vector3 } from "../utils/vector3.js";
 import BufferAttribute from "./BufferAttribute.js";
 
 class BufferGeometry {
@@ -44,59 +45,59 @@ class BufferGeometry {
 			normal = new BufferAttribute(new Float32Array(position.length), position._size);
 		}
 
-		const pA = [0, 0, 0], pB = [0, 0, 0], pC = [0, 0, 0];
-		const cb = [0, 0, 0], ab = [0, 0, 0];
+		const pA = new Vector3, pB = new Vector3, pC = new Vector3;
+		const cb = new Vector3, ab = new Vector3;
 
 		const crossVectors = (a, b, c) => {
-			c[0] = a[1] * b[2] - a[2] * b[1];
-			c[1] = a[2] * b[0] - a[0] * b[2];
-			c[2] = a[0] * b[1] - a[1] * b[0];
+			c.x = a.y * b.z - a.z * b.y;
+			c.y = a.z * b.x - a.x * b.z;
+			c.z = a.x * b.y - a.y * b.x;
 		};
 
 		const normalize = (v) => {
-			const length = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+			const length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 			if (length > 0) {
-				v[0] /= length;
-				v[1] /= length;
-				v[2] /= length;
+				v.x /= length;
+				v.y /= length;
+				v.z /= length;
 			}
 		};
 
 		for (let i = 0; i < position.length; i += 3) {
-			pA[0] = position[i * 3 + 0];
-			pA[1] = position[i * 3 + 1];
-			pA[2] = position[i * 3 + 2];
+			pA.x = position[i * 3 + 0];
+			pA.y = position[i * 3 + 1];
+			pA.z = position[i * 3 + 2];
 
-			pB[0] = position[(i + 1) * 3 + 0];
-			pB[1] = position[(i + 1) * 3 + 1];
-			pB[2] = position[(i + 1) * 3 + 2];
+			pB.x = position[(i + 1) * 3 + 0];
+			pB.y = position[(i + 1) * 3 + 1];
+			pB.z = position[(i + 1) * 3 + 2];
 
-			pC[0] = position[(i + 2) * 3 + 0];
-			pC[1] = position[(i + 2) * 3 + 1];
-			pC[2] = position[(i + 2) * 3 + 2];
+			pC.x = position[(i + 2) * 3 + 0];
+			pC.y = position[(i + 2) * 3 + 1];
+			pC.z = position[(i + 2) * 3 + 2];
 
-			cb[0] = pC[0] - pB[0];
-			cb[1] = pC[1] - pB[1];
-			cb[2] = pC[2] - pB[2];
+			cb.x = pC.x - pB.x;
+			cb.y = pC.y - pB.y;
+			cb.z = pC.z - pB.z;
 
-			ab[0] = pA[0] - pB[0];
-			ab[1] = pA[1] - pB[1];
-			ab[2] = pA[2] - pB[2];
+			ab.x = pA.x - pB.x;
+			ab.y = pA.y - pB.y;
+			ab.z = pA.z - pB.z;
 
 			crossVectors(ab, cb, cb);
 			normalize(cb);
 
-			normal[i * 3 + 0] = cb[0];
-			normal[i * 3 + 1] = cb[1];
-			normal[i * 3 + 2] = cb[2];
+			normal[i * 3 + 0] = cb.x;
+			normal[i * 3 + 1] = cb.y;
+			normal[i * 3 + 2] = cb.z;
 
-			normal[(i + 1) * 3 + 0] = cb[0];
-			normal[(i + 1) * 3 + 1] = cb[1];
-			normal[(i + 1) * 3 + 2] = cb[2];
+			normal[(i + 1) * 3 + 0] = cb.x;
+			normal[(i + 1) * 3 + 1] = cb.y;
+			normal[(i + 1) * 3 + 2] = cb.z;
 
-			normal[(i + 2) * 3 + 0] = cb[0];
-			normal[(i + 2) * 3 + 1] = cb[1];
-			normal[(i + 2) * 3 + 2] = cb[2];
+			normal[(i + 2) * 3 + 0] = cb.x;
+			normal[(i + 2) * 3 + 1] = cb.y;
+			normal[(i + 2) * 3 + 2] = cb.z;
 		}
 
 		this.setAttribute('normal', normal);

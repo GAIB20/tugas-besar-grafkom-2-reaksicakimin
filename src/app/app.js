@@ -18,7 +18,7 @@ camera.position.z = 5;
 console.log(camera)
 
 // make a mesh
-const geometry = new PlaneGeometry(10000,10000);
+const geometry = new PlaneGeometry(5, 5);
 console.log(geometry)
 
 const material = new ShaderMaterial({

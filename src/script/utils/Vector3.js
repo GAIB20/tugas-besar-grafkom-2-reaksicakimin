@@ -43,11 +43,40 @@ export class Vector3 {
 
     normalize() {
         const len = this.length();
-        if (len === 0) return this;
-        return this.multiplyScalar(1 / len);
+        if (len !== 0) {
+            this.multiplyScalar(1 / len);
+        }
+        return this;
     }
 
     clone() {
         return new Vector3(this.x, this.y, this.z);
     }
 }
+
+function subtractVectors(a, b) {
+    return new Vector3(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
+function addVectors(a, b) {
+    return new Vector3(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
+function multiplyScalar(v, scalar) {
+    return new Vector3(v.x * scalar, v.y * scalar, v.z * scalar);
+}
+
+function dotProduct(a, b) {
+    return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+function crossProduct(a, b) {
+    return new Vector3(
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x
+    );
+}
+
+
+export { subtractVectors, addVectors, multiplyScalar, dotProduct, crossProduct };

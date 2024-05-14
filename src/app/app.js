@@ -12,20 +12,27 @@ const webgl = new WebGLRenderer(canvas);
 // render
 const scene = new Scene();
 const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position[2] = 5;
+camera.position[2] = 700;
+camera.position[1] = 100;
 console.log(camera)
 
 // make a mesh
-const geometry = new PlaneGeometry(5, 5);
+const geometry = new PlaneGeometry(100, 100);
 console.log(geometry)
+
 
 const material = new BasicMaterial({});
 console.log(material)
 
 const mesh = new Mesh(geometry, material);
-console.log(mesh)
 
+console.log(mesh)
+mesh.position[1] = -300;
+// mesh.position[0] = 200;
+// mesh.position[2] = -90;
+mesh.scale[2] = -1;
 scene.add(mesh);
+scene.scale[2] = 1;
 console.log(scene)
 
 function render() {

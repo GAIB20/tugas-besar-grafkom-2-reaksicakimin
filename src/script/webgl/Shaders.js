@@ -1,10 +1,17 @@
 // TODO: Modify vertexShaderSource
 let vertexShaderSource = `
-  attribute vec4 a_position;
-  
-  void main() {
-    gl_Position = a_position;
-  }
+attribute vec4 a_position;
+
+uniform mat4 u_worldMatrix;
+uniform mat4 u_viewMatrix;
+
+varying vec4 v_color;
+
+void main() {
+    vec4 wPos = u_viewMatrix * u_worldMatrix * a_position;
+
+    gl_Position = wPos;
+}
 `;
 
 // TODO: Modify fragmentShaderSource

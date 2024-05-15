@@ -1,10 +1,11 @@
 import Matrix4 from "../math/Matrix4.js";
+import { Vector3 } from "../utils/vector3.js";
 
 class Object3D {
   constructor() {
-    this._position = [0, 0, 0];
-    this._rotation = [0, 0, 0];
-    this._scale = [1, 1, 1];
+    this._position = new Vector3;
+    this._rotation = new Vector3;
+    this._scale = new Vector3(1, 1, 1);
     this._localMatrix = Matrix4.identity();
     this._worldMatrix = Matrix4.identity();
     this._parent = null;
@@ -36,9 +37,9 @@ class Object3D {
 
   // Compute local matrix
   computeLocalMatrix() {
-    const translationMatrix = Matrix4.translation(...this._position);
-    const rotationMatrix = Matrix4.rotation(...this._rotation);
-    const scaleMatrix = Matrix4.scale(...this._scale);
+    const translationMatrix = Matrix4.translation(...this._position.toArray());
+    const rotationMatrix = Matrix4.rotation(...this._rotation.toArray());
+    const scaleMatrix = Matrix4.scale(...this._scale.toArray());
 
     this._localMatrix = translationMatrix.mul(rotationMatrix).mul(scaleMatrix);
   }
@@ -88,7 +89,7 @@ class Object3D {
   }
 
   //
-  lookAt(target, up=[0, 1, 0]) {
+  lookAt(target, up=Vector3.up()) {
     // TODO: Implement
   }
 

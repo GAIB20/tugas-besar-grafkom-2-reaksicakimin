@@ -13,7 +13,7 @@ const webgl = new WebGLRenderer(canvas);
 const scene = new Scene();
 // const camera = new OrthographicCamera(-canvas.width/2, canvas.width/2, -canvas.height/2, canvas.width/2, -1000, 1000);
 const camera = new PerspectiveCamera(60, canvas.width/canvas.height, 0.01, 9999);
-camera.position[2] = 700;
+camera.position.z = 700;
 console.log(camera)
 
 // make a mesh
@@ -26,8 +26,8 @@ console.log(material)
 
 const mesh = new Mesh(geometry, material);
 
-mesh.position[1] = -300;
-mesh.scale[2] = -0.5;
+mesh.position.y = -300;
+mesh.scale.z = -0.5;
 scene.add(mesh);
 
 console.log(scene)

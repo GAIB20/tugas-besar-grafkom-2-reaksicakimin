@@ -1,4 +1,4 @@
-import { Vector3, subtractVectors, addVectors, multiplyScalar, dotProduct, crossProduct } from "../utils/vector3.js";
+import { Vector3 } from "../utils/vector3.js";
 import BufferAttribute from "./BufferAttribute.js";
 
 class BufferGeometry {
@@ -49,23 +49,6 @@ class BufferGeometry {
 		let pA = new Vector3, pB = new Vector3, pC = new Vector3;
 		let cb = new Vector3, ba = new Vector3;
 
-		// Cross product
-		const crossVectors = (a, b, res) => {
-			res.x = a.y * b.z - a.z * b.y;
-			res.y = a.z * b.x - a.x * b.z;
-			res.z = a.x * b.y - a.y * b.x;
-		};
-
-		// Normalize
-		const normalize = (v, res) => {
-			const length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
-			if (length > 0) {
-				res[0] = v.x / length;
-				res[1] = v.y / length;
-				res[2] = v.z / length;
-			}
-		};
-
 		for (let i = 0; i < position._data.length; i += 9) {
 			pA.x = position._data[i + 0];
 			pA.y = position._data[i + 1];
@@ -79,13 +62,11 @@ class BufferGeometry {
 			pC.y = position._data[i + 7];
 			pC.z = position._data[i + 8];
 
-			cb = subtractVectors(pC, pB);
-			ba = subtractVectors(pB, pA);
+			cb = Vector3.subtractVectors(pC, pB);
+			ba = Vector3.subtractVectors(pB, pA);
 
-			let res = new Vector3;
-			crossVectors(ba, cb, res);
-			let resn = [0, 0, 0];
-			normalize(res, resn);
+			let res = ba.cross(cb);
+			let resn = res.normalize();
 
 			normal.set(i, resn);
 			normal.set(i + 1, resn);

@@ -2,8 +2,8 @@ import ShaderMaterial from './ShaderMaterial.js';
 
 // TODO: not in guidebook yet, modify if necessary
 class BasicMaterial extends ShaderMaterial {
-  constructor() {
-    super();
+  constructor(colors) {
+    super(colors);
     this._color = this._uniforms['color']
   }
 

@@ -6,33 +6,46 @@ import Mesh from "../script/objects/Mesh.js";
 import BasicMaterial from "../script/material/BasicMaterial.js";
 import PlaneGeometry from "../script/geometry/PlaneGeometry.js";
 import BoxGeometry from "../script/geometry/BoxGeometry.js";
+import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 
 const canvas = document.querySelector('canvas');
-
-const webgl = new WebGLRenderer(canvas);
 
 const scene = new Scene();
 // const camera = new OrthographicCamera(-canvas.width/2, canvas.width/2, -canvas.height/2, canvas.width/2, -1000, 1000);
 const camera = new PerspectiveCamera(60, canvas.width/canvas.height, 0.01, 9999);
-camera.position._z = 700;
-console.log(camera)
+camera._position._z = 5;
+console.log(camera);
 
-// make a mesh
-const geometry = new BoxGeometry(200, 200);
-console.log(geometry)
+// Initialize camera controls
+initializeCameraControls(camera);
 
+// Create a mesh
+const geometry = new BoxGeometry(1, 1, 1);
+console.log(geometry);
 
-const material = new BasicMaterial({});
-console.log(material)
+const material = new BasicMaterial([255,0,0,1]);
+console.log(material);
 
 const mesh = new Mesh(geometry, material);
+mesh._rotation._y = 20;
+mesh._rotation._x = 20;
 scene.add(mesh);
 
-console.log(scene)
+const geometry2 = new PlaneGeometry(1000, 1000);
+const material2 = new BasicMaterial([255,255,255,1]);
+const mesh2 = new Mesh(geometry2, material2);
+mesh2._position._y = -400;
+mesh2._position._z = 1500;
+mesh2._scale._z = -1;
 
-function render() {
+scene.add(mesh2);
+
+console.log(scene);
+
+function renders() {
+  const webgl = new WebGLRenderer(canvas);
+  requestAnimationFrame(renders);
   webgl.render(scene, camera);
-  console.log(webgl)
 }
 
-render();
+renders();

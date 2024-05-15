@@ -2,11 +2,11 @@
 import { vertexShaderSource, fragmentShaderSource } from "../webgl/Shaders.js";
 
 class ShaderMaterial {
-  constructor() {
+  constructor(colors) {
     this._fragmentShader = fragmentShaderSource;
     this._vertexShader = vertexShaderSource;
     this._uniforms = {
-      color: [255,255, 255, 1],
+      color: colors || [255, 255, 255, 1],
     };
     this._id = 1;
   }

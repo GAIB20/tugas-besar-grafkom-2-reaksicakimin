@@ -5,6 +5,7 @@ import OrthographicCamera from "../script/camera/OrthographicCamera.js";
 import Mesh from "../script/objects/Mesh.js";
 import BasicMaterial from "../script/material/BasicMaterial.js";
 import PlaneGeometry from "../script/geometry/PlaneGeometry.js";
+import BoxGeometry from "../script/geometry/BoxGeometry.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -17,7 +18,7 @@ camera.position._z = 700;
 console.log(camera)
 
 // make a mesh
-const geometry = new PlaneGeometry(1000, 1000);
+const geometry = new BoxGeometry(200, 200);
 console.log(geometry)
 
 
@@ -25,9 +26,6 @@ const material = new BasicMaterial({});
 console.log(material)
 
 const mesh = new Mesh(geometry, material);
-
-mesh.position._y = -300;
-mesh.scale._z = -0.5;
 scene.add(mesh);
 
 console.log(scene)

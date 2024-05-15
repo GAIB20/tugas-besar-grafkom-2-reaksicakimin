@@ -1,5 +1,6 @@
 import Matrix from './Matrix.js';
 import { degToRad } from './Converter.js';
+import { Vector3 } from '../utils/vector3.js';
 
 class Matrix4 extends Matrix {
   constructor(data) {
@@ -68,18 +69,18 @@ class Matrix4 extends Matrix {
     const yaw = degToRad(degYaw);
     const pitch = degToRad(degPitch);
     const roll = degToRad(degRoll);
-    const c = [Math.cos(yaw), Math.cos(pitch), Math.cos(roll)];
-    const s = [Math.sin(yaw), Math.sin(pitch), Math.sin(roll)];
+    const c = new Vector3(Math.cos(yaw), Math.cos(pitch), Math.cos(roll));
+    const s = new Vector3(Math.sin(yaw), Math.sin(pitch), Math.sin(roll));
 
-    const m00 = c[1] * c[2];
-    const m01 = c[1] * s[2];
-    const m02 = -s[1];
-    const m10 = s[0] * s[1] * c[2] - c[0] * s[2];
-    const m11 = s[0] * s[1] * s[2] + c[0] * c[2];
-    const m12 = s[0] * c[1];
-    const m20 = c[0] * s[1] * c[2] + s[0] * s[2];
-    const m21 = c[0] * s[1] * s[2] - s[0] * c[2];
-    const m22 = c[0] * c[1];
+    const m00 = c.y * c.z;
+    const m01 = c.y * s.z;
+    const m02 = -s.y;
+    const m10 = s.x * s.y * c.z - c.x * s.z;
+    const m11 = s.x * s.y * s.z + c.x * c.z;
+    const m12 = s.x * c.y;
+    const m20 = c.x * s.y * c.z + s.x * s.z;
+    const m21 = c.x * s.y * s.z - s.x * c.z;
+    const m22 = c.x * c.y;
 
     return new Matrix4([
       m00, m01, m02, 0,

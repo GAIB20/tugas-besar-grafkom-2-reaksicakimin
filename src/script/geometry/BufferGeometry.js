@@ -1,3 +1,4 @@
+import { Vector3, subtractVectors, addVectors, multiplyScalar, dotProduct, crossProduct } from "../utils/vector3.js";
 import BufferAttribute from "./BufferAttribute.js";
 
 class BufferGeometry {
@@ -37,6 +38,7 @@ class BufferGeometry {
 	// TODO: Could be wrong, modify if necessary
 	calculateNormals(forceNewAttribute = false) {
 		const position = this.getAttribute('position');
+		console.log("position", position);
 		if (!position) return;
 		
 		let normal = this.getAttribute('normal');
@@ -44,46 +46,41 @@ class BufferGeometry {
 			normal = new BufferAttribute(new Float32Array(position.length), position._size);
 		}
 
-		let pA = [0, 0, 0], pB = [0, 0, 0], pC = [0, 0, 0];
-		let cb = [0, 0, 0], ba = [0, 0, 0];
+		let pA = new Vector3, pB = new Vector3, pC = new Vector3;
+		let cb = new Vector3, ba = new Vector3;
 
 		const crossVectors = (a, b, res) => {
-			res[0] = a[1] * b[2] - a[2] * b[1];
-			res[1] = a[2] * b[0] - a[0] * b[2];
-			res[2] = a[0] * b[1] - a[1] * b[0];
+			res.x = a.y * b.z - a.z * b.y;
+			res.y = a.z * b.x - a.x * b.z;
+			res.z = a.x * b.y - a.y * b.x;
 		};
 
 		const normalize = (v, res) => {
-			const length = Math.sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]);
+			const length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 			if (length > 0) {
-				res[0] = v[0] / length;
-				res[1] = v[1] / length;
-				res[2] = v[2] / length;
+				res[0] = v.x / length;
+				res[1] = v.y / length;
+				res[2] = v.z / length;
 			}
 		};
 
 		for (let i = 0; i < position._data.length; i += 9) {
-			pA[0] = position._data[i + 0];
-			pA[1] = position._data[i + 1];
-			pA[2] = position._data[i + 2];
+			pA.x = position._data[i + 0];
+			pA.y = position._data[i + 1];
+			pA.z = position._data[i + 2];
 
-			pB[0] = position._data[i + 3];
-			pB[1] = position._data[i + 4];
-			pB[2] = position._data[i + 5];
+			pB.x = position._data[i + 3];
+			pB.y = position._data[i + 4];
+			pB.z = position._data[i + 5];
 
-			pC[0] = position._data[i + 6];
-			pC[1] = position._data[i + 7];
-			pC[2] = position._data[i + 8];
+			pC.x = position._data[i + 6];
+			pC.y = position._data[i + 7];
+			pC.z = position._data[i + 8];
 
-			cb[0] = pC[0] - pB[0];
-			cb[1] = pC[1] - pB[1];
-			cb[2] = pC[2] - pB[2];
+			cb = subtractVectors(pC, pB);
+			ba = subtractVectors(pB, pA);
 
-			ba[0] = pB[0] - pA[0];
-			ba[1] = pB[1] - pA[1];
-			ba[2] = pB[2] - pA[2];
-
-			let res = [0, 0, 0];
+			let res = new Vector3;
 			crossVectors(ba, cb, res);
 			let resn = [0, 0, 0];
 			normalize(res, resn);

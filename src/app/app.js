@@ -39,9 +39,18 @@ scene.add(mesh);
 scene.scale[2] = 1;
 console.log(scene)
 
+// Render the scene from the perspective of the camera
 function render() {
   webgl.render(scene, camera);
   console.log(webgl)
 }
 
+// // Handle window resize
+// window.addEventListener('resize', () => {
+//   camera.aspect = window.innerWidth / window.innerHeight;
+//   camera.updateProjectionMatrix();
+//   renderer.setSize(window.innerWidth, window.innerHeight);
+// });
+
+// Start the rendering loop
 render();

@@ -1,5 +1,5 @@
 import Matrix4 from "../math/Matrix4.js";
-import { Vector3 } from "../utils/vector3.js";
+import Vector3 from "../math/Vector3.js";
 
 class Object3D {
   constructor() {

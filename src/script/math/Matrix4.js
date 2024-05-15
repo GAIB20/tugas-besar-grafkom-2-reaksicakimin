@@ -1,6 +1,6 @@
 import Matrix from './Matrix.js';
 import { degToRad } from './Converter.js';
-import { Vector3 } from '../utils/vector3.js';
+import Vector3 from './Vector3.js';
 
 class Matrix4 extends Matrix {
   constructor(data) {
@@ -19,9 +19,9 @@ class Matrix4 extends Matrix {
 
   static getTranslation(m, v=null) {
     if (!v) v = new Vector3;
-    v.x = m.get(0, 3);
-    v.y = m.get(1, 3);
-    v.z = m.get(2, 3);
+    v._x = m.get(0, 3);
+    v._y = m.get(1, 3);
+    v._z = m.get(2, 3);
     return v;
   }
 
@@ -72,15 +72,15 @@ class Matrix4 extends Matrix {
     const c = new Vector3(Math.cos(yaw), Math.cos(pitch), Math.cos(roll));
     const s = new Vector3(Math.sin(yaw), Math.sin(pitch), Math.sin(roll));
 
-    const m00 = c.y * c.z;
-    const m01 = c.y * s.z;
-    const m02 = -s.y;
-    const m10 = s.x * s.y * c.z - c.x * s.z;
-    const m11 = s.x * s.y * s.z + c.x * c.z;
-    const m12 = s.x * c.y;
-    const m20 = c.x * s.y * c.z + s.x * s.z;
-    const m21 = c.x * s.y * s.z - s.x * c.z;
-    const m22 = c.x * c.y;
+    const m00 = c._y * c._z;
+    const m01 = c._y * s._z;
+    const m02 = -s._y;
+    const m10 = s._x * s._y * c._z - c._x * s._z;
+    const m11 = s._x * s._y * s._z + c._x * c._z;
+    const m12 = s._x * c._y;
+    const m20 = c._x * s._y * c._z + s._x * s._z;
+    const m21 = c._x * s._y * s._z - s._x * c._z;
+    const m22 = c._x * c._y;
 
     return new Matrix4([
       m00, m01, m02, 0,

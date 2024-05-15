@@ -62,12 +62,9 @@ class BufferAttribute {
   // Set data at index
   set(index, data) {
     this._isDirty = true;
-    const startIndex = index * this._size + this._offset;
-    const endIndex = startIndex + this._size;
-    let dataIndex = 0;
-    for (let i = startIndex; i < endIndex; i++) {
-      this._data[i] = data[dataIndex];
-      dataIndex++;
+    index *= this._size;
+    for (let i = 0; i < data.length; i++) {
+        this._data[index + i] = data[i];
     }
   }
 

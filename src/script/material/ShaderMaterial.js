@@ -1,5 +1,6 @@
 // TODO: not in guidebook yet, modify if necessary
 import { vertexShaderSource, fragmentShaderSource } from "../webgl/Shaders.js";
+
 class ShaderMaterial {
   constructor() {
     this._fragmentShader = fragmentShaderSource;

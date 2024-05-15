@@ -1,4 +1,4 @@
-import { Vector3 } from "../utils/vector3.js";
+import Vector3 from "../math/Vector3.js";
 import BufferAttribute from "./BufferAttribute.js";
 
 class BufferGeometry {
@@ -38,7 +38,6 @@ class BufferGeometry {
 	// Calculate normals
 	calculateNormals(forceNewAttribute = false) {
 		const position = this.getAttribute('position');
-		console.log("position", position);
 		if (!position) return;
 		
 		let normal = this.getAttribute('normal');
@@ -49,34 +48,21 @@ class BufferGeometry {
 		let pA = new Vector3, pB = new Vector3, pC = new Vector3;
 		let cb = new Vector3, ba = new Vector3;
 
-		for (let i = 0; i < position._data.length; i += 9) {
-			pA.x = position._data[i + 0];
-			pA.y = position._data[i + 1];
-			pA.z = position._data[i + 2];
-
-			pB.x = position._data[i + 3];
-			pB.y = position._data[i + 4];
-			pB.z = position._data[i + 5];
-
-			pC.x = position._data[i + 6];
-			pC.y = position._data[i + 7];
-			pC.z = position._data[i + 8];
+		for (let i = 0; i < position._data.length; i += 3) {
+			pA = Vector3.getBufferAttribute(position, i);
+			pB = Vector3.getBufferAttribute(position, i + 1);
+			pC = Vector3.getBufferAttribute(position, i + 2);
 
 			cb = Vector3.subtractVectors(pC, pB);
 			ba = Vector3.subtractVectors(pB, pA);
 
-			let res = ba.cross(cb);
-			let resn = res.normalize();
+			let rCross = ba.cross(cb);
+			let rNorm = rCross.normalize();
+			let res = rNorm.toArray();
 
-			normal.set(i, resn);
-			normal.set(i + 1, resn);
-			normal.set(i + 2, resn);
-		}
-
-		for (let i = 0; i < position._data.length; i += 3) {
-			normal.set(i + 3, normal.get(i));
-			normal.set(i + 4, normal.get(i + 1));
-			normal.set(i + 5, normal.get(i + 2));
+			normal.set(i, res);
+			normal.set(i + 1, res);
+			normal.set(i + 2, res);
 		}
 
 		this.setAttribute('normal', normal);

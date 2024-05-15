@@ -1,3 +1,6 @@
+import Camera from './Camera.js';
+import Matrix4 from '../math/Matrix4.js';
+
 class ObliqueCamera extends Camera {
   constructor(left, right, bottom, top, near, far, theta, phi) {
     super();

@@ -12,8 +12,15 @@ import OrbitControl from "../script/control/OrbitControl.js"
 const canvas = document.querySelector('canvas');
 
 const scene = new Scene();
-// const camera = new OrthographicCamera(-canvas.width/2, canvas.width/2, -canvas.height/2, canvas.width/2, -1000, 1000);
 const camera = new PerspectiveCamera(60, canvas.width/canvas.height, 0.01, 9999);
+// const camera = new OrthographicCamera(
+//   -canvas.clientWidth/20,
+//   canvas.clientWidth/20,
+//   canvas.clientHeight/20,
+//   -canvas.clientHeight/20,
+//   -100,
+//   100
+// )
 camera._position._z = 5;
 console.log(camera);
 
@@ -31,16 +38,15 @@ const material = new BasicMaterial([255,0,0,1]);
 console.log(material);
 
 const mesh = new Mesh(geometry, material);
-mesh._rotation._y = 20;
-mesh._rotation._x = 20;
+// mesh._rotation._y = 20;
+// mesh._rotation._x = 20;
 scene.add(mesh);
 
-const geometry2 = new PlaneGeometry(1000, 1000);
+const geometry2 = new PlaneGeometry(10, 10);
 const material2 = new BasicMaterial([255,255,255,1]);
 const mesh2 = new Mesh(geometry2, material2);
-mesh2._position._y = -400;
-mesh2._position._z = 1500;
-mesh2._scale._z = -1;
+// mesh2._position._z = 200;
+// mesh2._scale._z = -1;
 
 scene.add(mesh2);
 

@@ -7,6 +7,7 @@ import BasicMaterial from "../script/material/BasicMaterial.js";
 import PlaneGeometry from "../script/geometry/PlaneGeometry.js";
 import BoxGeometry from "../script/geometry/BoxGeometry.js";
 import { initializeCameraControls } from '../script/webutils/cameraControls.js';
+import OrbitControl from "../script/control/OrbitControl.js"
 
 const canvas = document.querySelector('canvas');
 
@@ -18,6 +19,9 @@ console.log(camera);
 
 // Initialize camera controls
 initializeCameraControls(camera);
+
+const control = new OrbitControl(camera, canvas);
+
 
 // Create a mesh
 const geometry = new BoxGeometry(1, 1, 1);

@@ -10,21 +10,21 @@ uniform vec4 u_color;
 varying vec4 v_color;
 
 void main() {
-    vec4 wPos = u_viewMatrix * u_worldMatrix * a_position;
+  vec4 wPos = u_viewMatrix * u_worldMatrix * a_position;
 
-    gl_Position = wPos;
-    v_color = u_color;
+  gl_Position = wPos;
+  v_color = u_color;
 }
 `;
 
 // TODO: Modify fragmentShaderSource
 let fragmentShaderSource = `
-  precision highp float;
-  varying vec4 v_color;
+precision highp float;
+varying vec4 v_color;
 
-  void main() {
-    gl_FragColor = v_color;
-  }
+void main() {
+  gl_FragColor = v_color;
+}
 `;
 
 export { vertexShaderSource, fragmentShaderSource };

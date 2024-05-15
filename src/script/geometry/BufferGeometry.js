@@ -35,7 +35,7 @@ class BufferGeometry {
 		return this;
 	}
 
-	// TODO: Could be wrong, modify if necessary
+	// Calculate normals
 	calculateNormals(forceNewAttribute = false) {
 		const position = this.getAttribute('position');
 		console.log("position", position);
@@ -49,12 +49,14 @@ class BufferGeometry {
 		let pA = new Vector3, pB = new Vector3, pC = new Vector3;
 		let cb = new Vector3, ba = new Vector3;
 
+		// Cross product
 		const crossVectors = (a, b, res) => {
 			res.x = a.y * b.z - a.z * b.y;
 			res.y = a.z * b.x - a.x * b.z;
 			res.z = a.x * b.y - a.y * b.x;
 		};
 
+		// Normalize
 		const normalize = (v, res) => {
 			const length = Math.sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
 			if (length > 0) {

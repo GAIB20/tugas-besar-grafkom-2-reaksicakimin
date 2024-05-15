@@ -7,6 +7,9 @@ import { vertexShaderSource, fragmentShaderSource } from './Shaders.js';
 class WebGLRenderer {
   constructor(canvas) {
     this._canvas = canvas;
+    this._canvas.width = window.innerWidth;
+    this._canvas.height = window.innerHeight;
+    
     this._gl = canvas.getContext('webgl');
     this._shaderCache = {};
     this._currentProgram = null;
@@ -14,8 +17,8 @@ class WebGLRenderer {
     this.setViewport();
     
     // this.adjustCanvas();
-    // const ro = new ResizeObserver(this.adjustCanvas.bind(this));
-    // ro.observe(this._canvas, {box: 'content-box'});
+    const ro = new ResizeObserver(this.adjustCanvas.bind(this));
+    ro.observe(this._canvas, {box: 'content-box'});
   }
 
   setViewport() {

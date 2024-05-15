@@ -4,9 +4,9 @@ import ShaderMaterial from './ShaderMaterial.js';
 class PhongMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this._ambient = new Color(0.2, 0.2, 0.2);
-    this._diffuse = new Color(0.8, 0.8, 0.8);
-    this._specular = new Color(1, 1, 1);
+    this._ambient = [255,255, 255, 1],
+    this._diffuse = [255,255, 255, 1],
+    this._specular = [255,255, 255, 1],
     this._shininess = 32;
   }
 

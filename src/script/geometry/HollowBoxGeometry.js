@@ -394,7 +394,7 @@ class HollowBoxGeometry extends BufferGeometry {
       -hw*2, hh, -hd,
       -hw, hh, hd,
       
-      
+    
 
 
 

@@ -93,6 +93,10 @@ export function addMesh(mesh) {
   scene.add(mesh);
 }
 
+export function getScene() {
+  return scene;
+}
+
 export function clearShapes() {
   scene.clearShapes();
 }

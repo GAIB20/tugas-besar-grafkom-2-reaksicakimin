@@ -1,7 +1,7 @@
 import BoxGeometry from "../geometry/BoxGeometry.js";
 import BasicMaterial from "../material/BasicMaterial.js";
 import Mesh from "../objects/Mesh.js";
-import { addMesh, clearShapes } from "../../app/app.js";
+import { addMesh, clearShapes, getScene } from "../../app/app.js";
 
 class SaveLoad {
     static load(json){
@@ -10,7 +10,10 @@ class SaveLoad {
     }
 
     static save(){
-        // Todo: save to json
+        var scene = getScene();
+        var json = scene.toJSON();
+        console.log(json);
+        return json;
     }
 
     static clear(){

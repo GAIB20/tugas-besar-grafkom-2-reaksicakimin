@@ -47,7 +47,20 @@ document.addEventListener("DOMContentLoaded", function () {
         
                 // showLog("Import Shape");
             } else if (selectedItemText === "Export Model") {
-    
+                var jsonData = SaveLoad.save();
+                var jsonString = JSON.stringify(jsonData);
+                var blob = new Blob([jsonString], { type: 'application/json' });
+                var url = URL.createObjectURL(blob);
+                var downloadLink = document.createElement('a');
+
+                downloadLink.href = url;
+                downloadLink.download = "exported_model.json"; 
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+                URL.revokeObjectURL(url);
                 // showLog("Export Shape");
             } else if (selectedItemText === "Help") {
                 // showLog("Help");

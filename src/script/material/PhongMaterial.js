@@ -1,13 +1,22 @@
 import ShaderMaterial from './ShaderMaterial.js';
-
+import Vector3 from '../math/Vector3.js';
 // TODO: not in guidebook yet, modify if necessary
 class PhongMaterial extends ShaderMaterial {
   constructor() {
     super();
-    this._ambient = [255,255, 255, 1],
-    this._diffuse = [255,255, 255, 1],
-    this._specular = [255,255, 255, 1],
-    this._shininess = 32;
+    this._shininess = 32,
+    this._lightPosition = new Vector3(20,100,300),
+    this._ambient = [1,1, 1, 1], // Purple
+    this._diffuse = [1,1, 1, 1], // Yellow
+    this._specular = [1,1, 1, 1]; // Blue
+    this._uniforms = {
+      
+      shininess: this._shininess,
+      lightPosition: this._lightPosition,
+      ambient: this._ambient,
+      diffuse: this._diffuse,
+      specular: this._specular,
+    };
   }
 
   // Public getters
@@ -15,12 +24,14 @@ class PhongMaterial extends ShaderMaterial {
   get diffuse() { return this._diffuse; }
   get specular() { return this._specular; }
   get shininess() { return this._shininess; }
+  get lightPosition() { return this._lightPosition; }
 
   // Public setters
   set ambient(ambient) { this._ambient = ambient; }
   set diffuse(diffuse) { this._diffuse = diffuse; }
   set specular(specular) { this._specular = specular; }
   set shininess(shininess) { this._shininess = shininess; }
+  set lightPosition(lightPosition) { this._lightPosition = lightPosition; }
 
 
   // JSON parser

@@ -5,6 +5,7 @@ class BufferGeometry {
 	constructor() {
 		this._attributes = {};
 		this._indices = undefined;
+		this._useVertexColors = false;
 	}
 
 	// Public getter

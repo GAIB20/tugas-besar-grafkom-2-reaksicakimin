@@ -83,7 +83,7 @@ class WebGLRenderer {
           ...object._material._uniforms,
           ...uniforms,
           worldMatrix: object._worldMatrix,
-          useVertexColor: object._geometry.useVertexColors,
+          useVertexColor: object._geometry._useVertexColors,
         });
         this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
       }

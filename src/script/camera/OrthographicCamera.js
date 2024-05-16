@@ -14,10 +14,22 @@ class OrthographicCamera extends Camera {
   }
 
   computeProjectionMatrix() {
-    // TODO: Calculate zoom
+    const d = [
+      (this._right - this._left) / (2 * this._zoom),
+      (this._top - this._bottom) / (2 * this._zoom),
+      (this._right - this._left) / 2,
+      (this._top - this._bottom) / 2,
+    ];
+
+    const border = [
+      -(d[2] + d[0])/2,
+      (d[2] + d[0])/2,
+      -(d[3] + d[1])/2,
+      (d[3] + d[1])/2,
+    ]
+
     this._projectionMatrix = Matrix4.orthographic (
-      this._left, this._right,
-      this._bottom, this._top,
+      ...border,
       this._near, this._far,
     );
   }

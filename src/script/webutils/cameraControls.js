@@ -1,6 +1,7 @@
-// cameraControls.js
+import PerspectiveCamera from "../camera/PerspectiveCamera.js";
+import OrthographicCamera from "../camera/OrthographicCamera.js";
+import ObliqueCamera from "../camera/ObliqueCamera.js";
 
-// Function to initialize camera radius controls
 export function initializeCameraControls(camera) {
   const slider = document.getElementById("camera-radius-slider");
   const input = document.getElementById("camera-radius-input");
@@ -9,20 +10,34 @@ export function initializeCameraControls(camera) {
   const initSlider = 0;
   const initInput = 0;
 
-  // Get initial z values
+  // Get initial values
  const initZ = 5;
+ const initZoom = 1;
 
-  // Add event listener for slider
+  // Slider listener
   slider.addEventListener("input", function() {
     const value = parseFloat(this.value);
-    camera._position._z = initZ + value;
-    input.value = value;
+    if (camera instanceof PerspectiveCamera) {
+      camera._position._z = initZ - value/25;
+      input.value = value;
+    } else {
+      camera._zoom = initZoom + value;
+      input.value = value;
+    }
+    camera.computeProjectionMatrix();
   });
 
-  // Add event listener for input
+  // Input listener
   input.addEventListener("input", function() {
     const value = parseFloat(this.value);
-    camera._position._z = initZ + value;
-    slider.value = value;
+    if (camera instanceof PerspectiveCamera) {
+      camera.position._z = initZ - value/25;
+      slider.value = value;
+    } else {
+      camera._zoom = initZoom + value;
+      slider.value = value;
+    }
+    camera.computeProjectionMatrix();
   });
+
 }

@@ -393,65 +393,199 @@ class HollowBoxGeometry extends BufferGeometry {
       -hw*2, hh, hd,
       -hw*2, hh, -hd,
       -hw, hh, hd,
+
+      // Right face
+      -hw,  hh, -hd,
+      -hw,  hh*2,   hd,
+      -hw,  hh,  hd,
+
+      -hw,  hh, -hd,
+      -hw,  hh*2,   -hd,
+      -hw,  hh*2,   hd,
+
+      // Left face
+      -hw*2, hh, -hd,
+      -hw*2, hh*2,  hd,
+      -hw*2, hh*2,  -hd,
+
+      -hw*2, hh, -hd,
+      -hw*2, hh, hd,
+      -hw*2, hh*2,  hd,
       
-    
 
 
 
     // dasar left bawah
-
-
-
-
-
-
-
-
-
-      // Front face
-      -hw, hh,  hd,
-      -hw, -hh, hd,
-      hw,  -hh, hd,
-      hw,  hh,  hd,
-      -hw, hh, hd,
-      hw,  -hh, hd,
-      // Back face
-      -hw, hh,  -hd,
-      hw,  -hh, -hd,
-      -hw, -hh, -hd,
-      hw,  hh,  -hd,
-      hw,  -hh, -hd,
-      -hw, hh, -hd,
       // Top face
-      -hw, hh,  -hd,
-      -hw, hh,  hd,
-      hw,  hh,  hd,
+      -hw*2, -hh,  -hd,
+      -hw*2, -hh,  hd,
+      -hw,  -hh,  hd,
       
-      hw,  hh,  -hd,
-      -hw, hh, -hd,
-      hw,  hh,  hd,
-      // Bottom face
-      -hw, -hh, -hd,
-      hw,  -hh, -hd,
-      hw,  -hh, hd,
+      -hw,  -hh,  -hd,
+      -hw*2, -hh, -hd,
+      -hw,  -hh,  hd,
 
-      -hw, -hh, hd,
-      -hw, -hh, -hd,
-      hw,  -hh, hd,
+      //Bottom face
+      -hw*2, -hh*2, -hd,
+      -hw,  -hh*2, -hd,
+      -hw,  -hh*2, hd,
+
+      -hw*2, -hh*2, hd,
+      -hw*2, -hh*2, -hd,
+      -hw, -hh*2, hd,
+
       // Right face
-      hw,  -hh, -hd,
-      hw,  hh,   hd,
-      hw,  -hh,  hd,
-      hw,  -hh, -hd,
-      hw,  hh,   -hd,
-      hw,  hh,   hd,
+      -hw,  -hh*2, -hd,
+      -hw,  -hh,   hd,
+      -hw,  -hh*2,  hd,
+
+      -hw,  -hh*2, -hd,
+      -hw,  -hh,   -hd,
+      -hw,  -hh,   hd,
+
       // Left face
-      -hw, -hh, -hd,
-      -hw, hh,  hd,
-      -hw, hh,  -hd,
-      -hw, -hh, -hd,
-      -hw, -hh, hd,
-      -hw, hh,  hd
+      -hw*2, -hh*2, -hd,
+      -hw*2, -hh,  hd,
+      -hw*2, -hh,  -hd,
+
+      -hw*2, -hh*2, -hd,
+      -hw*2, -hh*2, hd,
+      -hw*2, -hh,  hd,
+
+    // dasar right atas
+      // Top face
+      hw, hh*2,  -hd,
+      hw, hh*2,  hd,
+      hw*2,  hh*2,  hd,
+      
+      hw*2,  hh*2,  -hd,
+      hw, hh*2, -hd,
+      hw*2,  hh*2,  hd,
+
+      //Bottom face
+      hw, hh, -hd,
+      hw*2,  hh, -hd,
+      hw*2,  hh, hd,
+
+      hw, hh, hd,
+      hw, hh, -hd,
+      hw*2, hh, hd,
+
+      // Right face
+      hw*2,  hh, -hd,
+      hw*2,  hh*2,   hd,
+      hw*2,  hh,  hd,
+
+      hw*2,  hh, -hd,
+      hw*2,  hh*2,   -hd,
+      hw*2,  hh*2,   hd,
+
+      // Left face
+      hw, hh, -hd,
+      hw, hh*2,  hd,
+      hw, hh*2,  -hd,
+
+      hw, hh, -hd,
+      hw, hh, hd,
+      hw, hh*2,  hd,
+      
+
+
+
+    // dasar right bawah
+      // Top face
+      hw, -hh,  -hd,
+      hw, -hh,  hd,
+      hw*2,  -hh,  hd,
+      
+      hw*2,  -hh,  -hd,
+      hw, -hh, -hd,
+      hw*2,  -hh,  hd,
+
+      //Bottom face
+      hw, -hh*2, -hd,
+      hw*2,  -hh*2, -hd,
+      hw*2,  -hh*2, hd,
+
+      hw, -hh*2, hd,
+      hw, -hh*2, -hd,
+      hw*2, -hh*2, hd,
+
+      // Right face
+      hw*2,  -hh*2, -hd,
+      hw*2,  -hh,   hd,
+      hw*2,  -hh*2,  hd,
+
+      hw*2,  -hh*2, -hd,
+      hw*2,  -hh,   -hd,
+      hw*2,  -hh,   hd,
+
+      // Left face
+      hw, -hh*2, -hd,
+      hw, -hh,  hd,
+      hw, -hh,  -hd,
+
+      hw, -hh*2, -hd,
+      hw, -hh*2, hd,
+      hw, -hh,  hd,
+
+
+
+
+
+
+
+
+
+      // // Front face
+      // -hw, hh,  hd,
+      // -hw, -hh, hd,
+      // hw,  -hh, hd,
+      // hw,  hh,  hd,
+      // -hw, hh, hd,
+      // hw,  -hh, hd,
+      // // Back face
+      // -hw, hh,  -hd,
+      // hw,  -hh, -hd,
+      // -hw, -hh, -hd,
+      // hw,  hh,  -hd,
+      // hw,  -hh, -hd,
+      // -hw, hh, -hd,
+      // // Top face
+      // -hw, hh,  -hd,
+      // -hw, hh,  hd,
+      // hw,  hh,  hd,
+      
+      // hw,  hh,  -hd,
+      // -hw, hh, -hd,
+      // hw,  hh,  hd,
+
+      // // Bottom face
+
+      // -hw, -hh, -hd,
+      // hw,  -hh, -hd,
+      // hw,  -hh, hd,
+
+      // -hw, -hh, hd,
+      // -hw, -hh, -hd,
+      // hw,  -hh, hd,
+
+      // // Right face
+      // hw,  -hh, -hd,
+      // hw,  hh,   hd,
+      // hw,  -hh,  hd,
+
+      // hw,  -hh, -hd,
+      // hw,  hh,   -hd,
+      // hw,  hh,   hd,
+      // // Left face
+      // -hw, -hh, -hd,
+      // -hw, hh,  hd,
+      // -hw, hh,  -hd,
+
+      // -hw, -hh, -hd,
+      // -hw, -hh, hd,
+      // -hw, hh,  hd
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
     this.calculateNormals();

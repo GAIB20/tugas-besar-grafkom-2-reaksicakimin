@@ -2,7 +2,9 @@ import Mesh from '../objects/Mesh.js';
 import ShaderMaterial from '../material/ShaderMaterial.js';
 import WebGLUtils from './WebGLUtils.js';
 import { ShaderType } from './Types.js';
-import { vertexShaderSource, fragmentShaderSource } from './Shaders.js';
+import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong } from './Shaders.js';
+import BasicMaterial from '../material/BasicMaterial.js';
+import PhongMaterial from '../material/PhongMaterial.js';
 
 class WebGLRenderer {
   constructor(canvas) {
@@ -41,6 +43,16 @@ class WebGLRenderer {
   createOrGetMaterial(material) {
     if (material instanceof ShaderMaterial) {
       const progId = material.id;
+      let vertexShaderSource, fragmentShaderSource;
+
+      if (material instanceof BasicMaterial) {
+        vertexShaderSource = vertexShaderSourceBasic;
+        fragmentShaderSource = fragmentShaderSourceBasic;
+      } else if (material instanceof PhongMaterial) {
+        vertexShaderSource = vertexShaderSourcePhong;
+        fragmentShaderSource = fragmentShaderSourcePhong;
+      }
+
       if (!this._shaderCache[progId]) {
         const vertexShader = WebGLUtils.createShader(this._gl, vertexShaderSource, ShaderType.VERTEX);
         const fragmentShader = WebGLUtils.createShader(this._gl, fragmentShaderSource, ShaderType.FRAGMENT);

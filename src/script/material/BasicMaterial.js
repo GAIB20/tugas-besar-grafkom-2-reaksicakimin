@@ -1,10 +1,13 @@
 import ShaderMaterial from './ShaderMaterial.js';
+import { vertexShaderSourceBasic, fragmentShaderSourceBasic } from "../webgl/Shaders.js";
 
 // TODO: not in guidebook yet, modify if necessary
 class BasicMaterial extends ShaderMaterial {
-  constructor(colors) {
-    super(colors);
-    this._color = this._uniforms['color']
+  constructor(colors=[1, 1, 1, 1]) {
+    super({color: colors});
+    this._color = colors;
+    this._vertexShader = vertexShaderSourceBasic;
+    this._fragmentShader = fragmentShaderSourceBasic;
   }
 
   // Public getter

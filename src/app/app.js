@@ -5,6 +5,7 @@ import OrthographicCamera from "../script/camera/OrthographicCamera.js";
 import ObliqueCamera from "../script/camera/ObliqueCamera.js";
 import Mesh from "../script/objects/Mesh.js";
 import PhongMaterial from "../script/material/PhongMaterial.js";
+import BasicMaterial from "../script/material/BasicMaterial.js";
 import BoxGeometry from "../script/geometry/BoxGeometry.js";
 import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
@@ -66,12 +67,12 @@ const projectionType = document.getElementById("projection-type");
 
 // Create a mesh
 const geometry = new BoxGeometry(1, 1, 1);
-const material = new PhongMaterial([255,0,0,1]);
+const material = new PhongMaterial();
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
 
 const geometryc = new BoxGeometry(1, 1, 1);
-const materialc = new PhongMaterial([255,0,0,1]);
+const materialc = new BasicMaterial([0.5, 0, 0, 1]);
 const meshc = new Mesh(geometryc, materialc);
 meshc._position._x = 1.2;
 meshc._name = "Object1"
@@ -81,7 +82,7 @@ scene.add(mesh);
 
 
 const geometry2 = new BoxGeometry(10, 10, 10);
-const material2 = new PhongMaterial([255,255,255,1]);
+const material2 = new BasicMaterial([1, 1, 1, 1]);
 const mesh2 = new Mesh(geometry2, material2);
 mesh2._position._x = 20;
 mesh2._position._y = 100;

@@ -1,22 +1,19 @@
 import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
+import { vertexShaderSourcePhong, fragmentShaderSourcePhong } from "../webgl/Shaders.js";
+
 // TODO: not in guidebook yet, modify if necessary
 class PhongMaterial extends ShaderMaterial {
-  constructor() {
-    super();
-    this._shininess = 32,
-    this._lightPosition = new Vector3(20,100,300),
-    this._ambient = [1, 1, 1, 1],
-    this._diffuse = [1, 1, 1, 1],
-    this._specular = [1,1, 1, 1];
-    this._uniforms = {
-      
-      shininess: this._shininess,
-      lightPosition: this._lightPosition,
-      ambient: this._ambient,
-      diffuse: this._diffuse,
-      specular: this._specular,
-    };
+  constructor(shininess=32, lightPosition=new Vector3(20,100,300), ambient=[1, 1, 1, 1], diffuse=[1, 1, 1, 1], specular=[1,1, 1, 1]) {
+    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular});
+    this._shininess = shininess,
+    this._lightPosition = lightPosition,
+    this._ambient = ambient;
+    this._diffuse = diffuse;
+    this._specular = specular;
+
+    this._vertexShader = vertexShaderSourcePhong;
+    this._fragmentShader = fragmentShaderSourcePhong;
   }
 
   // Public getters

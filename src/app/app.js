@@ -11,7 +11,6 @@ import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
-import PhongMaterial from "../script/material/PhongMaterial.js";
 
 const canvas = document.querySelector('canvas');
 

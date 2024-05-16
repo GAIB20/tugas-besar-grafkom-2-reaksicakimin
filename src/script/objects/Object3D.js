@@ -127,12 +127,16 @@ class Object3D {
 
   static fromJSON(json, object=null) {
     if (!object) object = new Object3D();
+    console.log("Json: ", json)
     object._name = json.name;
     object._position = Vector3.fromJSON(json.position);
+    console.log("Position: ", object._position.x, object._position.y, object._position.z);
     object._rotation = Vector3.fromJSON(json.rotation);
     object._scale = Vector3.fromJSON(json.scale);
-    object._children = json.children.map((child) => Object3D.fromJSON(child));
-    
+    if (json && json.children) {
+      object._children = json.children.map((child) => Object3D.fromJSON(child));
+    }
+    console.log(object);
     return object;
   }
 }

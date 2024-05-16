@@ -131,3 +131,7 @@
   background-color: var(--primary-color);
   color: var(--text-color);
 }
+
+input[type="checkbox"] {
+  margin-right: 5px;
+} 

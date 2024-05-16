@@ -3,6 +3,7 @@ import Vector3 from "../math/Vector3.js";
 
 class Object3D {
   constructor() {
+    this._name = "Object3D";
     this._position = new Vector3;
     this._rotation = new Vector3;
     this._scale = new Vector3(1, 1, 1);
@@ -116,19 +117,21 @@ class Object3D {
   // JSON parser
   toJSON() {
     return {
-      position: this.position,
-      rotation: this.rotation,
-      scale: this.scale,
-      children: this.children.map((child) => child.toJSON()),
+      name: this._name,
+      position: this._position,
+      rotation: this._rotation,
+      scale: this._scale,
+      children: this._children.map((child) => child.toJSON()),
     };
   }
 
   static fromJSON(json, object=null) {
     if (!object) object = new Object3D();
-    object.position = json.position;
-    object.rotation = json.rotation;
-    object.scale = json.scale;
-    object.children = json.children.map((child) => Object3D.fromJSON(child));
+    object._name = json.name;
+    object._position = Vector3.fromJSON(json.position);
+    object._rotation = Vector3.fromJSON(json.rotation);
+    object._scale = Vector3.fromJSON(json.scale);
+    object._children = json.children.map((child) => Object3D.fromJSON(child));
     
     return object;
   }

@@ -6,9 +6,9 @@ class PhongMaterial extends ShaderMaterial {
     super();
     this._shininess = 32,
     this._lightPosition = new Vector3(20,100,300),
-    this._ambient = [1,1, 1, 1], // Purple
-    this._diffuse = [1,1, 1, 1], // Yellow
-    this._specular = [1,1, 1, 1]; // Blue
+    this._ambient = [1, 1, 1, 1],
+    this._diffuse = [1, 1, 1, 1],
+    this._specular = [1,1, 1, 1];
     this._uniforms = {
       
       shininess: this._shininess,

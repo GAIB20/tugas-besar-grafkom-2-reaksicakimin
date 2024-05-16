@@ -4,15 +4,17 @@ import PerspectiveCamera from "../script/camera/PerspectiveCamera.js";
 import OrthographicCamera from "../script/camera/OrthographicCamera.js";
 import ObliqueCamera from "../script/camera/ObliqueCamera.js";
 import Mesh from "../script/objects/Mesh.js";
-import BasicMaterial from "../script/material/BasicMaterial.js";
+import PhongMaterial from "../script/material/PhongMaterial.js";
 import BoxGeometry from "../script/geometry/BoxGeometry.js";
 import { initializeCameraControls } from '../script/webutils/cameraControls.js';
+import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
 
 const canvas = document.querySelector('canvas');
 
 // Create a scene
 const scene = new Scene();
+scene._name = "Scene";
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -64,9 +66,33 @@ const projectionType = document.getElementById("projection-type");
 
 // Create a mesh
 const geometry = new BoxGeometry(1, 1, 1);
-const material = new BasicMaterial([255,0,0,1]);
+const material = new PhongMaterial([255,0,0,1]);
 const mesh = new Mesh(geometry, material);
+mesh._name = "Object"
+
+const geometryc = new BoxGeometry(1, 1, 1);
+const materialc = new PhongMaterial([255,0,0,1]);
+const meshc = new Mesh(geometryc, materialc);
+meshc._position._x = 1.2;
+meshc._name = "Object1"
+mesh._children.push(meshc);
+
 scene.add(mesh);
+
+
+const geometry2 = new BoxGeometry(10, 10, 10);
+const material2 = new PhongMaterial([255,255,255,1]);
+const mesh2 = new Mesh(geometry2, material2);
+mesh2._position._x = 20;
+mesh2._position._y = 100;
+mesh2._position._z = -300;
+mesh2._name = "Light"
+scene.add(mesh2);
+
+let json = scene.toJSON();
+console.log(json);
+var container = document.getElementById('container');
+buildHTML(json, container);
 
 // Render the scene
 function render() {

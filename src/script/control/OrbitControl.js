@@ -30,7 +30,6 @@ class OrbitControl {
       let yRotation = (this._center._rotation._x - event.movementY) ;
       let xRotation = (this._center._rotation._y - event.movementX) ;
       this._center._rotation.set (yRotation, xRotation, 0,)
-      console.log(this._center._rotation._x)
     }
     else if (this._readyToMove){
       let yMove = event.movementY;

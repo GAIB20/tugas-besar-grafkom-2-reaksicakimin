@@ -65,19 +65,19 @@ const projectionType = document.getElementById("projection-type");
   });
 
 // Create a mesh
-const geometry = new BoxGeometry(1, 1, 1);
-const material = new PhongMaterial([255,0,0,1]);
-const mesh = new Mesh(geometry, material);
-mesh._name = "Object"
+// const geometry = new BoxGeometry(1, 1, 1);
+// const material = new PhongMaterial([255,0,0,1]);
+// const mesh = new Mesh(geometry, material);
+// mesh._name = "Object"
 
-const geometryc = new BoxGeometry(1, 1, 1);
-const materialc = new PhongMaterial([255,0,0,1]);
-const meshc = new Mesh(geometryc, materialc);
-meshc._position._x = 1.2;
-meshc._name = "Object1"
-mesh._children.push(meshc);
+// const geometryc = new BoxGeometry(1, 1, 1);
+// const materialc = new PhongMaterial([255,0,0,1]);
+// const meshc = new Mesh(geometryc, materialc);
+// meshc._position._x = 1.2;
+// meshc._name = "Object1"
+// mesh._children.push(meshc);
 
-scene.add(mesh);
+// scene.add(mesh);
 
 
 const geometry2 = new BoxGeometry(10, 10, 10);
@@ -88,6 +88,14 @@ mesh2._position._y = 100;
 mesh2._position._z = -300;
 mesh2._name = "Light"
 scene.add(mesh2);
+
+export function addMesh(mesh) {
+  scene.add(mesh);
+}
+
+export function clearShapes() {
+  scene.clearShapes();
+}
 
 let json = scene.toJSON();
 console.log(json);

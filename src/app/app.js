@@ -10,6 +10,8 @@ import BoxGeometry from "../script/geometry/BoxGeometry.js";
 import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
+import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
+import PhongMaterial from "../script/material/PhongMaterial.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -66,7 +68,7 @@ const projectionType = document.getElementById("projection-type");
   });
 
 // Create a mesh
-const geometry = new BoxGeometry(1, 1, 1);
+const geometry = new HollowBoxGeometry(1, 1, 1);
 const material = new PhongMaterial();
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
@@ -100,5 +102,7 @@ function render() {
   const webgl = new WebGLRenderer(canvas);
   requestAnimationFrame(render);
   webgl.render(scene, camera);
+  console.log(scene)
+  console.log(camera)
 }
 render();

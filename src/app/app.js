@@ -15,6 +15,7 @@ import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
 import Texture from "../script/material/Texture.js";
 import Vector3 from "../script/math/Vector3.js";
+import { ObjectControls } from "../script/webutils/translateControls.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -98,6 +99,7 @@ const material = new PhongMaterial({
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
 scene.add(mesh);
+ObjectControls(mesh);
 
 scene.add(getLight());
 

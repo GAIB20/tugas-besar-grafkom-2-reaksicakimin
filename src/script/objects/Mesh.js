@@ -1,8 +1,11 @@
 import Object3D from './Object3D.js';
 import BoxGeometry from '../geometry/BoxGeometry.js';
-import HollowBoxGeometry from '../geometry/HollowBoxGeometry.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 import BasicMaterial from '../material/BasicMaterial.js';
+import HollowBoxGeometry from '../geometry/HollowBoxGeometry.js';
+import PlaneGeometry from '../geometry/PlaneGeometry.js';
+import HollowPyramidGeometry from '../geometry/HollowPyramidGeometry.js';
+import HollowRingGeometry from '../geometry/HollowRingGeometry.js';
 
 class Mesh extends Object3D {
   constructor(geometry, material) {
@@ -32,6 +35,12 @@ class Mesh extends Object3D {
         break;
       case "PlaneGeometry":
         geometry = PlaneGeometry.fromJSON(json.geometry);
+        break;
+      case "HollowPyramidGeometry":
+        geometry = HollowPyramidGeometry.fromJSON(json.geometry);
+        break;
+      case "HollowRingGeometry":
+        geometry = HollowRingGeometry.fromJSON(json.geometry);
         break;
       default:
         console.log("Geometry not found");

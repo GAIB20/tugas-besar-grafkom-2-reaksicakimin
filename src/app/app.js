@@ -11,6 +11,8 @@ import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
+import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
+import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
 import Texture from "../script/material/Texture.js";
 import Vector3 from "../script/math/Vector3.js";
 
@@ -82,16 +84,16 @@ function getLight(){
   return mesh2;
 }
 
-const texture = new Texture('../../test/texture/cubetexture.png');
-texture.load(webgl._gl);
-const geometry = new BoxGeometry(1, 1, 1);
+// const texture = new Texture('../../test/texture/cubetexture.png');
+// texture.load(webgl._gl);
+const geometry = new HollowRingGeometry(1, 1, 1);
 const material = new PhongMaterial({
   shininess: 32,
   lightPosition: new Vector3(20, 100, 300),
   ambient: [1, 1, 1, 1],
   diffuse: [1, 1, 1, 1],
   specular: [1, 1, 1, 1],
-  texture: texture
+  // texture: texture
 });
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"

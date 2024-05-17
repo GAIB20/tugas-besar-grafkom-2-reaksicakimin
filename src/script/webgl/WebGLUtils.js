@@ -9,7 +9,7 @@ class WebGLUtils {
     if (gl.getShaderParameter(shader, gl.COMPILE_STATUS))
         return shader;
 
-    console.error(gl.getShaderInfoLog(shader));
+    // console.error(gl.getShaderInfoLog(shader));
     gl.deleteShader(shader);
     return null;
   }
@@ -27,7 +27,7 @@ class WebGLUtils {
         uniformSetters: this.createUniformSetters(gl, program)
       }
   
-    console.error(gl.getProgramInfoLog(program));
+    // console.error(gl.getProgramInfoLog(program));
     gl.deleteProgram(program);
     return null;
   }
@@ -61,7 +61,7 @@ class WebGLUtils {
       const isArray = (info.size > 1 && info.name.substr(-3) === '[0]');
       const type = UniformSetterWebGLType[info.type];
       return (v) => {
-        console.log(info.name, v, loc);
+        // console.log(info.name, v, loc);
         if (typeof v === 'object' && 'toArray' in v) v = v.toArray();
         if (isArray) {
           gl[`uniform${type}v`](loc, v);

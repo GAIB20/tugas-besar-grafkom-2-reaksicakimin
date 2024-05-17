@@ -15,7 +15,7 @@ const camera = new THREE.PerspectiveCamera(
   1000
 );
 camera.position.z = 5;
-console.log(camera)
+// console.log(camera)
 
 const geometry = new THREE.PlaneGeometry(5, 5);
 console.log(geometry)

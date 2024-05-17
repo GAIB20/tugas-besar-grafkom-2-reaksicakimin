@@ -268,8 +268,8 @@ export function buildTree(json, parent) {
 
   // Add event listener for checkbox
   input.addEventListener('change', event => {
-    console.log(event.target.name);
-    console.log(event.target.checked);
+    // console.log(event.target.name);
+    // console.log(event.target.checked);
     logChildren(event.target);
   });
 }
@@ -280,7 +280,7 @@ function logChildren(element) {
   if (childrenDiv) {
     const childCheckboxes = childrenDiv.querySelectorAll('input[type="checkbox"]');
     childCheckboxes.forEach(child => {
-      console.log(`Child: ${child.name}, Checked: ${child.checked}`);
+    //   console.log(`Child: ${child.name}, Checked: ${child.checked}`);
     });
   }
 }

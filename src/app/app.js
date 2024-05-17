@@ -13,7 +13,7 @@ import OrbitControl from "../script/control/OrbitControl.js"
 const canvas = document.querySelector('canvas');
 
 // Create a scene
-const scene = new Scene();
+var scene = new Scene();
 scene._name = "Scene";
 
 // Create a camera
@@ -79,15 +79,18 @@ const projectionType = document.getElementById("projection-type");
 
 // scene.add(mesh);
 
+function getLight(){
+  const geometry2 = new BoxGeometry(10, 10, 10);
+  const material2 = new PhongMaterial([255,255,255,1]);
+  const mesh2 = new Mesh(geometry2, material2);
+  mesh2._position._x = 20;
+  mesh2._position._y = 100;
+  mesh2._position._z = -300;
+  mesh2._name = "Light"
+  return mesh2;
+}
 
-const geometry2 = new BoxGeometry(10, 10, 10);
-const material2 = new PhongMaterial([255,255,255,1]);
-const mesh2 = new Mesh(geometry2, material2);
-mesh2._position._x = 20;
-mesh2._position._y = 100;
-mesh2._position._z = -300;
-mesh2._name = "Light"
-scene.add(mesh2);
+scene.add(getLight());
 
 export function addMesh(mesh) {
   scene.add(mesh);
@@ -98,7 +101,9 @@ export function getScene() {
 }
 
 export function clearShapes() {
-  scene.clearShapes();
+  scene = new Scene();
+  scene._name = "Scene";
+  scene.add(getLight());
 }
 
 let json = scene.toJSON();

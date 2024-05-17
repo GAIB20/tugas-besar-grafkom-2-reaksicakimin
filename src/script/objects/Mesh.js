@@ -56,7 +56,6 @@ class Mesh extends Object3D {
         mesh.add(meshchild);
       });
     }
-    console.log("Mesh: ", mesh);
     return mesh;
   }
 }

@@ -2,7 +2,7 @@ import Mesh from '../objects/Mesh.js';
 import ShaderMaterial from '../material/ShaderMaterial.js';
 import WebGLUtils from './WebGLUtils.js';
 import { ShaderType } from './Types.js';
-import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong } from './Shaders.js';
+import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from './Shaders.js';
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 
@@ -45,15 +45,20 @@ class WebGLRenderer {
 
   createOrGetMaterial(material) {
     if (material instanceof ShaderMaterial) {
-      const progId = material.id;
+      const progId = material._id;
       let vertexShaderSource, fragmentShaderSource;
 
       if (material instanceof BasicMaterial) {
         vertexShaderSource = vertexShaderSourceBasic;
         fragmentShaderSource = fragmentShaderSourceBasic;
       } else if (material instanceof PhongMaterial) {
-        vertexShaderSource = vertexShaderSourcePhong;
-        fragmentShaderSource = fragmentShaderSourcePhong;
+        if (material._texture) {
+          vertexShaderSource = vertexShaderSourcePhongTexture;
+          fragmentShaderSource = fragmentShaderSourcePhongTexture;
+        } else {
+          vertexShaderSource = vertexShaderSourcePhong;
+          fragmentShaderSource = fragmentShaderSourcePhong;
+        }
       }
 
       if (!this._shaderCache[progId]) {
@@ -95,12 +100,6 @@ class WebGLRenderer {
         const info = this.createOrGetMaterial(material);
         this.setProgramInfo(info);
 
-        if (object._material._texture) {
-          const texture = object._material._texture;
-          gl.activeTexture(gl.TEXTURE0);
-          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
-        }
-
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         WebGLUtils.setUniforms(info, {
           ...object._material._uniforms,
@@ -109,6 +108,12 @@ class WebGLRenderer {
           useVertexColor: object._geometry._useVertexColors,
         });
         this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
+
+        if (object._material._texture) {
+          const texture = object._material._texture;
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+        }
       }
       object.children.forEach(child => renderObject(child, uniforms));
     };

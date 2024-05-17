@@ -589,6 +589,12 @@ class HollowBoxGeometry extends BufferGeometry {
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
     this.calculateNormals();
+    const colors = new Float32Array(336 * 2); // 336 vertices, each with 2 floats
+    for (let i = 0; i < colors.length; i += 2) {
+      colors[i] = 1.0;     // R component
+      colors[i + 1] = 0.0; // G component
+    }
+    this.setAttribute('color', new BufferAttribute(colors, 2));
   }
 
   

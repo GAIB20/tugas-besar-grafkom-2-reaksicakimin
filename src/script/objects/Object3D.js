@@ -106,6 +106,64 @@ class Object3D {
     // TODO: Implement
   }
 
+
+  // Translate X
+  translateX(x) {
+    this._position._x = x;
+    this.computeWorldMatrix();
+  }
+
+  // Translate Y
+  translateY(y) {
+    this._position._y = y;
+    this.computeWorldMatrix();
+  }
+
+  // Translate Z
+  translateZ(z) {
+    this._position._z = z;
+    this.computeWorldMatrix();
+  }
+
+
+  // Scale X
+  scaleX(x) {
+    this._scale._x = x;
+    this.computeWorldMatrix();
+  }
+
+  // Scale Y
+  scaleY(y) {
+    this._scale._y = y;
+    this.computeWorldMatrix();
+  }
+
+  // Scale Z
+  scaleZ(z) {
+    this._scale._z = z;
+    this.computeWorldMatrix();
+  }
+
+
+  // Rotate X
+  rotateX(x) {
+    this._rotation._x = x;
+    this.computeWorldMatrix();
+  }
+
+  // Rotate Y
+  rotateY(y) {
+    this._rotation._y = y;
+    this.computeWorldMatrix();
+  }
+
+  // Rotate Z
+  rotateZ(z) {
+    this._rotation._z = z;
+    this.computeWorldMatrix();
+  }
+
+
   // Traverse
   traverse(onLeaf=null) {
     if (onLeaf) onLeaf(this);

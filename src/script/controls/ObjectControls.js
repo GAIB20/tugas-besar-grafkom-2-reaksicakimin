@@ -21,6 +21,51 @@ class ObjectControls {
       this.initRotationX = this.object._rotation._x;
       this.initRotationY = this.object._rotation._y;
       this.initRotationZ = this.object._rotation._z;
+
+      const translateXSlider = document.getElementById("translate-x-slider");
+      translateXSlider.value = this.object._position._x;
+      const translateXInput = document.getElementById("translate-x-input");
+      translateXInput.value = this.object._position._x;
+
+      const translateYSlider = document.getElementById("translate-y-slider");
+      translateYSlider.value = this.object._position._y;
+      const translateYInput = document.getElementById("translate-y-input");
+      translateYInput.value = this.object._position._y;
+
+      const translateZSlider = document.getElementById("translate-z-slider");
+      translateZSlider.value = this.object._position._z;
+      const translateZInput = document.getElementById("translate-z-input");
+      translateZInput.value = this.object._position._z;
+
+      const scaleXSlider = document.getElementById("scale-x-slider");
+      scaleXSlider.value = this.object._scale._x;
+      const scaleXInput = document.getElementById("scale-x-input");
+      scaleXInput.value = this.object._scale._x;
+
+      const scaleYSlider = document.getElementById("scale-y-slider");
+      scaleYSlider.value = this.object._scale._y;
+      const scaleYInput = document.getElementById("scale-y-input");
+      scaleYInput.value = this.object._scale._y;
+
+      const scaleZSlider = document.getElementById("scale-z-slider");
+      scaleZSlider.value = this.object._scale._z;
+      const scaleZInput = document.getElementById("scale-z-input");
+      scaleZInput.value = this.object._scale._z;
+
+      const rotationXSlider = document.getElementById("rotation-x-slider");
+      rotationXSlider.value = this.object._rotation._x;
+      const rotationXInput = document.getElementById("rotation-x-input");
+      rotationXInput.value = this.object._rotation._x;
+
+      const rotationYSlider = document.getElementById("rotation-y-slider");
+      rotationYSlider.value = this.object._rotation._y;
+      const rotationYInput = document.getElementById("rotation-y-input");
+      rotationYInput.value = this.object._rotation._y;
+
+      const rotationZSlider = document.getElementById("rotation-z-slider");
+      rotationZSlider.value = this.object._rotation._z;
+      const rotationZInput = document.getElementById("rotation-z-input");
+      rotationZInput.value = this.object._rotation._z;
     }
   }
 
@@ -88,7 +133,7 @@ class ObjectControls {
   handleTranslateXSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateX(this.initPositionX - value / 25);
+      this.object.translateX(value);
       const translateXInput = document.getElementById("translate-x-input");
       translateXInput.value = value;
     }
@@ -97,7 +142,7 @@ class ObjectControls {
   handleTranslateXInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateX(this.initPositionX - value / 25);
+      this.object.translateX(value);
       const translateXSlider = document.getElementById("translate-x-slider");
       translateXSlider.value = value;
     }
@@ -106,7 +151,7 @@ class ObjectControls {
   handleTranslateYSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateY(this.initPositionY - value / 25);
+      this.object.translateY(value);
       const translateYInput = document.getElementById("translate-y-input");
       translateYInput.value = value;
     }
@@ -115,7 +160,7 @@ class ObjectControls {
   handleTranslateYInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateY(this.initPositionY - value / 25);
+      this.object.translateY(value);
       const translateYSlider = document.getElementById("translate-y-slider");
       translateYSlider.value = value;
     }
@@ -124,7 +169,7 @@ class ObjectControls {
   handleTranslateZSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateZ(this.initPositionZ - value / 25);
+      this.object.translateZ(value);
       const translateZInput = document.getElementById("translate-z-input");
       translateZInput.value = value;
     }
@@ -133,7 +178,7 @@ class ObjectControls {
   handleTranslateZInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.translateZ(this.initPositionZ - value / 25);
+      this.object.translateZ(value);
       const translateZSlider = document.getElementById("translate-z-slider");
       translateZSlider.value = value;
     }
@@ -142,7 +187,7 @@ class ObjectControls {
   handleScaleXSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleX(this.initScaleX + value);
+      this.object.scaleX(value);
       const scaleXInput = document.getElementById("scale-x-input");
       scaleXInput.value = value;
     }
@@ -151,7 +196,7 @@ class ObjectControls {
   handleScaleXInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleX(this.initScaleX + value);
+      this.object.scaleX(value);
       const scaleXSlider = document.getElementById("scale-x-slider");
       scaleXSlider.value = value;
     }
@@ -160,7 +205,7 @@ class ObjectControls {
   handleScaleYSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleY(this.initScaleY + value);
+      this.object.scaleY(value);
       const scaleYInput = document.getElementById("scale-y-input");
       scaleYInput.value = value;
     }
@@ -169,7 +214,7 @@ class ObjectControls {
   handleScaleYInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleY(this.initScaleY + value);
+      this.object.scaleY(value);
       const scaleYSlider = document.getElementById("scale-y-slider");
       scaleYSlider.value = value;
     }
@@ -178,7 +223,7 @@ class ObjectControls {
   handleScaleZSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleZ(this.initScaleZ + value);
+      this.object.scaleZ(value);
       const scaleZInput = document.getElementById("scale-z-input");
       scaleZInput.value = value;
     }
@@ -187,7 +232,7 @@ class ObjectControls {
   handleScaleZInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.scaleZ(this.initScaleZ + value);
+      this.object.scaleZ(value);
       const scaleZSlider = document.getElementById("scale-z-slider");
       scaleZSlider.value = value;
     }
@@ -196,7 +241,7 @@ class ObjectControls {
   handleRotationXSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateX(this.initRotationX + value);
+      this.object.rotateX(value);
       const rotationXInput = document.getElementById("rotation-x-input");
       rotationXInput.value = value;
     }
@@ -205,7 +250,7 @@ class ObjectControls {
   handleRotationXInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateX(this.initRotationX + value);
+      this.object.rotateX(value);
       const rotationXSlider = document.getElementById("rotation-x-slider");
       rotationXSlider.value = value;
     }
@@ -214,7 +259,7 @@ class ObjectControls {
   handleRotationYSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateY(this.initRotationY + value);
+      this.object.rotateY(value);
       const rotationYInput = document.getElementById("rotation-y-input");
       rotationYInput.value = value;
     }
@@ -223,7 +268,7 @@ class ObjectControls {
   handleRotationYInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateY(this.initRotationY + value);
+      this.object.rotateY(value);
       const rotationYSlider = document.getElementById("rotation-y-slider");
       rotationYSlider.value = value;
     }
@@ -232,7 +277,7 @@ class ObjectControls {
   handleRotationZSlider(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateZ(this.initRotationZ + value);
+      this.object.rotateZ(value);
       const rotationZInput = document.getElementById("rotation-z-input");
       rotationZInput.value = value;
     }
@@ -241,7 +286,7 @@ class ObjectControls {
   handleRotationZInput(event) {
     const value = parseFloat(event.target.value);
     if (this.object instanceof Object3D) {
-      this.object.rotateZ(this.initRotationZ + value);
+      this.object.rotateZ(value);
       const rotationZSlider = document.getElementById("rotation-z-slider");
       rotationZSlider.value = value;
     }

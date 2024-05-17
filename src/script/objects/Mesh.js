@@ -22,7 +22,7 @@ class Mesh extends Object3D {
 
   static fromJSON(json) {
     var geometry;
-    switch (json.type) {
+    switch (json.geometry.type) {
       case "BoxGeometry":
         geometry = BoxGeometry.fromJSON(json.geometry);
         break;

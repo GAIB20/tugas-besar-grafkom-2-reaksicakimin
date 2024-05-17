@@ -3,7 +3,7 @@ import { vertexShaderSourceBasic, fragmentShaderSourceBasic } from "../webgl/Sha
 
 // TODO: not in guidebook yet, modify if necessary
 class BasicMaterial extends ShaderMaterial {
-  constructor(colors=[1, 1, 1, 1]) {
+  constructor(colors=[0, 0, 0, 0]) {
     super({color: colors});
     this._color = colors;
     this._vertexShader = vertexShaderSourceBasic;

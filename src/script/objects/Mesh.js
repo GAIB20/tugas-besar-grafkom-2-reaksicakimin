@@ -24,7 +24,12 @@ class Mesh extends Object3D {
     mesh._geometry = new BoxGeometry(1, 1, 1); // TODO: sesuaikan dengan geometry yang ada
     mesh._material = new PhongMaterial([255,255,255,1]); // TODO: sesuaikan dengan material yang ada
     super.fromJSON(json, mesh);
-
+    if (json && json.children) {
+      json.children.map((child) => {
+        const meshchild = Mesh.fromJSON(child);
+        mesh.add(meshchild);
+      });
+    }
     return mesh;
   }
 }

@@ -1,7 +1,7 @@
 import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
 import { vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from '../webgl/Shaders.js';
-import Texture from './Texture.js';
+import Texture from '../texture/Texture.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {

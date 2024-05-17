@@ -12,7 +12,8 @@ import CameraControls from "../script/controls/CameraControls.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
 import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
-import Texture from "../script/material/Texture.js";
+import BumpTexture from "../script/texture/BumpTexture.js";
+import EnvironmentTexture from "../script/texture/EnvironmentTexture.js";
 import Vector3 from "../script/math/Vector3.js";
 import ObjectControls from "../script/controls/ObjectControls.js";
 
@@ -99,10 +100,9 @@ function getLight(){
 // scene.add(mesh);
 
 scene.add(getLight());
-const texture = new Texture('../../test/texture/bumped.png');
-const texture1 = new Texture('../../test/texture/wood.png');
-const texture2 = new Texture('../../test/texture/bumped.png');
-texture2.loadEnvironment(webgl._gl, 
+const texture = new BumpTexture(webgl._gl, '../../test/texture/bumped.png');
+const texture1 = new BumpTexture(webgl._gl, '../../test/texture/wood.png');
+const texture2 = new EnvironmentTexture(webgl._gl, 
   [
     {src: '../../test/texture/pos-x.jpg',
       width: 512,

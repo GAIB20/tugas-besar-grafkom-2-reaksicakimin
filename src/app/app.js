@@ -100,6 +100,35 @@ mesh._name = "Object"
 scene.add(mesh);
 
 scene.add(getLight());
+const texture = new Texture('../../test/texture/bumped.png');
+texture.load(webgl._gl);
+webgl._gl.pixelStorei(webgl._gl.UNPACK_FLIP_Y_WEBGL, true);
+// const geometry = new BoxGeometry(1, 1, 1);
+// const material = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1],
+//   texture: texture
+// });
+// const mesh = new Mesh(geometry, material);
+// mesh._name = "Object"
+// scene.add(mesh);
+
+// const geometry2 = new BoxGeometry(1, 1, 1);
+// const material2 = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1]
+// });
+// const mesh2 = new Mesh(geometry2, material2);
+// mesh2._position._x = 1.2;
+// mesh2._name = "Object1"
+// // mesh._children.push(mesh2);
+// scene.add(mesh2);
 
 function loadTexture(mesh){
   mesh._material._texture.load(webgl._gl);
@@ -125,6 +154,64 @@ export function clearShapes() {
 export function getWebGL() {
   return webgl._gl;
 }
+// const geometry4 = new HollowBoxGeometry(1, 1, 1);
+// const material4 = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1]
+// });
+// const mesh4 = new Mesh(geometry4, material4);
+// mesh4._position._x = 2.4;
+// mesh4._name = "Object3"
+// scene.add(mesh4);
+const geometry5 = new BoxGeometry(1, 1, 1);
+const texture2 = new Texture('../../test/texture/bumped.png');
+texture2.loadEnvironment(webgl._gl, 
+  [
+    {src: '../../test/texture/pos-x.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-x.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/pos-y.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-y.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/pos-z.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-z.jpg',
+      width: 512,
+      height: 512
+    }
+  ]
+)
+webgl._gl.pixelStorei(webgl._gl.UNPACK_FLIP_Y_WEBGL, true);
+
+const material5 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  texture: texture2,
+  textureOption: 2
+});
+
+const mesh5 = new Mesh(geometry5, material5);
+
+mesh5._name = "Object4"
+scene.add(mesh5);
 
 let json = scene.toJSON();
 var container = document.getElementById('container');

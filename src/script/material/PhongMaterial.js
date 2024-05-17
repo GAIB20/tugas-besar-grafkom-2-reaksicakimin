@@ -5,13 +5,14 @@ import Texture from './Texture.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
-    const { shininess = 32, lightPosition = new Vector3(20, 100, 300), ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null } = options;
-    const textureOption = texture ? 1 : 0;
+    const { shininess = 32, lightPosition = new Vector3(20, 100, 300), ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null, textureOption = 0} = options;
     const sampler = texture ? 0 : null;
+    const samplerCube = texture ? 1 : null;
+    console.log(samplerCube); 
     const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
     const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
 
-    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler});
+    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler, samplerCube: samplerCube});
     this._shininess = shininess;
     this._lightPosition = lightPosition;
     this._ambient = ambient;
@@ -19,6 +20,7 @@ class PhongMaterial extends ShaderMaterial {
     this._specular = specular;
     this._textureOption = textureOption;
     this._sampler = sampler;
+    this._samplerCube = samplerCube;
     this._texture = texture;
 
     this._vertexShader = vertexShaderSource;

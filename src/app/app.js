@@ -67,19 +67,19 @@ const projectionType = document.getElementById("projection-type");
   });
 
 // Create a mesh
-const geometry = new HollowBoxGeometry(1, 1, 1);
-const material = new PhongMaterial();
-const mesh = new Mesh(geometry, material);
-mesh._name = "Object"
+// const geometry = new HollowBoxGeometry(1, 1, 1);
+// const material = new PhongMaterial();
+// const mesh = new Mesh(geometry, material);
+// mesh._name = "Object"
 
-const geometryc = new BoxGeometry(1, 1, 1);
-const materialc = new BasicMaterial([0.5, 0, 0, 1]);
-const meshc = new Mesh(geometryc, materialc);
-meshc._position._x = 1.2;
-meshc._name = "Object1"
-mesh._children.push(meshc);
+// const geometryc = new BoxGeometry(1, 1, 1);
+// const materialc = new BasicMaterial([0.5, 0, 0, 1]);
+// const meshc = new Mesh(geometryc, materialc);
+// meshc._position._x = 1.2;
+// meshc._name = "Object1"
+// mesh._children.push(meshc);
 
-scene.add(mesh);
+// scene.add(mesh);
 
 function getLight(){
   const geometry2 = new BoxGeometry(10, 10, 10);

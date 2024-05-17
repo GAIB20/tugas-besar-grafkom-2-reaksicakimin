@@ -1,5 +1,6 @@
 import Object3D from './Object3D.js';
 import BoxGeometry from '../geometry/BoxGeometry.js';
+import HollowBoxGeometry from '../geometry/HollowBoxGeometry.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 
 class Mesh extends Object3D {
@@ -20,9 +21,22 @@ class Mesh extends Object3D {
   }
 
   static fromJSON(json) {
-    const mesh = new Mesh();
-    mesh._geometry = new BoxGeometry(1, 1, 1); // TODO: sesuaikan dengan geometry yang ada
-    mesh._material = new PhongMaterial([255,255,255,1]); // TODO: sesuaikan dengan material yang ada
+    var geometry;
+    switch (json.type) {
+      case "BoxGeometry":
+        geometry = BoxGeometry.fromJSON(json.geometry);
+        break;
+      case "HollowBoxGeometry":
+        geometry = HollowBoxGeometry.fromJSON(json.geometry);
+        break;
+      case "PlaneGeometry":
+        geometry = PlaneGeometry.fromJSON(json.geometry);
+        break;
+      default:
+        console.log("Geometry not found");
+    }
+    const material = new PhongMaterial(); // TODO: sesuaikan dengan material yang ada
+    const mesh = new Mesh(geometry, material);
     super.fromJSON(json, mesh);
     if (json && json.children) {
       json.children.map((child) => {
@@ -30,6 +44,7 @@ class Mesh extends Object3D {
         mesh.add(meshchild);
       });
     }
+    console.log("Mesh: ", mesh);
     return mesh;
   }
 }

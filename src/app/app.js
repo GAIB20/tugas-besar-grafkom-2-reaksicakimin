@@ -71,33 +71,34 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-// const texture = new Texture('../../test/texture/wood.png');
-// texture.load(webgl._gl);
-// const geometry = new BoxGeometry(1, 1, 1);
-// const material = new PhongMaterial({
-//   shininess: 32,
-//   lightPosition: new Vector3(20, 100, 300),
-//   ambient: [1, 1, 1, 1],
-//   diffuse: [1, 1, 1, 1],
-//   specular: [1, 1, 1, 1],
-//   texture: texture
-// });
-// const mesh = new Mesh(geometry, material);
-// mesh._name = "Object"
+const texture = new Texture('../../test/texture/wood.png');
+texture.load(webgl._gl);
+const geometry = new BoxGeometry(1, 1, 1);
+const material = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  texture: texture
+});
+const mesh = new Mesh(geometry, material);
+mesh._name = "Object"
+scene.add(mesh);
 
-// const geometry2 = new BoxGeometry(1, 1, 1);
-// const material2 = new PhongMaterial({
-//   shininess: 32,
-//   lightPosition: new Vector3(20, 100, 300),
-//   ambient: [1, 1, 1, 1],
-//   diffuse: [1, 1, 1, 1],
-//   specular: [1, 1, 1, 1]
-// });
-// const mesh2 = new Mesh(geometry2, material2);
-// mesh2._position._x = 1.2;
-// mesh2._name = "Object1"
+const geometry2 = new BoxGeometry(1, 1, 1);
+const material2 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1]
+});
+const mesh2 = new Mesh(geometry2, material2);
+mesh2._position._x = 1.2;
+mesh2._name = "Object1"
 // mesh._children.push(mesh2);
-// scene.add(mesh);
+scene.add(mesh2);
 
 
 // const geometry3 = new BoxGeometry(1, 1, 1);

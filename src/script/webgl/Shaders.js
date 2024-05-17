@@ -38,6 +38,7 @@ uniform bool u_useVertexColor;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
+varying highp vec2 v_textureCoord;
 
 void main() {
   gl_Position = u_viewMatrix * u_worldMatrix * a_position;

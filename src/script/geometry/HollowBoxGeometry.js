@@ -604,12 +604,13 @@ class HollowBoxGeometry extends BufferGeometry {
       ...super.toJSON(),
       width: this._width,
       height: this._height,
-      depth: this._depth
+      depth: this._depth,
+      type: 'HollowBoxGeometry'
     };
   }
 
   static fromJSON(json) {
-    return new BoxGeometry(json.width, json.height, json.depth);
+    return new HollowBoxGeometry(json.width, json.height, json.depth);
   }
 }
 

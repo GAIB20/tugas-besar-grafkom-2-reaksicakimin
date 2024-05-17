@@ -49,15 +49,22 @@ class PhongMaterial extends ShaderMaterial {
       specular: this.specular,
       shininess: this.shininess,
       texture: this.texture ? this.texture.toJSON() : null,
+      type: "PhongMaterial",
       ...super.toJSON(),
     };
   }
 
   static fromJSON(json) {
     const texture = json.texture ? Texture.fromJSON(json.texture) : null;
-    const material = new PhongMaterial(json.shininess, json.lightPosition, json.ambient, json.diffuse, json.specular, texture);
+    const material = new PhongMaterial({
+      shininess: json.shininess, 
+      lightPosition: json.lightPosition, 
+      ambient: json.ambient, 
+      diffuse: json.diffuse, 
+      specular: json.specular, 
+      texture: texture
+  });  
     super.fromJSON(json, material);
-
     return material;
   }
 }

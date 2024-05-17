@@ -123,7 +123,14 @@ class Vector3 {
       ...[0, 0, 0].slice(attribute.size)
     );
   }
-    
+
+  static fromJSON(json) {
+    return new Vector3(json[0], json[1], json[2]);
+  }
+
+  static toJSON() {
+    return [this._x, this._y, this._z];
+  } 
 }
 
 export default Vector3;

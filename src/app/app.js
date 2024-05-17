@@ -19,7 +19,7 @@ const canvas = document.querySelector('canvas');
 const webgl = new WebGLRenderer(canvas);
 
 // Create a scene
-const scene = new Scene();
+var scene = new Scene();
 scene._name = "Scene";
 
 // Create a camera
@@ -71,59 +71,47 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-const texture = new Texture('../../test/texture/wood.png');
-texture.load(webgl._gl);
-const geometry = new BoxGeometry(1, 1, 1);
-const material = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1],
-  texture: texture
-});
-const mesh = new Mesh(geometry, material);
-mesh._name = "Object"
-scene.add(mesh);
+function getLight(){
+  const geometry2 = new BoxGeometry(10, 10, 10);
+  const material2 = new BasicMaterial([1, 1, 1, 1]);
+  const mesh2 = new Mesh(geometry2, material2);
+  mesh2._position._x = 20;
+  mesh2._position._y = 100;
+  mesh2._position._z = -300;
+  mesh2._name = "Light"
+  return mesh2;
+}
 
-const geometry2 = new BoxGeometry(1, 1, 1);
-const material2 = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1]
-});
-const mesh2 = new Mesh(geometry2, material2);
-mesh2._position._x = 1.2;
-mesh2._name = "Object1"
-// mesh._children.push(mesh2);
-scene.add(mesh2);
+scene.add(getLight());
 
+function loadTexture(mesh){
+  mesh._material._texture.load(webgl._gl);
+}
 
-// const geometry3 = new BoxGeometry(1, 1, 1);
-// const material3 = new BasicMaterial([1, 1, 1, 1]);
-// const mesh3 = new Mesh(geometry3, material3);
-// mesh3._position._x = -1.2;
-// mesh3._name = "Object2"
-// scene.add(mesh3);
+export function addMesh(mesh) {
+  if (mesh._material._texture) {
+    loadTexture(mesh);
+  }
+  scene.add(mesh);
+}
 
+export function getScene() {
+  return scene;
+}
 
-const geometry4 = new HollowBoxGeometry(1, 1, 1);
-const material4 = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1]
-});
-const mesh4 = new Mesh(geometry4, material4);
-mesh4._position._x = 2.4;
-mesh4._name = "Object3"
-scene.add(mesh4);
+export function clearShapes() {
+  scene = new Scene();
+  scene._name = "Scene";
+  scene.add(getLight());
+}
+
+export function getWebGL() {
+  return webgl._gl;
+}
+
+try{
 
 let json = scene.toJSON();
-console.log(json);
 var container = document.getElementById('container');
 buildHTML(json, container)
 
@@ -133,3 +121,7 @@ function render() {
 }
 render();
 
+}
+catch(e){
+  console.log(e);
+}

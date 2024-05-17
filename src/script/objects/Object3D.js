@@ -118,9 +118,9 @@ class Object3D {
   toJSON() {
     return {
       name: this._name,
-      position: this._position,
-      rotation: this._rotation,
-      scale: this._scale,
+      position: this._position.toArray(),
+      rotation: this._rotation.toArray(),
+      scale: this._scale.toArray(),
       children: this._children.map((child) => child.toJSON()),
     };
   }
@@ -131,8 +131,6 @@ class Object3D {
     object._position = Vector3.fromJSON(json.position);
     object._rotation = Vector3.fromJSON(json.rotation);
     object._scale = Vector3.fromJSON(json.scale);
-    object._children = json.children.map((child) => Object3D.fromJSON(child));
-    
     return object;
   }
 }

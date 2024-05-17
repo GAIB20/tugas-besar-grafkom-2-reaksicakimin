@@ -1,4 +1,8 @@
 import Object3D from './Object3D.js';
+import BoxGeometry from '../geometry/BoxGeometry.js';
+import HollowBoxGeometry from '../geometry/HollowBoxGeometry.js';
+import PhongMaterial from '../material/PhongMaterial.js';
+import BasicMaterial from '../material/BasicMaterial.js';
 
 class Mesh extends Object3D {
   constructor(geometry, material) {
@@ -18,11 +22,40 @@ class Mesh extends Object3D {
   }
 
   static fromJSON(json) {
-    const mesh = new Mesh();
-    mesh.geometry = json.geometry;
-    mesh.material = json.material;
-    super.fromJSON(json, mesh);
+    var geometry;
+    switch (json.geometry.type) {
+      case "BoxGeometry":
+        geometry = BoxGeometry.fromJSON(json.geometry);
+        break;
+      case "HollowBoxGeometry":
+        geometry = HollowBoxGeometry.fromJSON(json.geometry);
+        break;
+      case "PlaneGeometry":
+        geometry = PlaneGeometry.fromJSON(json.geometry);
+        break;
+      default:
+        console.log("Geometry not found");
+    }
+    var material;
+    switch (json.material.type) {
+      case "PhongMaterial":
+        material = PhongMaterial.fromJSON(json.material);
+        break;
+      case "BasicMaterial":
+        material = BasicMaterial.fromJSON(json.material);
+        break;
+      default:
+        console.log("Material not found");
+    }
 
+    const mesh = new Mesh(geometry, material);
+    super.fromJSON(json, mesh);
+    if (json && json.children) {
+      json.children.map((child) => {
+        const meshchild = Mesh.fromJSON(child);
+        mesh.add(meshchild);
+      });
+    }
     return mesh;
   }
 }

@@ -22,6 +22,7 @@ class BasicMaterial extends ShaderMaterial {
   toJSON() {
     return {
       color: this.color,
+      type: "BasicMaterial",
       ...super.toJSON(),
     };
   }

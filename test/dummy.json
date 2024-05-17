@@ -1,0 +1,181 @@
+{
+  "geometry": {
+    "width": 1,
+    "height": 1,
+    "depth": 1,
+    "type": "BoxGeometry"
+  },
+  "material": {
+    "ambient": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "diffuse": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "specular": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "shininess": 32,
+    "texture": {
+      "image": "../../test/texture/wood.png"
+    },
+    "type": "PhongMaterial"
+  },
+  "name": "Object",
+  "position": [
+    0,
+    0,
+    0
+  ],
+  "rotation": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "children": [
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "texture": null,
+        "type": "PhongMaterial"
+      },
+      "name": "Object1",
+      "position": [
+        1.2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "BasicMaterial"
+      },
+      "name": "Object2",
+      "position": [
+        -1.2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "HollowBoxGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "texture": null,
+        "type": "PhongMaterial"
+      },
+      "name": "Object3",
+      "position": [
+        2.4,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    }
+  ]
+}

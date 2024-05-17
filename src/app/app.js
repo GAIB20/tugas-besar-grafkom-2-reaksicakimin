@@ -71,35 +71,6 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-const texture = new Texture('../../test/texture/wood.png');
-texture.load(webgl._gl);
-const geometry = new BoxGeometry(1, 1, 1);
-const material = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1],
-  texture: texture
-});
-texture.setTextureCoordinates(geometry);
-const mesh = new Mesh(geometry, material);
-mesh._name = "Object"
-
-const geometry2 = new BoxGeometry(1, 1, 1);
-const material2 = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1]
-});
-const mesh2 = new Mesh(geometry2, material2);
-mesh2._position._x = 1.2;
-mesh2._name = "Object1"
-mesh._children.push(mesh2);
-scene.add(mesh);
-
 function getLight(){
   const geometry2 = new BoxGeometry(10, 10, 10);
   const material2 = new BasicMaterial([1, 1, 1, 1]);
@@ -113,7 +84,14 @@ function getLight(){
 
 scene.add(getLight());
 
+function loadTexture(mesh){
+  mesh._material._texture.load(webgl._gl);
+  mesh._material._texture.setTextureCoordinates(mesh._geometry);
+}
+
 export function addMesh(mesh) {
+  console.log(mesh);
+  loadTexture(mesh);
   scene.add(mesh);
 }
 
@@ -126,26 +104,65 @@ export function clearShapes() {
   scene._name = "Scene";
   scene.add(getLight());
 }
-const geometry3 = new BoxGeometry(1, 1, 1);
-const material3 = new BasicMaterial([1, 1, 1, 1]);
-const mesh3 = new Mesh(geometry3, material3);
-mesh3._position._x = -1.2;
-mesh3._name = "Object2"
-scene.add(mesh3);
+
+export function getWebGL() {
+  return webgl._gl;
+}
+
+try{
+
+// const texture = new Texture('../../test/texture/wood.png');
+// const geometry = new BoxGeometry(1, 1, 1);
+// const material = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1],
+//   texture: texture
+// });
+// material._texture.load(webgl._gl);
+// material._texture.setTextureCoordinates(geometry);
+// // texture.load(webgl._gl);
+// // texture.setTextureCoordinates(geometry);
+// const mesh = new Mesh(geometry, material);
+// mesh._name = "Object"
+
+// const geometry2 = new BoxGeometry(1, 1, 1);
+// const material2 = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1]
+// });
+// const mesh2 = new Mesh(geometry2, material2);
+// mesh2._position._x = 1.2;
+// mesh2._name = "Object1"
+// mesh._children.push(mesh2);
+
+// const geometry3 = new BoxGeometry(1, 1, 1);
+// const material3 = new BasicMaterial([1, 1, 1, 1]);
+// const mesh3 = new Mesh(geometry3, material3);
+// mesh3._position._x = -1.2;
+// mesh3._name = "Object2"
+// mesh._children.push(mesh3);
 
 
-const geometry4 = new HollowBoxGeometry(1, 1, 1);
-const material4 = new PhongMaterial({
-  shininess: 32,
-  lightPosition: new Vector3(20, 100, 300),
-  ambient: [1, 1, 1, 1],
-  diffuse: [1, 1, 1, 1],
-  specular: [1, 1, 1, 1]
-});
-const mesh4 = new Mesh(geometry4, material4);
-mesh4._position._x = 2.4;
-mesh4._name = "Object3"
-scene.add(mesh4);
+// const geometry4 = new HollowBoxGeometry(1, 1, 1);
+// const material4 = new PhongMaterial({
+//   shininess: 32,
+//   lightPosition: new Vector3(20, 100, 300),
+//   ambient: [1, 1, 1, 1],
+//   diffuse: [1, 1, 1, 1],
+//   specular: [1, 1, 1, 1]
+// });
+// const mesh4 = new Mesh(geometry4, material4);
+// mesh4._position._x = 2.4;
+// mesh4._name = "Object3"
+// mesh._children.push(mesh4);
+
+// scene.add(mesh);
 
 let json = scene.toJSON();
 console.log(json);
@@ -158,3 +175,7 @@ function render() {
 }
 render();
 
+}
+catch(e){
+  console.log(e);
+}

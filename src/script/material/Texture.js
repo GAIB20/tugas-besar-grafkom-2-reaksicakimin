@@ -99,27 +99,12 @@ class Texture {
   // JSON parser
   toJSON() {
     return {
-      image: this.image,
-      wrapS: this.wrapS,
-      wrapT: this.wrapT,
-      magFilter: this.magFilter,
-      minFilter: this.minFilter,
-      format: this.format,
-      dtype: this.dtype,
-      generateMipmaps: this.generateMipmaps,
+      image: this._image,
     };
   }
 
   static fromJSON(json) {
     const texture = new Texture(json.image);
-    texture.wrapS = json.wrapS;
-    texture.wrapT = json.wrapT;
-    texture.magFilter = json.magFilter;
-    texture.minFilter = json.minFilter;
-    texture.format = json.format;
-    texture.dtype = json.dtype;
-    texture.generateMipmaps = json.generateMipmaps;
-
     return texture;
   }
 }

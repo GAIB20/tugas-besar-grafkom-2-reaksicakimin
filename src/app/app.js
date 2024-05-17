@@ -94,23 +94,8 @@ scene.add(mesh2);
 let json = scene.toJSON();
 console.log(json);
 var container = document.getElementById('container');
-buildHTML(json, container);
+buildHTML(json, container)
 
-// Render the scene
-const gl = canvas.getContext('webgl');
-const texture = loadTexture(gl, "cubeTexture.png");
-function render() {
-  gl.activeTexture(gl.TEXTURE0);
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  const webgl = new WebGLRenderer(canvas);
-  requestAnimationFrame(render);
-  webgl.render(scene, camera);
-}
-render();
-
-function isPowerOf2(value) {
-  return (value & (value - 1)) === 0;
-}
 function loadTexture(gl, url) {
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, texture);
@@ -173,3 +158,25 @@ function loadTexture(gl, url) {
 
   return texture;
 }
+
+function isPowerOf2(value) {
+  return (value & (value - 1)) === 0;
+}
+
+// Render the scene
+let webgl = new WebGLRenderer(canvas);
+const texture = loadTexture(webgl._gl, "cubeTexture.png");
+function render() {
+  if (!texture) {
+    requestAnimationFrame(render);
+    return;
+  }
+  
+  webgl._gl.activeTexture(webgl._gl.TEXTURE0);
+  webgl._gl.bindTexture(webgl._gl.TEXTURE_2D, texture);
+
+  requestAnimationFrame(render);
+  webgl.render(scene, camera);
+}
+render();
+

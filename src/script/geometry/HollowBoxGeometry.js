@@ -9,6 +9,7 @@ class HollowBoxGeometry extends BufferGeometry {
     this._depth = depth;
     const hw = width/4, hh = height/4, hd = depth/4;
     const vertices = new Float32Array([
+
     //tiang front left
       //front
       -hw*2, hh*2, hd*2,
@@ -586,6 +587,7 @@ class HollowBoxGeometry extends BufferGeometry {
       // -hw, -hh, -hd,
       // -hw, -hh, hd,
       // -hw, hh,  hd
+
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
     this.calculateNormals();

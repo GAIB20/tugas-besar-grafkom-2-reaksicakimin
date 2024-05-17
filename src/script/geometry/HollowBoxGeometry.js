@@ -9,583 +9,428 @@ class HollowBoxGeometry extends BufferGeometry {
     this._depth = depth;
     const hw = width/4, hh = height/4, hd = depth/4;
     const vertices = new Float32Array([
-    //tiang front left
-      //front
-      -hw*2, hh*2, hd*2,
-      -hw*2, -hh*2, hd*2,
-      -hw, -hh*2, hd*2,
-
-      -hw,  hh*2,  hd*2,
-      -hw*2, hh*2, hd*2,
-      -hw,  -hh*2, hd*2,
-      
-      //back
-      -hw*2, hh*2, hd,
-      -hw, -hh*2, hd,
-      -hw*2, -hh*2, hd,
-
-      -hw,  hh*2,  hd,
-      -hw, -hh*2, hd,
-      -hw*2,  hh*2, hd,
-
-      //top
-      -hw*2, hh*2,  hd,
-      -hw*2, hh*2,  hd*2,
-      -hw,  hh*2,  hd*2,
-
-      -hw, hh*2, hd,
-      -hw*2, hh*2,  hd,
-      -hw,  hh*2,  hd*2,
-
-      //boti
-      -hw*2, -hh*2, hd,
-      -hw, -hh*2, hd,
-      -hw, -hh*2, hd*2,
-
-      -hw*2, -hh*2, hd*2,
-      -hw*2, -hh*2, hd,
-      -hw, -hh*2, hd*2,
-
-      //right
-      -hw, -hh*2, hd,
-      -hw, hh*2, hd*2,
-      -hw, -hh*2, hd*2,
-
-      -hw, -hh*2, hd,
-      -hw, hh*2, hd,
-      -hw, hh*2, hd*2,
-
-      //left
-      -hw*2, -hh*2, hd,
-      -hw*2, hh*2, hd*2,
-      -hw*2, hh*2, hd,
-
-      -hw*2, -hh*2, hd,
-      -hw*2, -hh*2, hd*2,
-      -hw*2, hh*2, hd*2,
-
-
-    // tiang frong right
-      //front
-      hw, hh*2, hd*2,
-      hw, -hh*2, hd*2,
-      hw*2, -hh*2, hd*2,
-
-      hw*2,  hh*2,  hd*2,
-      hw, hh*2, hd*2,
-      hw*2,  -hh*2, hd*2,
-      
-      //back
-      hw, hh*2, hd,
-      hw*2, -hh*2, hd,
-      hw, -hh*2, hd,
-
-      hw*2,  hh*2,  hd,
-      hw*2, -hh*2, hd,
-      hw,  hh*2, hd,
-
-      //top
-      hw, hh*2,  hd,
-      hw, hh*2,  hd*2,
-      hw*2,  hh*2,  hd*2,
-
-      hw*2, hh*2, hd,
-      hw, hh*2,  hd,
-      hw*2,  hh*2,  hd*2,
-
-      //boti
-      hw, -hh*2, hd,
-      hw*2, -hh*2, hd,
-      hw*2, -hh*2, hd*2,
-
-      hw, -hh*2, hd*2,
-      hw, -hh*2, hd,
-      hw*2, -hh*2, hd*2,
-
-      //right
-      hw*2, -hh*2, hd,
-      hw*2, hh*2, hd*2,
-      hw*2, -hh*2, hd*2,
-
-      hw*2, -hh*2, hd,
-      hw*2, hh*2, hd,
-      hw*2, hh*2, hd*2,
-
-      //left
-      hw, -hh*2, hd,
-      hw, hh*2, hd*2,
-      hw, hh*2, hd,
-
-      hw, -hh*2, hd,
-      hw, -hh*2, hd*2,
-      hw, hh*2, hd*2,
-
-    // tiang back left
-      //front
-      -hw*2, hh*2, -hd,
-      -hw*2, -hh*2, -hd,
-      -hw, -hh*2, -hd,
-
-      -hw,  hh*2,  -hd,
-      -hw*2, hh*2, -hd,
-      -hw,  -hh*2, -hd,
-      
-      //back
-      -hw*2, hh*2, -hd*2,
-      -hw, -hh*2, -hd*2,
-      -hw*2, -hh*2, -hd*2,
-
-      -hw,  hh*2,  -hd*2,
-      -hw, -hh*2, -hd*2,
-      -hw*2,  hh*2, -hd*2,
-
-      //top
-      -hw*2, hh*2,  -hd*2,
-      -hw*2, hh*2,  -hd,
-      -hw,  hh*2,  -hd,
-
-      -hw, hh*2, -hd*2,
-      -hw*2, hh*2,  -hd*2,
-      -hw,  hh*2,  -hd,
-
-      //boti
-      -hw*2, -hh*2, -hd*2,
-      -hw, -hh*2, -hd*2,
-      -hw, -hh*2, -hd,
-
-      -hw*2, -hh*2, -hd,
-      -hw*2, -hh*2, -hd*2,
-      -hw, -hh*2, -hd,
-
-      //right
-      -hw, -hh*2, -hd*2,
-      -hw, hh*2, -hd,
-      -hw, -hh*2, -hd,
-
-      -hw, -hh*2, -hd*2,
-      -hw, hh*2, -hd*2,
-      -hw, hh*2, -hd,
-
-      //left
-      -hw*2, -hh*2, -hd*2,
-      -hw*2, hh*2, -hd,
-      -hw*2, hh*2, -hd*2,
-
-      -hw*2, -hh*2, -hd*2,
-      -hw*2, -hh*2, -hd,
-      -hw*2, hh*2, -hd,
-
-    // tiang back right
-      //front
-      hw, hh*2, -hd,
-      hw, -hh*2, -hd,
-      hw*2, -hh*2, -hd,
-
-      hw*2,  hh*2,  -hd,
-      hw, hh*2, -hd,
-      hw*2,  -hh*2, -hd,
-      
-      //back
-      hw, hh*2, -hd*2,
-      hw*2, -hh*2, -hd*2,
-      hw, -hh*2, -hd*2,
-
-      hw*2,  hh*2,  -hd*2,
-      hw*2, -hh*2, -hd*2,
-      hw,  hh*2, -hd*2,
-
-      //top
-      hw, hh*2,  -hd*2,
-      hw, hh*2,  -hd,
-      hw*2,  hh*2,  -hd,
-
-      hw*2, hh*2, -hd*2,
-      hw, hh*2,  -hd*2,
-      hw*2,  hh*2,  -hd,
-
-      //boti
-      hw, -hh*2, -hd*2,
-      hw*2, -hh*2, -hd*2,
-      hw*2, -hh*2, -hd,
-
-      hw, -hh*2, -hd,
-      hw, -hh*2, -hd*2,
-      hw*2, -hh*2, -hd,
-
-      //right
-      hw*2, -hh*2, -hd*2,
-      hw*2, hh*2, -hd,
-      hw*2, -hh*2, -hd,
-
-      hw*2, -hh*2, -hd*2,
-      hw*2, hh*2, -hd*2,
-      hw*2, hh*2, -hd,
-
-      //left
-      hw, -hh*2, -hd*2,
-      hw, hh*2, -hd,
-      hw, hh*2, -hd*2,
-
-      hw, -hh*2, -hd*2,
-      hw, -hh*2, -hd,
-      hw, hh*2, -hd,
-
-
-    // front datar atas
-      //front
-      -hw, hh*2, hd*2,
-      -hw, hh, hd*2,
-      hw,  hh, hd*2,
-
-      hw,  hh*2,  hd*2,
-      -hw, hh*2, hd*2,
-      hw,  hh, hd*2,
-
-       // Back face
-       -hw, hh*2, hd,
-       hw,  hh, hd,
-       -hw, hh, hd,
-       hw,  hh*2, hd,
-       hw,  hh, hd,
-       -hw, hh*2, hd,
-
-       // Top face
-      -hw, hh*2,  hd,
-      -hw, hh*2,  hd*2,
-      hw,  hh*2,  hd*2,
-      
-      hw,  hh*2,  hd,
-      -hw, hh*2,  hd,
-      hw,  hh*2,  hd*2,
-
-      // Bottom face
-      -hw, hh, hd,
-      hw,  hh, hd,
-      hw,  hh, hd*2,
-
-      -hw, hh, hd*2,
-      -hw, hh, hd,
-      hw,  hh, hd*2,
 
     // front dasar bawah
       //front
-      -hw, -hh, hd*2,
-      -hw, -hh*2, hd*2,
-      hw,  -hh*2, hd*2,
+      -hw*4, -hh, hd*4,
+      -hw*4, -hh*2, hd*4,
+      hw*4,  -hh*2, hd*4,
 
-      hw,  -hh,  hd*2,
-      -hw, -hh, hd*2,
-      hw,  -hh*2, hd*2,
-
-       // Back face
-       -hw, -hh, hd,
-       hw,  -hh*2, hd,
-       -hw, -hh*2, hd,
-       hw,  -hh, hd,
-       hw,  -hh*2, hd,
-       -hw, -hh, hd,
-
-       // Top face
-      -hw, -hh,  hd,
-      -hw, -hh,  hd*2,
-      hw,  -hh,  hd*2,
-      
-      hw,  -hh,  hd,
-      -hw, -hh,  hd,
-      hw,  -hh,  hd*2,
-
-      // Bottom face
-      -hw, -hh*2, hd,
-      hw,  -hh*2, hd,
-      hw,  -hh*2, hd*2,
-
-      -hw, -hh*2, hd*2,
-      -hw, -hh*2, hd,
-      hw,  -hh*2, hd*2,
-
-    // back datar atas
-      //front
-      -hw, hh*2, -hd,
-      -hw, hh, -hd,
-      hw,  hh, -hd,
-
-      hw,  hh*2, -hd,
-      -hw, hh*2, -hd,
-      hw,  hh, -hd,
+      hw*4,  -hh,  hd*4,
+      -hw*4, -hh, hd*4,
+      hw*4,  -hh*2, hd*4,
 
        // Back face
-       -hw, hh*2, -hd*2,
-       hw,  hh, -hd*2,
-       -hw, hh, -hd*2,
-       hw,  hh*2, -hd*2,
-       hw,  hh, -hd*2,
-       -hw, hh*2, -hd*2,
+       -hw*4, -hh, hd*3,
+       hw*4,  -hh*2, hd*3,
+       -hw*4, -hh*2, hd*3,
+
+       hw*4,  -hh, hd*3,
+       hw*4,  -hh*2, hd*3,
+       -hw*4, -hh, hd*3,
 
        // Top face
-      -hw, hh*2,  -hd*2,
-      -hw, hh*2,  -hd,
-      hw,  hh*2,  -hd,
+      -hw*4, -hh,  hd*3,
+      -hw*4, -hh,  hd*4,
+      hw*4,  -hh,  hd*4,
       
-      hw,  hh*2,  -hd*2,
-      -hw, hh*2,  -hd*2,
-      hw,  hh*2,  -hd,
+      hw*4,  -hh,  hd*3,
+      -hw*4, -hh,  hd*3,
+      hw*4,  -hh,  hd*4,
 
       // Bottom face
-      -hw, hh, -hd*2,
-      hw,  hh, -hd*2,
-      hw,  hh, -hd,
+      -hw*4, -hh*2, hd*3,
+      hw*4,  -hh*2, hd*3,
+      hw*4,  -hh*2, hd*4,
 
-      -hw, hh, -hd,
-      -hw, hh, -hd*2,
-      hw,  hh, -hd,
+      -hw*4, -hh*2, hd*4,
+      -hw*4, -hh*2, hd*3,
+      hw*4,  -hh*2, hd*4,
+
+      // left face
+      -hw*4, -hh, hd*3,
+      -hw*4, -hh*2, hd*3,
+      -hw*4, -hh*2, hd*4,
+
+      -hw*4, -hh, hd*4,
+      -hw*4, -hh, hd*3,
+      -hw*4, -hh*2, hd*4,
+
+      // right face
+      hw*4, -hh, hd*3,
+      hw*4, -hh, hd*4,
+      hw*4, -hh*2, hd*4,
+
+      hw*4, -hh*2, hd*3,
+      hw*4, -hh, hd*3,
+      hw*4, -hh*2, hd*4,
+
+
 
     // back dasar bawah
       //front
-      -hw, -hh, -hd,
-      -hw, -hh*2, -hd,
-      hw,  -hh*2, -hd,
+      -hw*4, -hh, -hd*3,
+      -hw*4, -hh*2, -hd*3,
+      hw*4,  -hh*2, -hd*3,
 
-      hw,  -hh,  -hd,
-      -hw, -hh, -hd,
-      hw,  -hh*2, -hd,
+      hw*4,  -hh,  -hd*3,
+      -hw*4, -hh, -hd*3,
+      hw*4,  -hh*2, -hd*3,
 
        // Back face
-       -hw, -hh, -hd*2,
-       hw,  -hh*2, -hd*2,
-       -hw, -hh*2, -hd*2,
-       hw,  -hh, -hd*2,
-       hw,  -hh*2, -hd*2,
-       -hw, -hh, -hd*2,
+       -hw*4, -hh, -hd*4,
+       hw*4,  -hh*2, -hd*4,
+       -hw*4, -hh*2, -hd*4,
+
+       hw*4,  -hh, -hd*4,
+       hw*4,  -hh*2, -hd*4,
+       -hw*4, -hh, -hd*4,
 
        // Top face
-      -hw, -hh,  -hd*2,
-      -hw, -hh,  -hd,
-      hw,  -hh,  -hd,
+      -hw*4, -hh,  -hd*4,
+      -hw*4, -hh,  -hd*3,
+      hw*4,  -hh,  -hd*3,
       
-      hw,  -hh,  -hd*2,
-      -hw, -hh,  -hd*2,
-      hw,  -hh,  -hd,
+      hw*4,  -hh,  -hd*4,
+      -hw*4, -hh,  -hd*4,
+      hw*4,  -hh,  -hd*3,
 
       // Bottom face
-      -hw, -hh*2, -hd*2,
-      hw,  -hh*2, -hd*2,
-      hw,  -hh*2, -hd,
+      -hw*4, -hh*2, -hd*4,
+      hw*4,  -hh*2, -hd*4,
+      hw*4,  -hh*2, -hd*3,
 
-      -hw, -hh*2, -hd,
-      -hw, -hh*2, -hd*2,
-      hw,  -hh*2, -hd,
+      -hw*4, -hh*2, -hd*3,
+      -hw*4, -hh*2, -hd*4,
+      hw*4,  -hh*2, -hd*3,
 
-    // dasar left atas
+      // left face
+      -hw*4, -hh, -hd*4,
+      -hw*4, -hh*2, -hd*4,
+      -hw*4, -hh*2, -hd*3,
+
+      -hw*4, -hh, -hd*3,
+      -hw*4, -hh, -hd*4,
+      -hw*4, -hh*2, -hd*3,
+
+      // right face
+      hw*4, -hh, -hd*4,
+      hw*4, -hh, -hd*3,
+      hw*4, -hh*2, -hd*3,
+
+      hw*4, -hh*2, -hd*4,
+      hw*4, -hh, -hd*4,
+      hw*4, -hh*2, -hd*3,
+
+
+    // left dasar bawah
       // Top face
-      -hw*2, hh*2,  -hd,
-      -hw*2, hh*2,  hd,
-      -hw,  hh*2,  hd,
+      -hw*4, -hh,  -hd*3,
+      -hw*4, -hh,  hd*3,
+      -hw*3,  -hh,  hd*3,
       
-      -hw,  hh*2,  -hd,
-      -hw*2, hh*2, -hd,
-      -hw,  hh*2,  hd,
+      -hw*3,  -hh,  -hd*3,
+      -hw*4, -hh, -hd*3,
+      -hw*3,  -hh,  hd*3,
 
       //Bottom face
-      -hw*2, hh, -hd,
-      -hw,  hh, -hd,
-      -hw,  hh, hd,
+      -hw*4, -hh*2, -hd*3,
+      -hw*3,  -hh*2, -hd*3,
+      -hw*3,  -hh*2, hd*3,
 
-      -hw*2, hh, hd,
-      -hw*2, hh, -hd,
-      -hw, hh, hd,
+      -hw*4, -hh*2, hd*3,
+      -hw*4, -hh*2, -hd*3,
+      -hw*3, -hh*2, hd*3,
 
       // Right face
-      -hw,  hh, -hd,
-      -hw,  hh*2,   hd,
-      -hw,  hh,  hd,
+      -hw*3,  -hh*2, -hd*3,
+      -hw*3,  -hh,   hd*3,
+      -hw*3,  -hh*2,  hd*3,
 
-      -hw,  hh, -hd,
-      -hw,  hh*2,   -hd,
-      -hw,  hh*2,   hd,
+      -hw*3,  -hh*2, -hd*3,
+      -hw*3,  -hh,   -hd*3,
+      -hw*3,  -hh,   hd*3,
 
       // Left face
-      -hw*2, hh, -hd,
-      -hw*2, hh*2,  hd,
-      -hw*2, hh*2,  -hd,
+      -hw*4, -hh*2, -hd*3,
+      -hw*4, -hh,  hd*3,
+      -hw*4, -hh,  -hd*3,
 
-      -hw*2, hh, -hd,
-      -hw*2, hh, hd,
-      -hw*2, hh*2,  hd,
-      
+      -hw*4, -hh*2, -hd*3,
+      -hw*4, -hh*2, hd*3,
+      -hw*4, -hh,  hd*3,
+    
 
-
-
-    // dasar left bawah
+    
+    // right dasar bawah
       // Top face
-      -hw*2, -hh,  -hd,
-      -hw*2, -hh,  hd,
-      -hw,  -hh,  hd,
+      hw*3, -hh,  -hd*3,
+      hw*3, -hh,  hd*3,
+      hw*4,  -hh,  hd*3,
       
-      -hw,  -hh,  -hd,
-      -hw*2, -hh, -hd,
-      -hw,  -hh,  hd,
+      hw*4,  -hh,  -hd*3,
+      hw*3, -hh, -hd*3,
+      hw*4,  -hh,  hd*3,
 
       //Bottom face
-      -hw*2, -hh*2, -hd,
-      -hw,  -hh*2, -hd,
-      -hw,  -hh*2, hd,
+      hw*3, -hh*2, -hd*3,
+      hw*4,  -hh*2, -hd*3,
+      hw*4,  -hh*2, hd*3,
 
-      -hw*2, -hh*2, hd,
-      -hw*2, -hh*2, -hd,
-      -hw, -hh*2, hd,
-
-      // Right face
-      -hw,  -hh*2, -hd,
-      -hw,  -hh,   hd,
-      -hw,  -hh*2,  hd,
-
-      -hw,  -hh*2, -hd,
-      -hw,  -hh,   -hd,
-      -hw,  -hh,   hd,
-
-      // Left face
-      -hw*2, -hh*2, -hd,
-      -hw*2, -hh,  hd,
-      -hw*2, -hh,  -hd,
-
-      -hw*2, -hh*2, -hd,
-      -hw*2, -hh*2, hd,
-      -hw*2, -hh,  hd,
-
-    // dasar right atas
-      // Top face
-      hw, hh*2,  -hd,
-      hw, hh*2,  hd,
-      hw*2,  hh*2,  hd,
-      
-      hw*2,  hh*2,  -hd,
-      hw, hh*2, -hd,
-      hw*2,  hh*2,  hd,
-
-      //Bottom face
-      hw, hh, -hd,
-      hw*2,  hh, -hd,
-      hw*2,  hh, hd,
-
-      hw, hh, hd,
-      hw, hh, -hd,
-      hw*2, hh, hd,
+      hw*3, -hh*2, hd*3,
+      hw*3, -hh*2, -hd*3,
+      hw*4, -hh*2, hd*3,
 
       // Right face
-      hw*2,  hh, -hd,
-      hw*2,  hh*2,   hd,
-      hw*2,  hh,  hd,
+      hw*4,  -hh*2, -hd*3,
+      hw*4,  -hh,   hd*3,
+      hw*4,  -hh*2,  hd*3,
 
-      hw*2,  hh, -hd,
-      hw*2,  hh*2,   -hd,
-      hw*2,  hh*2,   hd,
-
-      // Left face
-      hw, hh, -hd,
-      hw, hh*2,  hd,
-      hw, hh*2,  -hd,
-
-      hw, hh, -hd,
-      hw, hh, hd,
-      hw, hh*2,  hd,
-      
-
-
-
-    // dasar right bawah
-      // Top face
-      hw, -hh,  -hd,
-      hw, -hh,  hd,
-      hw*2,  -hh,  hd,
-      
-      hw*2,  -hh,  -hd,
-      hw, -hh, -hd,
-      hw*2,  -hh,  hd,
-
-      //Bottom face
-      hw, -hh*2, -hd,
-      hw*2,  -hh*2, -hd,
-      hw*2,  -hh*2, hd,
-
-      hw, -hh*2, hd,
-      hw, -hh*2, -hd,
-      hw*2, -hh*2, hd,
-
-      // Right face
-      hw*2,  -hh*2, -hd,
-      hw*2,  -hh,   hd,
-      hw*2,  -hh*2,  hd,
-
-      hw*2,  -hh*2, -hd,
-      hw*2,  -hh,   -hd,
-      hw*2,  -hh,   hd,
+      hw*4,  -hh*2, -hd*3,
+      hw*4,  -hh,   -hd*3,
+      hw*4,  -hh,   hd*3,
 
       // Left face
-      hw, -hh*2, -hd,
-      hw, -hh,  hd,
-      hw, -hh,  -hd,
+      hw*3, -hh*2, -hd*3,
+      hw*3, -hh,  hd*3,
+      hw*3, -hh,  -hd*3,
 
-      hw, -hh*2, -hd,
-      hw, -hh*2, hd,
-      hw, -hh,  hd,
+      hw*3, -hh*2, -hd*3,
+      hw*3, -hh*2, hd*3,
+      hw*3, -hh,  hd*3,
 
+    // pilar front kiri
 
+      //front
+      -hw/2, hh*4,  hd/2,
+      -hw*4, -hh, hd*4,
+      -hw*3, -hh, hd*4,
 
+      hw/2,  hh*4,  hd/2,
+      -hw/2, hh*4,  hd/2,
+      -hw*3, -hh, hd*4,
 
-
-
-
-
-
-      // // Front face
-      // -hw, hh,  hd,
-      // -hw, -hh, hd,
-      // hw,  -hh, hd,
-      // hw,  hh,  hd,
-      // -hw, hh, hd,
-      // hw,  -hh, hd,
-      // // Back face
-      // -hw, hh,  -hd,
-      // hw,  -hh, -hd,
-      // -hw, -hh, -hd,
-      // hw,  hh,  -hd,
-      // hw,  -hh, -hd,
-      // -hw, hh, -hd,
-      // // Top face
-      // -hw, hh,  -hd,
-      // -hw, hh,  hd,
-      // hw,  hh,  hd,
+      hw/2,  hh*4,  hd/2,
+      -hw*3, -hh, hd*4,
+      hw/2,  hh*3, hd/2,
       
-      // hw,  hh,  -hd,
-      // -hw, hh, -hd,
-      // hw,  hh,  hd,
+      -hw/2, hh*4, -hd/2,
+      -hw/2, hh*3, -hd/2, 
+      -hw*4, -hh, hd*3,
 
-      // // Bottom face
+      -hw/2, hh*4,  hd/2,
+      -hw*4, -hh, hd*3,
+      -hw*4, -hh, hd*4,
 
-      // -hw, -hh, -hd,
-      // hw,  -hh, -hd,
-      // hw,  -hh, hd,
+      -hw/2, hh*4,  hd/2,
+      -hw/2, hh*4,  -hd/2,
+      -hw*4, -hh, hd*3,
 
-      // -hw, -hh, hd,
-      // -hw, -hh, -hd,
-      // hw,  -hh, hd,
+      // //back
+      
+      hw/2,  hh*3, hd/2,
+      -hw*3, -hh, hd*4,
+      -hw*3, -hh, hd*3,
 
-      // // Right face
-      // hw,  -hh, -hd,
-      // hw,  hh,   hd,
-      // hw,  -hh,  hd,
+      -hw*3, -hh, hd*3,
+      -hw*4, -hh, hd*3,
+      -hw/2, hh*3, -hd/2,
 
-      // hw,  -hh, -hd,
-      // hw,  hh,   -hd,
-      // hw,  hh,   hd,
-      // // Left face
-      // -hw, -hh, -hd,
-      // -hw, hh,  hd,
-      // -hw, hh,  -hd,
+      -hw/2, hh*3, -hd/2,
+      -hw/2, hh*3, hd/2,
+      -hw*3, -hh, hd*3,
 
-      // -hw, -hh, -hd,
-      // -hw, -hh, hd,
-      // -hw, hh,  hd
+      -hw/2, hh*3, hd/2,
+      hw/2, hh*3, hd/2,
+      -hw*3, -hh, hd*3,
+
+    // pilar front kanan
+      
+      //front
+      hw/2, hh*4,  hd/2,
+      hw*3, -hh, hd*4,
+      hw*4, -hh, hd*4,
+
+      hw/2,  hh*4,  hd/2,
+      -hw/2, hh*4,  hd/2,
+      hw*3, -hh, hd*4,
+
+      -hw/2,  hh*4,  hd/2,
+      -hw/2,  hh*3, hd/2,
+      hw*3, -hh, hd*4,
+
+      hw/2, hh*4, -hd/2,
+      hw*4, -hh, hd*3,
+      hw/2, hh*3, -hd/2, 
+
+      hw/2, hh*4,  hd/2,
+      hw*4, -hh, hd*4,
+      hw*4, -hh, hd*3,
+
+      hw/2, hh*4,  hd/2,
+      hw*4, -hh, hd*3,
+      hw/2, hh*4,  -hd/2,
+
+      // back
+      -hw/2,  hh*3, hd/2,
+      hw*3, -hh, hd*3,
+      hw*3, -hh, hd*4,
+
+      hw*4, -hh, hd*3,
+      hw*3, -hh, hd*3,
+      hw/2, hh*3, -hd/2,
+
+      hw/2, hh*3, -hd/2,
+      hw*3, -hh, hd*3,
+      hw/2, hh*3, hd/2,
+
+      -hw/2, hh*3, hd/2,
+      hw/2, hh*3, hd/2,
+      hw*3, -hh, hd*3,
+
+
+    
+
+
+    // pilar back kiri
+
+      //front
+      -hw/2, hh*4,  -hd/2,
+      -hw*3, -hh, -hd*4,
+      -hw*4, -hh, -hd*4,
+
+      hw/2,  hh*4,  -hd/2,
+      -hw*3, -hh, -hd*4,
+      -hw/2, hh*4,  -hd/2,
+
+      hw/2,  hh*4,  -hd/2,
+      hw/2,  hh*3, -hd/2,
+      -hw*3, -hh, -hd*4,
+      
+      -hw/2, hh*4, hd/2,
+      -hw*4, -hh, -hd*3,
+      -hw/2, hh*3, hd/2, 
+
+      -hw/2, hh*4,  -hd/2,
+      -hw*4, -hh, -hd*4,
+      -hw*4, -hh, -hd*3,
+
+      -hw/2, hh*4,  -hd/2,
+      -hw*4, -hh, -hd*3,
+      -hw/2, hh*4,  hd/2,
+
+      // //back
+      
+      hw/2,  hh*3, -hd/2,
+      -hw*3, -hh, -hd*3,
+      -hw*3, -hh, -hd*4,
+
+      -hw*3, -hh, -hd*3,
+      -hw/2, hh*3, hd/2,
+      -hw*4, -hh, -hd*3,
+
+      -hw/2, hh*3, hd/2,
+      -hw*3, -hh, -hd*3,
+      -hw/2, hh*3, -hd/2,
+
+      -hw/2, hh*3, -hd/2,
+      -hw*3, -hh, -hd*3,
+      hw/2, hh*3, -hd/2,
+
+    // pilar front kanan
+
+
+      
+      //front
+      hw/2, hh*4,  -hd/2,
+      hw*4, -hh, -hd*4,
+      hw*3, -hh, -hd*4,
+
+      hw/2,  hh*4,  -hd/2,
+      hw*3, -hh, -hd*4,
+      -hw/2, hh*4,  -hd/2,
+
+      -hw/2,  hh*4,  -hd/2,
+      hw*3, -hh, -hd*4,
+      -hw/2,  hh*3, -hd/2,
+
+      hw/2, hh*4, hd/2,
+      hw/2, hh*3, hd/2, 
+      hw*4, -hh, -hd*3,
+
+      hw/2, hh*4,  -hd/2,
+      hw*4, -hh, -hd*3,
+      hw*4, -hh, -hd*4,
+
+      hw/2, hh*4,  -hd/2,
+      hw/2, hh*4,  hd/2,
+      hw*4, -hh, -hd*3,
+
+      // back
+      -hw/2,  hh*3, -hd/2,
+      hw*3, -hh, -hd*4,
+      hw*3, -hh, -hd*3,
+
+      hw*4, -hh, -hd*3,
+      hw/2, hh*3, hd/2,
+      hw*3, -hh, -hd*3,
+
+      hw/2, hh*3, hd/2,
+      hw/2, hh*3, -hd/2,
+      hw*3, -hh, -hd*3,
+
+      -hw/2, hh*3, -hd/2,
+      hw*3, -hh, -hd*3,
+      hw/2, hh*3, -hd/2,
+
+
+
+
+
+    // Front face
+    // -hw/2, hh*4,  hd/2,
+    // -hw/2, hh*3, hd/2,
+    // hw/2,  hh*3, hd/2,
+    // hw/2,  hh*4,  hd/2,
+    // -hw/2, hh*4, hd/2,
+    // hw/2,  hh*3, hd/2,
+    // // Back face
+    // -hw/2, hh*4,  -hd/2,
+    // hw/2,  hh*3, -hd/2,
+    // -hw/2, hh*3, -hd/2,
+    // hw/2,  hh*4,  -hd/2,
+    // hw/2,  hh*3, -hd/2,
+    // -hw/2, hh*4, -hd/2,
+    // Top face
+    -hw/2, hh*4,  -hd/2,
+    -hw/2, hh*4,  hd/2,
+    hw/2,  hh*4,  hd/2,
+    
+    hw/2,  hh*4,  -hd/2,
+    -hw/2, hh*4, -hd/2,
+    hw/2,  hh*4,  hd/2,
+    // Bottom face
+    -hw/2, hh*3, -hd/2,
+    hw/2,  hh*3, -hd/2,
+    hw/2,  hh*3, hd/2,
+    -hw/2, hh*3, hd/2,
+    -hw/2, hh*3, -hd/2,
+    hw/2,  hh*3, hd/2,
+    // // Right face
+    // hw/2,  hh*3, -hd/2,
+    // hw/2,  hh*4,   hd/2,
+    // hw/2,  hh*3,  hd/2,
+    // hw/2,  hh*3, -hd/2,
+    // hw/2,  hh*4,   -hd/2,
+    // hw/2,  hh*4,   hd/2,
+    // // Left face
+    // -hw/2, hh*3, -hd/2,
+    // -hw/2, hh*4,  hd/2,
+    // -hw/2, hh*4,  -hd/2,
+    // -hw/2, hh*3, -hd/2,
+    // -hw/2, hh*3, hd/2,
+    // -hw/2, hh*4,  hd/2
+
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
     this.calculateNormals();

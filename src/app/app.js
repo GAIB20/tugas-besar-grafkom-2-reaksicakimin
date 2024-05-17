@@ -82,6 +82,21 @@ function getLight(){
   return mesh2;
 }
 
+const texture = new Texture('../../test/texture/cubetexture.png');
+texture.load(webgl._gl);
+const geometry = new BoxGeometry(1, 1, 1);
+const material = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  texture: texture
+});
+const mesh = new Mesh(geometry, material);
+mesh._name = "Object"
+scene.add(mesh);
+
 scene.add(getLight());
 
 function loadTexture(mesh){

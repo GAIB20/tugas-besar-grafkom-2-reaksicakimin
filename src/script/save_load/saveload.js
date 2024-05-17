@@ -13,7 +13,7 @@ class SaveLoad {
         var scene = getScene();
         var json = scene.toJSON();
         console.log(json);
-        return json;
+        return json.children[1]; // TODO: masih hardcode
     }
 
     static clear(){

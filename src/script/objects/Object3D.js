@@ -118,9 +118,9 @@ class Object3D {
   toJSON() {
     return {
       name: this._name,
-      position: this._position,
-      rotation: this._rotation,
-      scale: this._scale,
+      position: this._position.toArray(),
+      rotation: this._rotation.toArray(),
+      scale: this._scale.toArray(),
       children: this._children.map((child) => child.toJSON()),
     };
   }

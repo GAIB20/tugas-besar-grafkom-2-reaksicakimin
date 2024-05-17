@@ -73,15 +73,17 @@ class BufferGeometry {
 
 	// JSON parser
 	toJSON() {
-		const attributes = {};
-		for (let name in this._attributes) {
-			attributes[name] = this._attributes[name].toJSON();
-		}
+		// Note: sepertinya tidak perlu?
 
-		return {
-			attributes,
-			indices: this._indices ? this._indices.toJSON() : undefined,
-		};
+		// const attributes = {};
+		// for (let name in this._attributes) {
+		// 	attributes[name] = this._attributes[name].toJSON();
+		// }
+
+		// return {
+		// 	attributes,
+		// 	indices: this._indices ? this._indices.toJSON() : undefined,
+		// };
 	}
 
 	static fromJSON(data) {

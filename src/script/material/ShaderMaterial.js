@@ -31,22 +31,26 @@ class ShaderMaterial {
   
   // JSON parser
   toJSON() {
-    return {
-      fragmentShader: this.fragmentShader,
-      vertexShader: this.vertexShader,
-      uniforms: this.uniforms,
-      id: this.id,
-    };
+    // Note: sepertinya tidak perlu?
+
+    // return {
+    //   fragmentShader: this.fragmentShader,
+    //   vertexShader: this.vertexShader,
+    //   uniforms: this.uniforms,
+    //   id: this.id,
+    // };
   }
 
   static fromJSON(json) {
-    const material = new ShaderMaterial();
-    material.fragmentShader = json.fragmentShader;
-    material.vertexShader = json.vertexShader;
-    material.uniforms = json.uniforms;
-    material.id = json.id;
+    // Note: sepertinya tidak perlu?
 
-    return material;
+    // const material = new ShaderMaterial();
+    // material.fragmentShader = json.fragmentShader;
+    // material.vertexShader = json.vertexShader;
+    // material.uniforms = json.uniforms;
+    // material.id = json.id;
+
+    // return material;
   }
 }
 

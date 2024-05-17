@@ -27,6 +27,7 @@ class BoxGeometry extends BufferGeometry {
       -hw, hh,  -hd,
       -hw, hh,  hd,
       hw,  hh,  hd,
+      
       hw,  hh,  -hd,
       -hw, hh, -hd,
       hw,  hh,  hd,

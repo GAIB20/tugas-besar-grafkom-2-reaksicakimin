@@ -6,6 +6,9 @@ import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourceP
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 
+
+
+
 class WebGLRenderer {
   constructor(canvas) {
     this._canvas = canvas;
@@ -19,10 +22,10 @@ class WebGLRenderer {
     this.setViewport();
     
     // this.adjustCanvas();
-    const ro = new ResizeObserver(this.adjustCanvas.bind(this));
-    ro.observe(this._canvas, {box: 'content-box'});
+    // const ro = new ResizeObserver(this.adjustCanvas.bind(this));
+    // ro.observe(this._canvas, {box: 'content-box'});
   }
-
+    
   setViewport() {
     this._gl.viewport(0, 0, this._canvas.clientWidth, this._canvas.clientHeight);
   }
@@ -83,6 +86,7 @@ class WebGLRenderer {
       viewMatrix: camera.viewProjectionMatrix,
     }
 
+    gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     const renderObject = (object, uniforms) => {
       if (!object.visible) return;
       object.computeWorldMatrix(false, true);
@@ -90,6 +94,13 @@ class WebGLRenderer {
         const material = object._material;
         const info = this.createOrGetMaterial(material);
         this.setProgramInfo(info);
+
+        if (object._material._texture) {
+          const texture = object._material._texture;
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+        }
+
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         WebGLUtils.setUniforms(info, {
           ...object._material._uniforms,

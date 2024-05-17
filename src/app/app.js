@@ -11,8 +11,12 @@ import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
+import Texture from "../script/material/Texture.js";
+import Vector3 from "../script/math/Vector3.js";
 
 const canvas = document.querySelector('canvas');
+
+const webgl = new WebGLRenderer(canvas);
 
 // Create a scene
 var scene = new Scene();
@@ -65,21 +69,36 @@ const projectionType = document.getElementById("projection-type");
     initializeCameraControls(camera);
     control = new OrbitControl(camera, canvas);
   });
-
+  
 // Create a mesh
-// const geometry = new HollowBoxGeometry(1, 1, 1);
-// const material = new PhongMaterial();
-// const mesh = new Mesh(geometry, material);
-// mesh._name = "Object"
+const texture = new Texture('../../test/texture/wood.png');
+texture.load(webgl._gl);
+const geometry = new BoxGeometry(1, 1, 1);
+const material = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  texture: texture
+});
+texture.setTextureCoordinates(geometry);
+const mesh = new Mesh(geometry, material);
+mesh._name = "Object"
 
-// const geometryc = new BoxGeometry(1, 1, 1);
-// const materialc = new BasicMaterial([0.5, 0, 0, 1]);
-// const meshc = new Mesh(geometryc, materialc);
-// meshc._position._x = 1.2;
-// meshc._name = "Object1"
-// mesh._children.push(meshc);
-
-// scene.add(mesh);
+const geometry2 = new BoxGeometry(1, 1, 1);
+const material2 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1]
+});
+const mesh2 = new Mesh(geometry2, material2);
+mesh2._position._x = 1.2;
+mesh2._name = "Object1"
+mesh._children.push(mesh2);
+scene.add(mesh);
 
 function getLight(){
   const geometry2 = new BoxGeometry(10, 10, 10);
@@ -107,18 +126,35 @@ export function clearShapes() {
   scene._name = "Scene";
   scene.add(getLight());
 }
+const geometry3 = new BoxGeometry(1, 1, 1);
+const material3 = new BasicMaterial([1, 1, 1, 1]);
+const mesh3 = new Mesh(geometry3, material3);
+mesh3._position._x = -1.2;
+mesh3._name = "Object2"
+scene.add(mesh3);
+
+
+const geometry4 = new HollowBoxGeometry(1, 1, 1);
+const material4 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1]
+});
+const mesh4 = new Mesh(geometry4, material4);
+mesh4._position._x = 2.4;
+mesh4._name = "Object3"
+scene.add(mesh4);
 
 let json = scene.toJSON();
 console.log(json);
 var container = document.getElementById('container');
-buildHTML(json, container);
+buildHTML(json, container)
 
-// Render the scene
 function render() {
-  const webgl = new WebGLRenderer(canvas);
   requestAnimationFrame(render);
   webgl.render(scene, camera);
-  // console.log(scene)
-  // console.log(camera)
 }
 render();
+

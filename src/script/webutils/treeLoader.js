@@ -239,22 +239,37 @@ export function buildHTML(json, parent) {
   buildTree(json, parent);
 }
 
+let currentUnderlinedLabel = null;
 export function buildTree(json, parent) {
   const div = document.createElement('div');
   div.classList.add('list');
   
-  const input = document.createElement('input');
-  input.setAttribute('type', 'checkbox');
-  input.setAttribute('id', json.name);
-  input.setAttribute('name', json.name);
-  
   const label = document.createElement('label');
   label.setAttribute('for', json.name);
   label.textContent = json.name;
-  
-  div.appendChild(input);
   div.appendChild(label);
   
+  div.addEventListener('click', function(event) {
+    event.stopPropagation();
+    let selectedObject = document.getElementById('selected-object');
+    if (currentUnderlinedLabel && currentUnderlinedLabel !== label) {
+      currentUnderlinedLabel.style.textDecoration = '';
+    }
+    if (label.style.textDecoration === 'underline') {
+      label.style.textDecoration = '';
+      currentUnderlinedLabel = null;
+
+      selectedObject.value = '';
+    } else {
+      label.style.textDecoration = 'underline';
+      currentUnderlinedLabel = label;
+
+      selectedObject.value = json.name;
+    }
+    
+    selectedObject.dispatchEvent(new Event('change'));
+  });
+
   if (json.children && json.children.length > 0) {
     const subDiv = document.createElement('div');
     subDiv.classList.add('items');
@@ -265,22 +280,4 @@ export function buildTree(json, parent) {
   }
 
   parent.appendChild(div);
-
-  // Add event listener for checkbox
-  input.addEventListener('change', event => {
-    console.log(event.target.name);
-    console.log(event.target.checked);
-    logChildren(event.target);
-  });
-}
-
-function logChildren(element) {
-  const parentDiv = element.parentElement;
-  const childrenDiv = parentDiv.querySelector('.items');
-  if (childrenDiv) {
-    const childCheckboxes = childrenDiv.querySelectorAll('input[type="checkbox"]');
-    childCheckboxes.forEach(child => {
-      console.log(`Child: ${child.name}, Checked: ${child.checked}`);
-    });
-  }
 }

@@ -15,7 +15,7 @@ import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
 import Texture from "../script/material/Texture.js";
 import Vector3 from "../script/math/Vector3.js";
-import { ObjectControls } from "../script/webutils/translateControls.js";
+import ObjectControls from "../script/webutils/ObjectControls.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -98,8 +98,23 @@ const material = new PhongMaterial({
 });
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
+
+
+const geometry1 = new BoxGeometry(1, 1, 1);
+const material1 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  // texture: texture
+});
+const mesh1 = new Mesh(geometry1, material1);
+mesh1._name = "Object1"
+mesh1._position._x = 2;
+mesh.add(mesh1);
+
 scene.add(mesh);
-ObjectControls(mesh);
 
 scene.add(getLight());
 
@@ -130,7 +145,16 @@ export function getWebGL() {
 
 let json = scene.toJSON();
 var container = document.getElementById('container');
-buildHTML(json, container)
+buildHTML(json, container);
+
+let objectControls = new ObjectControls(scene);
+document.getElementById('selected-object').addEventListener('change', function(event) {
+  const selectedObjectName = event.target.value;
+  const selectedObject = scene.getObjectByName(selectedObjectName);
+  if (selectedObject) {
+    objectControls.setObject(selectedObject);
+  }
+});
 
 function render() {
   requestAnimationFrame(render);

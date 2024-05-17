@@ -110,59 +110,71 @@ class Object3D {
   // Translate X
   translateX(x) {
     this._position._x = x;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Translate Y
   translateY(y) {
     this._position._y = y;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Translate Z
   translateZ(z) {
     this._position._z = z;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
 
   // Scale X
   scaleX(x) {
     this._scale._x = x;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Scale Y
   scaleY(y) {
     this._scale._y = y;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Scale Z
   scaleZ(z) {
     this._scale._z = z;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
 
   // Rotate X
   rotateX(x) {
     this._rotation._x = x;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Rotate Y
   rotateY(y) {
     this._rotation._y = y;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
   // Rotate Z
   rotateZ(z) {
     this._rotation._z = z;
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
   }
 
+
+  getObjectByName(name) {
+    if (this._name === name) return this;
+    for (let child of this.children) {
+      if (child._name === name) return child;
+      if (child.children) {
+        let found = child.getObjectByName(name);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
 
   // Traverse
   traverse(onLeaf=null) {

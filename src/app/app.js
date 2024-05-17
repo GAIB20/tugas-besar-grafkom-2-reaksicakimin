@@ -15,6 +15,7 @@ import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
 import Texture from "../script/material/Texture.js";
 import Vector3 from "../script/math/Vector3.js";
+import ObjectControls from "../script/webutils/ObjectControls.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -233,7 +234,16 @@ scene.add(mesh5);
 
 let json = scene.toJSON();
 var container = document.getElementById('container');
-buildHTML(json, container)
+buildHTML(json, container);
+
+let objectControls = new ObjectControls(scene);
+document.getElementById('selected-object').addEventListener('change', function(event) {
+  const selectedObjectName = event.target.value;
+  const selectedObject = scene.getObjectByName(selectedObjectName);
+  if (selectedObject) {
+    objectControls.setObject(selectedObject);
+  }
+});
 
 function render() {
   requestAnimationFrame(render);

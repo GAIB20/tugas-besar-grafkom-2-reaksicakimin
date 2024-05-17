@@ -106,6 +106,94 @@ class Object3D {
     // TODO: Implement
   }
 
+
+  // Translate X
+  translateX(x) {
+    this._position._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Translate Y
+  translateY(y) {
+    this._position._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Translate Z
+  translateZ(z) {
+    this._position._z = z;
+    this.computeLocalMatrix();
+  }
+
+
+  // Scale X
+  scaleX(x) {
+    this._scale._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Scale Y
+  scaleY(y) {
+    this._scale._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Scale Z
+  scaleZ(z) {
+    this._scale._z = z;
+    this.computeLocalMatrix();
+  }
+
+
+  // Rotate X
+  rotateX(x) {
+    this._rotation._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Rotate Y
+  rotateY(y) {
+    this._rotation._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Rotate Z
+  rotateZ(z) {
+    this._rotation._z = z;
+    this.computeLocalMatrix();
+  }
+
+  // Position
+  setPosition(x, y, z) {
+    this._position.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Rotation
+  setRotation(x, y, z) {
+    this._rotation.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Scale
+  setScale(x, y, z) {
+    this._scale.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+
+  getObjectByName(name) {
+    if (this._name === name) return this;
+    for (let child of this.children) {
+      if (child._name === name) return child;
+      if (child.children) {
+        let found = child.getObjectByName(name);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
   // Traverse
   traverse(onLeaf=null) {
     if (onLeaf) onLeaf(this);

@@ -1,14 +1,14 @@
 import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
 import { vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from '../webgl/Shaders.js';
-import Texture from './Texture.js';
+import Texture from '../texture/Texture.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
     const { shininess = 32, lightPosition = new Vector3(20, 100, 300), ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null, textureOption = 0} = options;
     const sampler = texture ? 0 : null;
     const samplerCube = texture ? 1 : null;
-    console.log(samplerCube); 
+    // console.log(samplerCube); 
     const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
     const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
 

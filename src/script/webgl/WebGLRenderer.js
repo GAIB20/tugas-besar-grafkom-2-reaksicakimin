@@ -79,19 +79,35 @@ class WebGLRenderer {
     }
   }
 
+  
   render(scene, camera) {
     const gl = this._gl;
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
-
+    
     const defaultUniform = {
       cameraPosition: camera.worldPosition,
       viewMatrix: camera.viewProjectionMatrix,
     }
-
+    
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
+
+    const setTexture= (object) => {
+      if (object._material._texture) {
+        const texture = object._material._texture;
+        if (object._material._textureOption == 2) {
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture._texture);
+        }
+        else if (object._material._textureOption == 1) {
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+        }
+      }
+    }
+
     const renderObject = (object, uniforms) => {
       if (!object.visible) return;
       object.computeWorldMatrix(false, true);
@@ -99,22 +115,8 @@ class WebGLRenderer {
         const material = object._material;
         const info = this.createOrGetMaterial(material);
         this.setProgramInfo(info);
-
         WebGLUtils.setAttributes(info, object._geometry._attributes);
-        if (object._material._texture) {
-          const texture = object._material._texture;
-          if (object._material._textureOption === 2) {
-            console.log(texture._texture);
-            gl.activeTexture(gl.TEXTURE1);
-            gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture._texture);
-          }
-          else{
-            console.log(texture._texture);
-            gl.activeTexture(gl.TEXTURE0);
-            gl.bindTexture(gl.TEXTURE_2D, texture._texture);
-
-          }
-        }
+        setTexture(object);
         WebGLUtils.setUniforms(info, {
           ...object._material._uniforms,
           ...uniforms,
@@ -124,6 +126,8 @@ class WebGLRenderer {
         this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
 
       }
+
+      object.children.forEach(child => setTexture(child));
       object.children.forEach(child => renderObject(child, uniforms));
     };
 

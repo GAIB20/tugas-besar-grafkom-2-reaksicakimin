@@ -49,6 +49,7 @@
 
     <!-- Component tree -->
     <div class="others-group">
+      <input id="selected-object" type="text" name="selected-object" value="" readonly hidden>
       <div id="component-tree" class="component-tree-list">
         <label class="component-tree-label" for="component-tree-label">Component Tree</label>
         <div class="items" id="container">
@@ -208,15 +209,6 @@
 
     <!-- Edit property -->
     <div id="edit-properties" class="property-container active">
-      <!-- Edit color -->
-      <div class="property">
-        <label for="edit-color">Color</label>
-        <div class="color-input">
-          <input type="color" id="edit-color-input" name="edit-color" value="#e5e5e5">
-          <span id="edit-color-value">#e5e5e5</span>
-        </div>
-      </div>
-
       <!-- View Properties -->
       <div class="property">
 
@@ -343,39 +335,6 @@
         <div class="property-group">
           <label>Camera</label>
 
-          <!-- Camera X -->
-          <div class="label-value">
-            <label for="camera-x">X</label>
-            <div class="input">
-              <input type="range" id="camera-x-slider" class="prop-slider" name="camera-x" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-x-input" class="prop-input" name="camera-x-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
-          <!-- Camera Y -->
-          <div class="label-value">
-            <label for="camera-y">Y</label>
-            <div class="input">
-              <input type="range" id="camera-y-slider" class="prop-slider" name="camera-y" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-y-input" class="prop-input" name="camera-y-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
-          <!-- Camera Z -->
-          <div class="label-value">
-            <label for="camera-z">Z</label>
-            <div class="input">
-              <input type="range" id="camera-z-slider" class="prop-slider" name="camera-z" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-z-input" class="prop-input" name="camera-z-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
           <!-- Camera Radius -->
           <div class="label-value">
             <label for="camera-radius">Radius</label>
@@ -411,12 +370,9 @@
 
     <!-- Web utils -->
     <script type="module" src="./script/webutils/menuDropdown.js"></script>
-    <script src="./script/webutils/propSlider.js"></script>
-    <script src="./script/webutils/treeCheckbox.js"></script>
     <script src="./script/webutils/frameController.js"></script>
     <script src="./script/webutils/materialController.js"></script>
 
-    <script type="module" src="./script/webutils/cameraControls.js"></script>
     <script type="module" src="./script/webutils/treeLoader.js"></script>
 
     <!-- App -->

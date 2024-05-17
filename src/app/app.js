@@ -71,7 +71,7 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-const texture = new Texture('../../test/texture/wood.png');
+const texture = new Texture('../../test/texture/cubetexture.png');
 texture.load(webgl._gl);
 const geometry = new BoxGeometry(1, 1, 1);
 const material = new PhongMaterial({

@@ -116,6 +116,7 @@ uniform vec4 u_diffuse;
 uniform vec4 u_specular;
 uniform int u_textureOption;
 uniform sampler2D u_sampler;
+uniform samplerCube u_samplerCube;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
@@ -138,9 +139,13 @@ void main() {
       u_diffuse.a * diffuse +
       u_specular.a * specular
     , 1.0);
-  } else {
+  } else if (u_textureOption == 1) {
     
     gl_FragColor = texture2D(u_sampler, v_textureCoord);
+  } else if (u_textureOption == 2) {
+    vec3 N = normalize(v_normal);
+    vec3 D = reflect(normalize(v_pos), N);
+    gl_FragColor = textureCube(u_samplerCube, D);
   }
 }
 `;

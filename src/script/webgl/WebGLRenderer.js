@@ -101,6 +101,20 @@ class WebGLRenderer {
         this.setProgramInfo(info);
 
         WebGLUtils.setAttributes(info, object._geometry._attributes);
+        if (object._material._texture) {
+          const texture = object._material._texture;
+          if (object._material._textureOption === 2) {
+            console.log(texture._texture);
+            gl.activeTexture(gl.TEXTURE1);
+            gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture._texture);
+          }
+          else{
+            console.log(texture._texture);
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+
+          }
+        }
         WebGLUtils.setUniforms(info, {
           ...object._material._uniforms,
           ...uniforms,
@@ -109,11 +123,6 @@ class WebGLRenderer {
         });
         this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
 
-        if (object._material._texture) {
-          const texture = object._material._texture;
-          gl.activeTexture(gl.TEXTURE0);
-          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
-        }
       }
       object.children.forEach(child => renderObject(child, uniforms));
     };

@@ -94,9 +94,14 @@ class WebGLRenderer {
         const material = object._material;
         const info = this.createOrGetMaterial(material);
         this.setProgramInfo(info);
+
+        if (object._material._texture) {
+          const texture = object._material._texture;
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+        }
+
         WebGLUtils.setAttributes(info, object._geometry._attributes);
-        
-        // Flip image pixels into the bottom-to-top order that WebGL expects.
         WebGLUtils.setUniforms(info, {
           ...object._material._uniforms,
           ...uniforms,

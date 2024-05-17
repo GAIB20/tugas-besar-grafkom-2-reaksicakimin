@@ -10,8 +10,12 @@ import BoxGeometry from "../script/geometry/BoxGeometry.js";
 import { initializeCameraControls } from '../script/webutils/cameraControls.js';
 import { buildHTML } from "../script/webutils/treeLoader.js";
 import OrbitControl from "../script/control/OrbitControl.js"
+import Texture from "../script/material/Texture.js";
+import Vector3 from "../script/math/Vector3.js";
 
 const canvas = document.querySelector('canvas');
+
+const webgl = new WebGLRenderer(canvas);
 
 // Create a scene
 const scene = new Scene();
@@ -64,116 +68,55 @@ const projectionType = document.getElementById("projection-type");
     initializeCameraControls(camera);
     control = new OrbitControl(camera, canvas);
   });
-
+  
 // Create a mesh
+const texture = new Texture('../../test/texture/cubetexture.png');
+texture.load(webgl._gl);
 const geometry = new BoxGeometry(1, 1, 1);
-const material = new PhongMaterial();
-console.log(material);
+const material = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1],
+  texture: texture
+});
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
 
-const geometryc = new BoxGeometry(1, 1, 1);
-const materialc = new BasicMaterial([0.5, 0, 0, 1]);
-const meshc = new Mesh(geometryc, materialc);
-meshc._position._x = 1.2;
-meshc._name = "Object1"
-mesh._children.push(meshc);
+const geometry2 = new BoxGeometry(1, 1, 1);
+const material2 = new PhongMaterial({
+  shininess: 32,
+  lightPosition: new Vector3(20, 100, 300),
+  ambient: [1, 1, 1, 1],
+  diffuse: [1, 1, 1, 1],
+  specular: [1, 1, 1, 1]
+});
+const mesh2 = new Mesh(geometry2, material2);
+mesh2._position._x = 1.2;
+mesh2._name = "Object1"
+mesh._children.push(mesh2);
 
 scene.add(mesh);
 
 
-const geometry2 = new BoxGeometry(10, 10, 10);
-const material2 = new BasicMaterial([1, 1, 1, 1]);
-const mesh2 = new Mesh(geometry2, material2);
-mesh2._position._x = 20;
-mesh2._position._y = 100;
-mesh2._position._z = -300;
-mesh2._name = "Light"
-scene.add(mesh2);
+const geometry3 = new BoxGeometry(1, 1, 1);
+const material3 = new BasicMaterial([1, 1, 1, 1]);
+const mesh3 = new Mesh(geometry3, material3);
+mesh3._position._x = -1.2;
+mesh3._name = "Object2"
+scene.add(mesh3);
 
 let json = scene.toJSON();
 console.log(json);
 var container = document.getElementById('container');
 buildHTML(json, container)
 
-function loadTexture(gl, url) {
-  const texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-  // Because images have to be downloaded over the internet
-  // they might take a moment until they are ready.
-  // Until then put a single pixel in the texture so we can
-  // use it immediately. When the image has finished downloading
-  // we'll update the texture with the contents of the image.
-  const level = 0;
-  const internalFormat = gl.RGBA;
-  const width = 1;
-  const height = 1;
-  const border = 0;
-  const srcFormat = gl.RGBA;
-  const srcType = gl.UNSIGNED_BYTE;
-  const pixel = new Uint8Array([0, 0, 255, 255]); // opaque blue
-  gl.texImage2D(
-    gl.TEXTURE_2D,
-    level,
-    internalFormat,
-    width,
-    height,
-    border,
-    srcFormat,
-    srcType,
-    pixel,
-  );
-
-  const image = new Image();
-  console.log(image.src);
-  image.src = url;
-  image.onload = () => {
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    console.log(srcFormat, srcType, level);
-    gl.texImage2D(
-      gl.TEXTURE_2D,
-      level,
-      internalFormat,
-      srcFormat,
-      srcType,
-      image,
-    );
-
-    // WebGL1 has different requirements for power of 2 images
-    // vs. non power of 2 images so check if the image is a
-    // power of 2 in both dimensions.
-    if (isPowerOf2(image.width) && isPowerOf2(image.height)) {
-      // Yes, it's a power of 2. Generate mips.
-      console.log("power of 2")
-      gl.generateMipmap(gl.TEXTURE_2D);
-    } else {
-      // No, it's not a power of 2. Turn off mips and set
-      // wrapping to clamp to edge
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    }
-  };
-
-  return texture;
-}
-
-function isPowerOf2(value) {
-  return (value & (value - 1)) === 0;
-}
-
-// Render the scene
-let webgl = new WebGLRenderer(canvas);
-const texture = loadTexture(webgl._gl, "cubeTexture.png");
 function render() {
   if (!texture) {
     requestAnimationFrame(render);
     return;
   }
-  
-  webgl._gl.activeTexture(webgl._gl.TEXTURE0);
-  webgl._gl.bindTexture(webgl._gl.TEXTURE_2D, texture);
 
   requestAnimationFrame(render);
   webgl.render(scene, camera);

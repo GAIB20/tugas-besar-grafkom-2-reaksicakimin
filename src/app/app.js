@@ -71,7 +71,7 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-const texture = new Texture('../../test/texture/cubetexture.png');
+const texture = new Texture('../../test/texture/wood.png');
 texture.load(webgl._gl);
 const geometry = new BoxGeometry(1, 1, 1);
 const material = new PhongMaterial({
@@ -82,6 +82,7 @@ const material = new PhongMaterial({
   specular: [1, 1, 1, 1],
   texture: texture
 });
+texture.setTextureCoordinates(geometry);
 const mesh = new Mesh(geometry, material);
 mesh._name = "Object"
 
@@ -97,7 +98,6 @@ const mesh2 = new Mesh(geometry2, material2);
 mesh2._position._x = 1.2;
 mesh2._name = "Object1"
 mesh._children.push(mesh2);
-
 scene.add(mesh);
 
 
@@ -107,6 +107,7 @@ const mesh3 = new Mesh(geometry3, material3);
 mesh3._position._x = -1.2;
 mesh3._name = "Object2"
 scene.add(mesh3);
+
 
 const geometry4 = new HollowBoxGeometry(1, 1, 1);
 const material4 = new PhongMaterial({
@@ -127,15 +128,8 @@ var container = document.getElementById('container');
 buildHTML(json, container)
 
 function render() {
-  if (!texture) {
-    requestAnimationFrame(render);
-    return;
-  }
-
   requestAnimationFrame(render);
   webgl.render(scene, camera);
-  console.log(scene)
-  console.log(camera)
 }
 render();
 

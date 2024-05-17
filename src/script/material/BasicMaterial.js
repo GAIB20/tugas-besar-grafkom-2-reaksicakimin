@@ -6,6 +6,7 @@ class BasicMaterial extends ShaderMaterial {
   constructor(colors=[0, 0, 0, 0]) {
     super({color: colors});
     this._color = colors;
+    
     this._vertexShader = vertexShaderSourceBasic;
     this._fragmentShader = fragmentShaderSourceBasic;
   }

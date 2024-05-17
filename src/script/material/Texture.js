@@ -1,3 +1,5 @@
+import BufferAttribute from "../geometry/BufferAttribute.js";
+
 class Texture {
   constructor(image) {
     this._image = image;
@@ -49,6 +51,49 @@ class Texture {
       }
       this._texture = texture;
     };
+  }
+
+  setTextureCoordinates(bufferGeometry) {
+    const texCoor = new Float32Array([
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.1,
+      0.0, 1.1,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+      0.0, 0.0,
+      1.0, 0.0,
+      1.0, 1.0,
+      0.0, 1.0,
+    ]);
+    const textureCoordinates = new BufferAttribute(texCoor, 2);
+    bufferGeometry.setAttribute('textureCoord', textureCoordinates);
   }
 
   // JSON parser

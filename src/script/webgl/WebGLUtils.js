@@ -61,7 +61,6 @@ class WebGLUtils {
       const isArray = (info.size > 1 && info.name.substr(-3) === '[0]');
       const type = UniformSetterWebGLType[info.type];
       return (v) => {
-        // console.log(info.name, v);
         if (typeof v === 'object' && 'toArray' in v) v = v.toArray();
         if (isArray) {
           gl[`uniform${type}v`](loc, v);

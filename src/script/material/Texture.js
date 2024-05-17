@@ -49,51 +49,9 @@ class Texture {
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this.getGLConstant(gl, 'CLAMP_TO_EDGE'));
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, this.getGLConstant(gl, 'LINEAR'));
       }
-      this._texture = texture;
     };
-  }
-
-  setTextureCoordinates(bufferGeometry) {
-    const texCoor = new Float32Array([
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.1,
-      0.0, 1.1,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-      0.0, 0.0,
-      1.0, 0.0,
-      1.0, 1.0,
-      0.0, 1.0,
-    ]);
-    const textureCoordinates = new BufferAttribute(texCoor, 2);
-    bufferGeometry.setAttribute('textureCoord', textureCoordinates);
+    
+    this._texture = texture;
   }
 
   // JSON parser

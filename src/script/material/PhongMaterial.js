@@ -1,24 +1,28 @@
 import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
-import { vertexShaderSourcePhong, fragmentShaderSourcePhong } from "../webgl/Shaders.js";
+import { vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from '../webgl/Shaders.js';
 import Texture from './Texture.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
     const { shininess = 32, lightPosition = new Vector3(20, 100, 300), ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null } = options;
     const textureOption = texture ? 1 : 0;
-    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: 0});
+    const sampler = texture ? 0 : null;
+    const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
+    const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
+
+    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler});
     this._shininess = shininess;
     this._lightPosition = lightPosition;
     this._ambient = ambient;
     this._diffuse = diffuse;
     this._specular = specular;
     this._textureOption = textureOption;
-    this._sampler = 0;
+    this._sampler = sampler;
     this._texture = texture;
 
-    this._vertexShader = vertexShaderSourcePhong;
-    this._fragmentShader = fragmentShaderSourcePhong;
+    this._vertexShader = vertexShaderSource;
+    this._fragmentShader = fragmentShaderSource;
   }
 
   // Public getters

@@ -1,4 +1,5 @@
 import SaveLoad from "../save_load/saveload.js";
+import { buildHTML } from "../webutils/treeLoader.js";
 
 try{
     
@@ -44,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     reader.readAsText(file);
                 };
                 input.click();
-        
+
                 // showLog("Import Shape");
             } else if (selectedItemText === "Export Model") {
                 var jsonData = SaveLoad.save();
@@ -89,6 +90,8 @@ console.log("Menu Dropdown loaded");
 function importShapes(data) {
     var shapes = JSON.parse(data);
     SaveLoad.load(shapes);
+    var container = document.getElementById('container');
+    buildHTML(shapes, container);
 }
 
 

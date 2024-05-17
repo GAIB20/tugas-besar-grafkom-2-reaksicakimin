@@ -109,8 +109,6 @@ export function getWebGL() {
   return webgl._gl;
 }
 
-try{
-
 let json = scene.toJSON();
 var container = document.getElementById('container');
 buildHTML(json, container)
@@ -120,8 +118,3 @@ function render() {
   webgl.render(scene, camera);
 }
 render();
-
-}
-catch(e){
-  console.log(e);
-}

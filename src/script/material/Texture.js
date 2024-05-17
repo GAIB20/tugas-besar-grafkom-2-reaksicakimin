@@ -1,36 +1,55 @@
-// TODO: not in guidebook yet, modify if necessary
 class Texture {
   constructor(image) {
     this._image = image;
-    this._wrapS = WebGLRenderingContext.REPEAT;
-    this._wrapT = WebGLRenderingContext.REPEAT;
-    this._magFilter = WebGLRenderingContext.LINEAR;
-    this._minFilter = WebGLRenderingContext.LINEAR;
-    this._format = WebGLRenderingContext.RGBA;
-    this._dtype = WebGLRenderingContext.UNSIGNED_BYTE;
+    this._wrapS = 'REPEAT';
+    this._wrapT = 'REPEAT';
+    this._magFilter = 'LINEAR';
+    this._minFilter = 'LINEAR';
+    this._format = 'RGBA';
+    this._dtype = 'UNSIGNED_BYTE';
     this._generateMipmaps = true;
+    this._texture = null;
   }
 
-  // Public getter
-  get image() { return this._image; }
-  get wrapS() { return this._wrapS; }
-  get wrapT() { return this._wrapT; }
-  get magFilter() { return this._magFilter; }
-  get minFilter() { return this._minFilter; }
-  get format() { return this._format; }
-  get dtype() { return this._dtype; }
-  get generateMipmaps() { return this._generateMipmaps; }
+  isPowerOf2(value) {
+    return (value & (value - 1)) === 0;
+  }
 
-  // Public setter
-  set image(image) { this._image = image;}
-  set wrapS(wrapS) { this._wrapS = wrapS; }
-  set wrapT(wrapT) { this._wrapT = wrapT; }
-  set magFilter(magFilter) { this._magFilter = magFilter; }
-  set minFilter(minFilter) { this._minFilter = minFilter; }
-  set format(format) { this._format = format; }
-  set dtype(dtype) { this._dtype = dtype; }
-  set generateMipmaps(generateMipmaps) { this._generateMipmaps = generateMipmaps; }
+  getGLConstant(gl, constant) {
+    return gl[constant];
+  }
 
+  // Load texture from an image
+  load(gl) {
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+    const level = 0;
+    const internalFormat = this.getGLConstant(gl, this._format);
+    const width = 1;
+    const height = 1;
+    const border = 0;
+    const srcFormat = this.getGLConstant(gl, this._format);
+    const srcType = this.getGLConstant(gl, this._dtype);
+    const pixel = new Uint8Array([0, 0, 255, 255]);
+    gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border, srcFormat, srcType, pixel);
+
+    const image = new Image();
+    image.src = this._image;
+    image.onload = () => {
+      gl.bindTexture(gl.TEXTURE_2D, texture);
+      gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, srcFormat, srcType, image);
+
+      if (this.isPowerOf2(image.width) && this.isPowerOf2(image.height)) {
+        gl.generateMipmap(gl.TEXTURE_2D);
+      } else {
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, this.getGLConstant(gl, 'CLAMP_TO_EDGE'));
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, this.getGLConstant(gl, 'CLAMP_TO_EDGE'));
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, this.getGLConstant(gl, 'LINEAR'));
+      }
+      this._texture = texture;
+    };
+  }
 
   // JSON parser
   toJSON() {

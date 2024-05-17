@@ -1,36 +1,5 @@
 {
-  "geometry": {
-    "width": 1,
-    "height": 1,
-    "depth": 1,
-    "type": "BoxGeometry"
-  },
-  "material": {
-    "ambient": [
-      1,
-      1,
-      1,
-      1
-    ],
-    "diffuse": [
-      1,
-      1,
-      1,
-      1
-    ],
-    "specular": [
-      1,
-      1,
-      1,
-      1
-    ],
-    "shininess": 32,
-    "texture": {
-      "image": "../../test/texture/wood.png"
-    },
-    "type": "PhongMaterial"
-  },
-  "name": "Object",
+  "name": "Scene",
   "position": [
     0,
     0,
@@ -47,6 +16,74 @@
     1
   ],
   "children": [
+    {
+      "geometry": {
+        "width": 10,
+        "height": 10,
+        "depth": 10,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "BasicMaterial"
+      },
+      "name": "Light",
+      "position": [
+        20,
+        100,
+        -300
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
+    {
+      "geometry": {
+        "width": 10,
+        "height": 10,
+        "depth": 10,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "color": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "type": "BasicMaterial"
+      },
+      "name": "Light",
+      "position": [
+        20,
+        100,
+        -300
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
     {
       "geometry": {
         "width": 1,
@@ -74,12 +111,14 @@
           1
         ],
         "shininess": 32,
-        "texture": null,
+        "texture": {
+          "image": "../../test/texture/wood.png"
+        },
         "type": "PhongMaterial"
       },
-      "name": "Object1",
+      "name": "Object",
       "position": [
-        1.2,
+        0,
         0,
         0
       ],
@@ -93,41 +132,90 @@
         1,
         1
       ],
-      "children": []
-    },
-    {
-      "geometry": {
-        "width": 1,
-        "height": 1,
-        "depth": 1,
-        "type": "BoxGeometry"
-      },
-      "material": {
-        "color": [
-          1,
-          1,
-          1,
-          1
-        ],
-        "type": "BasicMaterial"
-      },
-      "name": "Object2",
-      "position": [
-        -1.2,
-        0,
-        0
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ],
-      "children": []
+      "children": [
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "ambient": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "diffuse": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "specular": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "shininess": 32,
+            "texture": null,
+            "type": "PhongMaterial"
+          },
+          "name": "Object1",
+          "position": [
+            1.2,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "children": []
+        },
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "color": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "type": "BasicMaterial"
+          },
+          "name": "Object2",
+          "position": [
+            -1.2,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "children": []
+        }
+      ]
     },
     {
       "geometry": {

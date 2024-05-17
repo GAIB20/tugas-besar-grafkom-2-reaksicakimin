@@ -90,8 +90,9 @@ function loadTexture(mesh){
 }
 
 export function addMesh(mesh) {
-  console.log(mesh);
-  loadTexture(mesh);
+  if (mesh._material._texture) {
+    loadTexture(mesh);
+  }
   scene.add(mesh);
 }
 

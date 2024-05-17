@@ -1,19 +1,21 @@
-import BoxGeometry from "../geometry/BoxGeometry.js";
-import BasicMaterial from "../material/BasicMaterial.js";
 import Mesh from "../objects/Mesh.js";
 import { addMesh, clearShapes, getScene } from "../../app/app.js";
 
 class SaveLoad {
     static load(json){
-        var mesh = Mesh.fromJSON(json);
-        addMesh(mesh);
+        console.log("JSON LENGTH", json.children.length);
+        for (var i = 0; i < json.children.length; i++){
+            var mesh = Mesh.fromJSON(json.children[i]);
+            console.log("NOMOR ", i, " : ", mesh);
+            addMesh(mesh);
+        }
     }
 
     static save(){
         var scene = getScene();
         var json = scene.toJSON();
         console.log(json);
-        return json.children[1]; // TODO: masih hardcode
+        return json;
     }
 
     static clear(){

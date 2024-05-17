@@ -163,6 +163,24 @@ class Object3D {
     this.computeLocalMatrix();
   }
 
+  // Position
+  setPosition(x, y, z) {
+    this._position.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Rotation
+  setRotation(x, y, z) {
+    this._rotation.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Scale
+  setScale(x, y, z) {
+    this._scale.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
 
   getObjectByName(name) {
     if (this._name === name) return this;

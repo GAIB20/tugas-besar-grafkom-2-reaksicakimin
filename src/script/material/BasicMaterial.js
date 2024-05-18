@@ -7,6 +7,7 @@ class BasicMaterial extends ShaderMaterial {
     super({color: colors});
     this._color = colors;
     
+    this._texture = null;
     this._vertexShader = vertexShaderSourceBasic;
     this._fragmentShader = fragmentShaderSourceBasic;
   }
@@ -22,13 +23,14 @@ class BasicMaterial extends ShaderMaterial {
   toJSON() {
     return {
       color: this.color,
+      texture: this._texture,
       type: "BasicMaterial",
       ...super.toJSON(),
     };
   }
 
   static fromJSON(json) {
-    const material = new BasicMaterial();
+    const material = new BasicMaterial(json.color);
     material.color = json.color;
     super.fromJSON(json, material);
 

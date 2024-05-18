@@ -1,11 +1,11 @@
 import Texture from "./Texture.js";
 
 class EnvironmentTexture extends Texture {
-  constructor(gl, environment) {
+  constructor(environment) {
     super();
     this._environment = environment;
 
-    this.load(gl);
+    // this.load(gl);
   }
 
   load(gl) {
@@ -55,6 +55,7 @@ class EnvironmentTexture extends Texture {
   toJSON() {
     return {
       environment: this._environment,
+      type: "EnvironmentTexture",
     };
   }
 

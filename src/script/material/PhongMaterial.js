@@ -2,6 +2,10 @@ import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
 import { vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from '../webgl/Shaders.js';
 import Texture from '../texture/Texture.js';
+import Mesh from '../objects/Mesh.js';
+import BumpTexture from '../texture/BumpTexture.js';
+import EnvironmentTexture from '../texture/EnvironmentTexture.js';
+import WebGLRenderer from '../webgl/WebGLRenderer.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
@@ -50,6 +54,7 @@ class PhongMaterial extends ShaderMaterial {
       diffuse: this.diffuse,
       specular: this.specular,
       shininess: this.shininess,
+      lightPosition: this.lightPosition,
       texture: this.texture ? this.texture.toJSON() : null,
       type: "PhongMaterial",
       ...super.toJSON(),
@@ -57,7 +62,22 @@ class PhongMaterial extends ShaderMaterial {
   }
 
   static fromJSON(json) {
-    const texture = json.texture ? Texture.fromJSON(json.texture) : null;
+    var texture;
+    if (json.texture){
+      switch (json.texture.type) {
+        case "BumpTexture":
+          texture = BumpTexture.fromJSON(json.texture);
+          break;
+        case "EnvironmentTexture":
+          texture = EnvironmentTexture.fromJSON(json.texture);
+          break;
+        default:
+          texture = null;
+          console.log("Texture not found");
+      }
+    } else {
+      texture = null;
+    }
     const material = new PhongMaterial({
       shininess: json.shininess, 
       lightPosition: json.lightPosition, 
@@ -65,8 +85,9 @@ class PhongMaterial extends ShaderMaterial {
       diffuse: json.diffuse, 
       specular: json.specular, 
       texture: texture
-  });  
+    });  
     super.fromJSON(json, material);
+    console.log(material);
     return material;
   }
 }

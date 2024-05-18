@@ -1,11 +1,11 @@
 import Texture from "./Texture.js";
 
 class BumpTexture extends Texture {
-  constructor(gl, image) {
+  constructor(image) {
     super();
     this._image = image;
 
-    this.load(gl);
+    // this.load(gl);
   }
 
   load(gl) {
@@ -43,6 +43,7 @@ class BumpTexture extends Texture {
   toJSON() {
     return {
       image: this._image,
+      type: "BumpTexture",
     };
   }
 

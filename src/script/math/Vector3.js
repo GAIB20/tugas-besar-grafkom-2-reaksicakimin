@@ -128,7 +128,7 @@ class Vector3 {
     return new Vector3(json[0], json[1], json[2]);
   }
 
-  static toJSON() {
+  toJSON() {
     return [this._x, this._y, this._z];
   } 
 }

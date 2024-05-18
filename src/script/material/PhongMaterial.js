@@ -54,8 +54,9 @@ class PhongMaterial extends ShaderMaterial {
       diffuse: this.diffuse,
       specular: this.specular,
       shininess: this.shininess,
-      lightPosition: this.lightPosition,
+      lightPosition: this.lightPosition.toJSON(),
       texture: this.texture ? this.texture.toJSON() : null,
+      textureOption: this._textureOption,
       type: "PhongMaterial",
       ...super.toJSON(),
     };
@@ -80,14 +81,14 @@ class PhongMaterial extends ShaderMaterial {
     }
     const material = new PhongMaterial({
       shininess: json.shininess, 
-      lightPosition: json.lightPosition, 
+      lightPosition: Vector3.fromJSON(json.lightPosition), 
       ambient: json.ambient, 
       diffuse: json.diffuse, 
       specular: json.specular, 
-      texture: texture
+      texture: texture,
+      textureOption: json.textureOption
     });  
     super.fromJSON(json, material);
-    console.log(material);
     return material;
   }
 }

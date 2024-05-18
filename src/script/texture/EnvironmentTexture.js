@@ -48,7 +48,8 @@ class EnvironmentTexture extends Texture {
         }
       };
     }
-
+    gl.activeTexture(gl.TEXTURE1);
+    gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture);
     this._texture = texture;
   }
 

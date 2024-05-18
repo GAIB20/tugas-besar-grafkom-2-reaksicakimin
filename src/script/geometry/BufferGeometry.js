@@ -65,8 +65,80 @@ class BufferGeometry {
 			normal.set(i + 1, res);
 			normal.set(i + 2, res);
 		}
-
+		console.log("normal", normal);
 		this.setAttribute('normal', normal);
+	}
+
+	calculateTangents() {
+		const position = this.getAttribute('position');
+		const normal = this.getAttribute('normal');
+		const texCoord = this.getAttribute('textureCoord');
+		if (!position || !normal || !texCoord) return;
+
+		let tangent = this.getAttribute('tangent');
+		if (!tangent) {
+			tangent = new BufferAttribute(new Float32Array(position.length), position._size);
+		}
+		let bitangent = this.getAttribute('bitangent');
+		if (!bitangent) {
+			bitangent = new BufferAttribute(new Float32Array(position.length), position._size);
+		}
+
+		let pA = new Vector3, pB = new Vector3, pC = new Vector3;
+		let deltaV1 = 0, deltaV2 = 0;
+		let deltaU1 = 0, deltaU2 = 0;
+		let uvA = new Vector3, uvB = new Vector3, uvC = new Vector3;
+		let edge1 = new Vector3, edge2 = new Vector3;
+		let tangent1 = new Vector3, bitangent1 = new Vector3;
+		for (let i = 0; i < position._data.length; i += 3) {
+			pA = Vector3.getBufferAttribute(position, i);
+			pB = Vector3.getBufferAttribute(position, i + 1);
+			pC = Vector3.getBufferAttribute(position, i + 2);
+			
+			edge1 = Vector3.subtractVectors(pC, pB);
+			edge2 = Vector3.subtractVectors(pB, pA);
+			
+			uvA = Vector3.getBufferAttribute(texCoord, i);
+			uvB = Vector3.getBufferAttribute(texCoord, i + 1);
+			uvC = Vector3.getBufferAttribute(texCoord, i + 2);
+			// tangent1 = edge2.normalize();
+			// bitangent1 = edge1.normalize();
+			
+			deltaU1 = uvC._x - uvB._x;
+			deltaV1 = uvC._y - uvB._y;
+			deltaU2 = uvB._x - uvA._x;
+			deltaV2 = uvB._y - uvA._y;
+			console.log("deltaU1", deltaU1)
+			console.log("deltaV1", deltaV1)
+			console.log("deltaU2", deltaU2)
+			console.log("deltaV2", deltaV2)
+
+			let f = 1.0 / (deltaU1 * deltaV2 - deltaU2 * deltaV1);
+			if (f == Infinity || f == -Infinity || isNaN(f)) f = 0;
+			let x = f *(deltaV2 * edge1._x - deltaV1 * edge2._x);
+			let y = f * (deltaV2 * edge1._y - deltaV1 * edge2._y);
+			let z = f * (deltaV2 * edge1._z - deltaV1 * edge2._z);
+			tangent1.set(x, y, z);
+			tangent1.normalize();
+			
+
+			bitangent1._x = f * (-deltaU2 * edge1._x + deltaU1 * edge2._x);
+			bitangent1._y = f * (-deltaU2 * edge1._y + deltaU1 * edge2._y);
+			bitangent1._z = f * (-deltaU2 * edge1._z + deltaU1 * edge2._z);
+			bitangent1.normalize();
+
+			tangent.set(i, tangent1.toArray());
+			tangent.set(i + 1, tangent1.toArray());
+			tangent.set(i + 2, tangent1.toArray());
+
+			bitangent.set(i, bitangent1.toArray());
+			bitangent.set(i + 1, bitangent1.toArray());
+			bitangent.set(i + 2, bitangent1.toArray());
+		}
+		console.log(tangent);
+		console.log(bitangent);
+		this.setAttribute('tangent', tangent);
+		this.setAttribute('bitangent', bitangent);
 	}
 
 

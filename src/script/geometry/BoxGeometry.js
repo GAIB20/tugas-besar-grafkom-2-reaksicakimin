@@ -56,6 +56,7 @@ class BoxGeometry extends BufferGeometry {
     this.setAttribute('position', new BufferAttribute(vertices, 3));
     this.calculateNormals();
     this.setTextureCoordinates();
+    this.calculateTangents();
   }
 
   setTextureCoordinates() {

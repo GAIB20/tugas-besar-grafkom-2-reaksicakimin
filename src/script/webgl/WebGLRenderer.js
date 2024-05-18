@@ -86,16 +86,18 @@ class WebGLRenderer {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
-    
+
+    const light = scene.getObjectByName("Light");
     const defaultUniform = {
       cameraPosition: camera.worldPosition,
       viewMatrix: camera.viewProjectionMatrix,
+      lightPosition: light.position,
     }
     
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
     const setTexture= (object) => {
-      if (object._material._texture) {
+      if (object._material instanceof PhongMaterial && object._material._texture) {
         const texture = object._material._texture;
         if (object._material._textureOption == 2) {
           gl.activeTexture(gl.TEXTURE1);

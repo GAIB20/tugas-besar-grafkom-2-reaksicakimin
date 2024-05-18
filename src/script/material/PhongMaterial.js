@@ -9,16 +9,15 @@ import WebGLRenderer from '../webgl/WebGLRenderer.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
-    const { shininess = 32, lightPosition = new Vector3(20, 100, 300), ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null, textureOption = 0} = options;
+    const { shininess = 32, ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null, textureOption = 0} = options;
     const sampler = texture ? 0 : null;
     const samplerCube = texture ? 1 : null;
     // console.log(samplerCube); 
     const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
     const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
 
-    super({shininess: shininess, lightPosition: lightPosition, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler, samplerCube: samplerCube});
+    super({shininess: shininess, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler, samplerCube: samplerCube});
     this._shininess = shininess;
-    this._lightPosition = lightPosition;
     this._ambient = ambient;
     this._diffuse = diffuse;
     this._specular = specular;

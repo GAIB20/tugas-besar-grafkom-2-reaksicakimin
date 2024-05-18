@@ -17,6 +17,7 @@ import EnvironmentTexture from "../script/texture/EnvironmentTexture.js";
 import Vector3 from "../script/math/Vector3.js";
 import ObjectControls from "../script/controls/ObjectControls.js";
 import LightControls from "../script/controls/LightControls.js";
+import DirectionalLight from "../script/light/DirectionalLight.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -25,7 +26,11 @@ const webgl = new WebGLRenderer(canvas);
 // Create a scene
 var scene = new Scene();
 scene._name = "Scene";
-buildHTML(scene.toJSON(), document.getElementById('container'));
+
+// Create a directional light
+const light = new DirectionalLight();
+light._name = "Light";
+scene.add(light);
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -146,7 +151,6 @@ function __main__(){
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1],
@@ -162,7 +166,6 @@ function __main__(){
   const geometry1 = new BoxGeometry(1, 1, 1);
   const material1 = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1],
@@ -178,7 +181,6 @@ function __main__(){
   const geometry2 = new BoxGeometry(1, 1, 1);
   const material2 = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1]
@@ -192,7 +194,6 @@ function __main__(){
   const geometry3 = new HollowBoxGeometry(1, 1, 1);
   const material3 = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1]
@@ -206,7 +207,6 @@ function __main__(){
   const geometry4 = new HollowPyramidGeometry(1, 1, 1);
   const material4 = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1]
@@ -220,7 +220,6 @@ function __main__(){
   const geometry5 = new BoxGeometry(1, 1, 1);
   const material5 = new PhongMaterial({
     shininess: 32,
-    lightPosition: new Vector3(20, 100, 300),
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1],
@@ -237,12 +236,22 @@ function __main__(){
 
 
 // nyalain kode di bawah kalau mau aktifin dummy object
-// __main__()
-
+__main__()
 
 // END OF PLAYGROUND
+buildHTML(scene.toJSON(), document.getElementById('container'));
+let objectControls = new ObjectControls(scene);
+  document.getElementById('selected-object').addEventListener('change', function(event) {
+    const selectedObjectName = event.target.value;
+    const selectedObject = scene.getObjectByName(selectedObjectName);
+    if (selectedObject) {
+      objectControls.setObject(selectedObject);
+    }
+  });
 
+let lightControls = new LightControls(light);
 
+// load listener
 document.addEventListener('loadComplete', (event) => {
   let json = scene.toJSON();
   var container = document.getElementById('container');
@@ -257,13 +266,7 @@ document.addEventListener('loadComplete', (event) => {
     }
   });
 
-  let materials = [];
-  for (const object of scene.children) {
-    if (object instanceof Mesh && object._material instanceof PhongMaterial) {
-      materials.push(object._material);
-    }
-  }
-  let lightControls = new LightControls(materials);
+  let lightControls = new LightControls(light);
 });
 
 

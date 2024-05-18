@@ -7,6 +7,11 @@ class SaveLoad {
             var mesh = Mesh.fromJSON(json.children[i]);
             addMesh(mesh);
         }
+
+        const event = new CustomEvent('loadComplete', {
+            detail: { message: 'Loading complete', data: json }
+        });
+        document.dispatchEvent(event);
     }
 
     static save(){

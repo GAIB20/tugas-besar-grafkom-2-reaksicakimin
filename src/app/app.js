@@ -16,6 +16,7 @@ import BumpTexture from "../script/texture/BumpTexture.js";
 import EnvironmentTexture from "../script/texture/EnvironmentTexture.js";
 import Vector3 from "../script/math/Vector3.js";
 import ObjectControls from "../script/controls/ObjectControls.js";
+import LightControls from "../script/controls/LightControls.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -24,6 +25,7 @@ const webgl = new WebGLRenderer(canvas);
 // Create a scene
 var scene = new Scene();
 scene._name = "Scene";
+buildHTML(scene.toJSON(), document.getElementById('container'));
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -72,17 +74,6 @@ const projectionType = document.getElementById("projection-type");
   });
   
 // Create a mesh
-function getLight(){
-  const geometry2 = new BoxGeometry(10, 10, 10);
-  const material2 = new BasicMaterial([1, 1, 1, 1]);
-  const mesh2 = new Mesh(geometry2, material2);
-  mesh2._position._x = 20;
-  mesh2._position._y = 100;
-  mesh2._position._z = -300;
-  mesh2._name = "Light"
-  return mesh2;
-}
-
 function loadTexture(mesh){
   if (mesh._material._texture){
     mesh._material._texture.load(webgl._gl);
@@ -104,14 +95,12 @@ export function getScene() {
 export function clearShapes() {
   scene = new Scene();
   scene._name = "Scene";
-  scene.add(getLight());
+  buildHTML(scene.toJSON(), document.getElementById('container'));
 }
 
 export function getWebGL() {
   return webgl._gl;
 }
-
-scene.add(getLight());
 
 
 // PLAYGROUND
@@ -254,18 +243,29 @@ function __main__(){
 // END OF PLAYGROUND
 
 
-let json = scene.toJSON();
-var container = document.getElementById('container');
-buildHTML(json, container);
+document.addEventListener('loadComplete', (event) => {
+  let json = scene.toJSON();
+  var container = document.getElementById('container');
+  buildHTML(json, container);
 
-let objectControls = new ObjectControls(scene);
-document.getElementById('selected-object').addEventListener('change', function(event) {
-  const selectedObjectName = event.target.value;
-  const selectedObject = scene.getObjectByName(selectedObjectName);
-  if (selectedObject) {
-    objectControls.setObject(selectedObject);
+  let objectControls = new ObjectControls(scene);
+  document.getElementById('selected-object').addEventListener('change', function(event) {
+    const selectedObjectName = event.target.value;
+    const selectedObject = scene.getObjectByName(selectedObjectName);
+    if (selectedObject) {
+      objectControls.setObject(selectedObject);
+    }
+  });
+
+  let materials = [];
+  for (const object of scene.children) {
+    if (object instanceof Mesh && object._material instanceof PhongMaterial) {
+      materials.push(object._material);
+    }
   }
+  let lightControls = new LightControls(materials);
 });
+
 
 function render() {
   requestAnimationFrame(render);

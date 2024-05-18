@@ -1,4 +1,4 @@
-import SaveLoad from "../save_load/saveload.js";
+import SaveLoad from "../saveLoad/SaveLoad.js";
 import { buildHTML } from "../webutils/treeLoader.js";
 
 try{
@@ -90,8 +90,6 @@ console.log("Menu Dropdown loaded");
 function importShapes(data) {
     var shapes = JSON.parse(data);
     SaveLoad.load(shapes);
-    var container = document.getElementById('container');
-    buildHTML(shapes, container);
 }
 
 

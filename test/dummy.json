@@ -18,41 +18,6 @@
   "children": [
     {
       "geometry": {
-        "width": 10,
-        "height": 10,
-        "depth": 10,
-        "type": "BoxGeometry"
-      },
-      "material": {
-        "color": [
-          1,
-          1,
-          1,
-          1
-        ],
-        "texture": null,
-        "type": "BasicMaterial"
-      },
-      "name": "Light",
-      "position": [
-        20,
-        100,
-        -300
-      ],
-      "rotation": [
-        0,
-        0,
-        0
-      ],
-      "scale": [
-        1,
-        1,
-        1
-      ],
-      "children": []
-    },
-    {
-      "geometry": {
         "width": 1,
         "height": 1,
         "depth": 1,

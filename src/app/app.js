@@ -155,7 +155,7 @@ function __main__(){
   // BUMP
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
-    shininess: 32,
+    shininess: 100,
     ambient: [1, 1, 1, 1],
     diffuse: [1, 1, 1, 1],
     specular: [1, 1, 1, 1],
@@ -185,9 +185,9 @@ function __main__(){
   // OBJECT
   const geometry2 = new BoxGeometry(1, 1, 1);
   const material2 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
+    shininess: 32 ,
+    ambient: [1, 0, 1, 1],
+    diffuse: [1, 1, 1, 0.1],
     specular: [1, 1, 1, 1]
   });
   const mesh2 = new Mesh(geometry2, material2);

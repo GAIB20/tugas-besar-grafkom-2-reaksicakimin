@@ -54,6 +54,8 @@ precision mediump float;
 
 uniform float u_shininess;
 uniform vec3 u_lightPosition;
+uniform vec3 u_lightDirection;
+uniform vec4 u_lightColor;
 uniform vec3 u_cameraPosition;
 uniform vec4 u_ambient;
 uniform vec4 u_diffuse;
@@ -62,21 +64,41 @@ uniform vec4 u_specular;
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
 
+vec4 directionalLight(vec3 normal) {
+  vec4 ambientColor = vec4(u_ambient.rgb * u_ambient.a * u_lightColor.rgb * u_lightColor.a, 1.0) * 0.1;
+  vec3 direction = normalize(u_lightPosition - v_pos);
+  float diff = dot(normal, direction);
+
+  vec4 diffuseColor = vec4(0.0, 0.0, 0.0, 0.0);
+  vec4 specularColor = vec4(0.0, 0.0, 0.0, 0.0);
+
+  if (diff > 0.0) {
+    diffuseColor = vec4(u_diffuse.rgb * u_diffuse.a * u_lightColor.rgb * u_lightColor.a * diff, 1.0) * 0.4;
+    vec3 VertexToEye = normalize(u_cameraPosition - v_pos);
+    vec3 LightReflect = normalize(reflect(direction, normal));
+    float spec = max(dot(VertexToEye, direction), 0.0);
+    if (spec > 0.0) {
+      specularColor = vec4(u_specular.rgb * u_specular.a * u_lightColor.rgb * u_lightColor.a * pow(spec, u_shininess), 1.0) * 0.5;
+    }
+  }
+  return ambientColor + diffuseColor + specularColor;
+  
+}
+
 void main() {
   vec3 N = normalize(v_normal);
   vec3 L = normalize(normalize(u_lightPosition) - v_pos);
   vec3 H = normalize(L + normalize(u_cameraPosition));
+
+  // punya gua
+  vec4 directional = directionalLight(N);
 
   float kDiff = max(dot(L, N), 0.0);
   vec3 diffuse = kDiff * u_diffuse.rgb;
 
   float kSpec = pow(max(dot(N, H), 0.0), u_shininess);
   vec3 specular = kSpec * u_specular.rgb;
-    gl_FragColor = v_color * vec4(
-      0.1 * u_ambient.a * u_ambient.rgb + 
-      u_diffuse.a * diffuse +
-      u_specular.a * specular
-    , 1.0);
+    gl_FragColor = v_color * directional;
 }
 `;
 
@@ -115,6 +137,8 @@ precision mediump float;
 
 uniform float u_shininess;
 uniform vec3 u_lightPosition;
+uniform vec3 u_lightDirection;
+uniform vec4 u_lightColor;
 uniform vec3 u_cameraPosition;
 uniform vec4 u_ambient;
 uniform vec4 u_diffuse;
@@ -159,22 +183,40 @@ vec3 calculateView() {
   return viewDir;
 }
 
+vec4 directionalLight(vec3 normal) {
+  vec4 ambientColor = vec4(u_ambient.rgb * u_ambient.a * u_lightColor.rgb * u_lightColor.a, 1.0);
+  float diff = dot(normal, -u_lightDirection);
+
+  vec4 diffuseColor = vec4(0.0, 0.0, 0.0, 0.0);
+  vec4 specularColor = vec4(0.0, 0.0, 0.0, 0.0);
+
+  if (diff > 0.0) {
+    diffuseColor = vec4(u_diffuse.rgb * u_diffuse.a * u_lightColor.rgb * u_lightColor.a * diff, 1.0);
+    vec3 VertexToEye = normalize(u_lightPosition - v_pos);
+    vec3 LightReflect = normalize(reflect(u_lightDirection, normal));
+    float spec = max(dot(VertexToEye, LightReflect), 0.0);
+    if (spec > 0.0) {
+      specularColor = vec4(u_specular.rgb * u_specular.a * u_lightColor.rgb * u_lightColor.a * pow(spec, u_shininess), 1.0);
+    }
+  }
+  return ambientColor + diffuseColor + specularColor;
+  
+}
 void main() {
   if (u_textureOption == 0) {
   vec3 N = normalize(v_normal);
   vec3 L = normalize(normalize(u_lightPosition) - v_pos);
   vec3 H = normalize(L + normalize(u_cameraPosition));
 
+  // punya gua
+  vec4 directional = directionalLight(N);
+
   float kDiff = max(dot(L, N), 0.0);
   vec3 diffuse = kDiff * u_diffuse.rgb;
 
   float kSpec = pow(max(dot(N, H), 0.0), u_shininess);
   vec3 specular = kSpec * u_specular.rgb;
-    gl_FragColor = v_color * vec4(
-      0.1 * u_ambient.a * u_ambient.rgb + 
-      u_diffuse.a * diffuse +
-      u_specular.a * specular
-    , 1.0);
+    gl_FragColor = v_color * directional;
   } else if (u_textureOption == 1) {
     vec3 N = CalcBumbNormal();
     vec3 N2 = normalize(v_normal);
@@ -188,7 +230,7 @@ void main() {
     vec3 specular = kSpec * u_specular.rgb;
     vec4 color = texture2D(u_sampler, v_textureCoord);
     gl_FragColor =  color * vec4(
-      0.1 * u_ambient.a * u_ambient.rgb + 
+      0.1 * u_ambient.rgb * u_ambient.a + 
       u_diffuse.a * diffuse +
       u_specular.a * specular
     , 1.0);

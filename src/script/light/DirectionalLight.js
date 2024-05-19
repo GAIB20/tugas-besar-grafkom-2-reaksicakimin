@@ -3,12 +3,9 @@ import Vector3 from "../math/Vector3.js";
 
 class DirectionalLight extends Light {
   constructor(position = new Vector3(20, 100, 300), color = [1, 1, 1, 1], intensity = 1.0, direction = new Vector3(20, 100, 300)) {
-    super({
-      color: color,
-      intensity: intensity,
-    });
-
+    super(color, intensity);
     this._direction = direction;
+
     this._position = position;
   }
 

@@ -5,8 +5,7 @@ import { ShaderType } from './Types.js';
 import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from './Shaders.js';
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
-
-
+import DirectionalLight from '../light/DirectionalLight.js';
 
 
 class WebGLRenderer {
@@ -97,7 +96,12 @@ class WebGLRenderer {
     const defaultUniform = {
       cameraPosition: camera.worldPosition,
       viewMatrix: camera.viewProjectionMatrix,
-      lightPosition: light.position,
+    }
+
+    if (light instanceof DirectionalLight) {
+      defaultUniform.lightPosition = light.position;
+      defaultUniform.lightDirection = light._direction;
+      defaultUniform.lightColor = light._color;
     }
     
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);

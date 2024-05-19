@@ -77,11 +77,11 @@ class CameraControls {
   handleRadiusInput(event) {
     const value = parseFloat(event.target.value);
     if (this._camera instanceof PerspectiveCamera) {
-      this._camera._position._z = this.initPositionZ + value/10;
+      this._camera._position._z = this.initPositionZ - value/10;
       const radiusSlider = document.getElementById("camera-radius-slider");
       radiusSlider.value = value;
     } else {
-      this._camera._zoom = this.initZoom - value/70;
+      this._camera._zoom = this.initZoom + value;
       const radiusSlider = document.getElementById("camera-radius-slider");
       radiusSlider.value = value;
     }
@@ -91,11 +91,11 @@ class CameraControls {
   handleRadiusSlider(event) {
     const value = parseFloat(event.target.value);
     if (this._camera instanceof PerspectiveCamera) {
-      this._camera._position._z = this.initPositionZ + value/10;
+      this._camera._position._z = this.initPositionZ - value/10;
       const radiusInput = document.getElementById("camera-radius-input");
       radiusInput.value = value;
     } else {
-      this._camera._zoom = this.initZoom - value/70;
+      this._camera._zoom = this.initZoom + value;
       const radiusInput = document.getElementById("camera-radius-input");
       radiusInput.value = value;
     }

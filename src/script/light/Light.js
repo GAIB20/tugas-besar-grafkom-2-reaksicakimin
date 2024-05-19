@@ -1,11 +1,10 @@
 import Object3D from "../objects/Object3D.js";
 
 class Light extends Object3D {
-  constructor(uniforms) {
+  constructor(color, intensity) {
     super();
-    this._uniforms = uniforms;
-    this._color = this._uniforms['color'];
-    this._intensity = this._uniforms['intensity'];
+    this._color = color;
+    this._intensity = intensity;
   }
 
   // Public getter

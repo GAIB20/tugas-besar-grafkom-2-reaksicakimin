@@ -157,10 +157,17 @@ function __main__(){
   const material = new PhongMaterial({
     shininess: 100,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    textureOption: 1,
-    texture: texture
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: texture
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: texture
+    },
+    displacement: texture,
+    normal: texture,
+    textureOption: 1
   });
   const mesh = new Mesh(geometry, material);
   mesh._name = "Object"
@@ -172,63 +179,104 @@ function __main__(){
   const material1 = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    textureOption: 1,
-    texture: texture1
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: texture1
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: texture1
+    },
+    displacement: texture1,
+    normal: texture1,
+    textureOption: 1  
   });
   const mesh1 = new Mesh(geometry1, material1);
   mesh1._name = "Object1"
   mesh1._position._x = -1.2;
   scene.add(mesh1);
 
-  // OBJECT
-  const geometry2 = new BoxGeometry(1, 1, 1);
-  const material2 = new PhongMaterial({
-    shininess: 32 ,
-    ambient: [1, 0, 1, 1],
-    diffuse: [1, 1, 1, 0.1],
-    specular: [1, 1, 1, 1]
-  });
-  const mesh2 = new Mesh(geometry2, material2);
-  mesh2._position._x = 1.2;
-  mesh2._name = "Object2"
-  mesh.add(mesh2);
+  // // OBJECT
+  // const geometry2 = new BoxGeometry(1, 1, 1);
+  // const material2 = new PhongMaterial({
+  //   shininess: 32 ,
+  //   ambient: [1, 0, 1, 1],
+  //   diffuse: {
+  //     color: [1, 0, 1, 1],
+  //     texture: texture1
+  //   },
+  //   specular: {
+  //     color: [1, 0, 1, 1],
+  //     texture: texture1
+  //   },
+  //   displacement: null,
+  //   normal: texture1,
+  //   textureOption: 0
+  // });
+  // const mesh2 = new Mesh(geometry2, material2);
+  // mesh2._position._x = 1.2;
+  // mesh2._name = "Object2"
+  // mesh.add(mesh2);
 
-  // HOLLOW BOX
-  const geometry3 = new HollowBoxGeometry(1, 1, 1);
-  const material3 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1]
-  });
-  const mesh3 = new Mesh(geometry3, material3);
-  mesh3._position._x = -2.4;
-  mesh3._name = "Object3"
-  scene.add(mesh3);
+  // // HOLLOW BOX
+  // const geometry3 = new HollowBoxGeometry(1, 1, 1);
+  // const material3 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   displacement: null,
+  //   normal: texture1,
+  //   textureOption: 0
+  // });
+  // const mesh3 = new Mesh(geometry3, material3);
+  // mesh3._position._x = -2.4;
+  // mesh3._name = "Object3"
+  // scene.add(mesh3);
 
   // HOLLOW PYRAMID
-  const geometry4 = new HollowPyramidGeometry(1, 1, 1);
-  const material4 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1]
-  });
-  const mesh4 = new Mesh(geometry4, material4);
-  mesh4._position._x = 0;
-  mesh4._name = "Object4"
-  scene.add(mesh4);
+  // const geometry4 = new HollowPyramidGeometry(1, 1, 1);
+  // const material4 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   displacement: null,
+  //   normal: texture1,
+  //   textureOption: 0
+  // });
+  // const mesh4 = new Mesh(geometry4, material4);
+  // mesh4._position._x = 0;
+  // mesh4._name = "Object4"
+  // scene.add(mesh4);
 
   // ENVIRONMENT
   const geometry5 = new BoxGeometry(1, 1, 1);
   const material5 = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    texture: texture2,
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: texture2
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: texture2
+    },
+    displacement: texture2,
+    normal: texture2,
     textureOption: 2
   });
   const mesh5 = new Mesh(geometry5, material5);
@@ -236,7 +284,8 @@ function __main__(){
   mesh5._position._x = 0;
   loadTexture(mesh5);
   console.log("MEsh5", mesh5);
-  mesh4.add(mesh5);
+  scene.add(mesh5);
+  // mesh4.add(mesh5); 
 }
 
 

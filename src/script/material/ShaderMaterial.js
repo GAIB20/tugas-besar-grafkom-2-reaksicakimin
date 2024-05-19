@@ -6,7 +6,18 @@ class ShaderMaterial {
   constructor(uniforms) {
     this._fragmentShader = "";
     this._vertexShader = "";
-    this._uniforms = uniforms;
+    this._uniforms = {
+      shininess: uniforms.shininess,
+      ambient: uniforms.ambient,
+      diffuse: uniforms.diffuse.color,
+      specular: uniforms.specular.color,
+      // nanti ganti
+      displacement: uniforms.displacement,
+      normal: uniforms.normal,
+      textureOption: uniforms.textureOption,
+      sampler: uniforms.sampler,
+      samplerCube: uniforms.samplerCube
+    }
     this._id = ShaderMaterial._id++;
   }
 

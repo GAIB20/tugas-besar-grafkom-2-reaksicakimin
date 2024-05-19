@@ -184,19 +184,20 @@ vec3 calculateView() {
 }
 
 vec4 directionalLight(vec3 normal) {
-  vec4 ambientColor = vec4(u_ambient.rgb * u_ambient.a * u_lightColor.rgb * u_lightColor.a, 1.0);
-  float diff = dot(normal, -u_lightDirection);
+  vec4 ambientColor = vec4(u_ambient.rgb * u_ambient.a * u_lightColor.rgb * u_lightColor.a, 1.0) * 0.1;
+  vec3 direction = normalize(u_lightPosition - v_pos);
+  float diff = dot(normal, direction);
 
   vec4 diffuseColor = vec4(0.0, 0.0, 0.0, 0.0);
   vec4 specularColor = vec4(0.0, 0.0, 0.0, 0.0);
 
   if (diff > 0.0) {
-    diffuseColor = vec4(u_diffuse.rgb * u_diffuse.a * u_lightColor.rgb * u_lightColor.a * diff, 1.0);
-    vec3 VertexToEye = normalize(u_lightPosition - v_pos);
-    vec3 LightReflect = normalize(reflect(u_lightDirection, normal));
-    float spec = max(dot(VertexToEye, LightReflect), 0.0);
+    diffuseColor = vec4(u_diffuse.rgb * u_diffuse.a * u_lightColor.rgb * u_lightColor.a * diff, 1.0) * 0.4;
+    vec3 VertexToEye = normalize(u_cameraPosition - v_pos);
+    vec3 LightReflect = normalize(reflect(direction, normal));
+    float spec = max(dot(VertexToEye, direction), 0.0);
     if (spec > 0.0) {
-      specularColor = vec4(u_specular.rgb * u_specular.a * u_lightColor.rgb * u_lightColor.a * pow(spec, u_shininess), 1.0);
+      specularColor = vec4(u_specular.rgb * u_specular.a * u_lightColor.rgb * u_lightColor.a * pow(spec, u_shininess), 1.0) * 0.5;
     }
   }
   return ambientColor + diffuseColor + specularColor;
@@ -223,17 +224,15 @@ void main() {
     vec3 L = calculateLight();
     vec3 H = calculateView();
 
+    vec4 directional = directionalLight(N);
+
     float kDiff = max(dot(L, N), 0.0);
     vec3 diffuse = kDiff * u_diffuse.rgb;
 
     float kSpec = pow(max(dot(N, H), 0.0), u_shininess);
     vec3 specular = kSpec * u_specular.rgb;
     vec4 color = texture2D(u_sampler, v_textureCoord);
-    gl_FragColor =  color * vec4(
-      0.1 * u_ambient.rgb * u_ambient.a + 
-      u_diffuse.a * diffuse +
-      u_specular.a * specular
-    , 1.0);
+    gl_FragColor =  color * directional;
   } else if (u_textureOption == 2) {
     vec3 N = normalize(v_normal);
     vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);

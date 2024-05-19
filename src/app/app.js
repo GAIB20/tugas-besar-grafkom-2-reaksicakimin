@@ -53,13 +53,12 @@ const projectionType = document.getElementById("projection-type");
         0.01, 
         9999
       );
-      camera._position._z = 5;
     } else if (value === "orthographic") {
       camera = new OrthographicCamera(
         -canvas.clientWidth/380,
         canvas.clientWidth/380,
-        canvas.clientHeight/380,
         -canvas.clientHeight/380,
+        canvas.clientHeight/380,
         -1000,
         1000
       )
@@ -67,14 +66,15 @@ const projectionType = document.getElementById("projection-type");
       camera = new ObliqueCamera(
         -canvas.clientWidth/380,
         canvas.clientWidth/380,
-        canvas.clientHeight/380,
         -canvas.clientHeight/380,
+        canvas.clientHeight/380,
         -1000,
         1000,
         90,
         90
       )
     }
+    camera._position._z = 5;
     control = new CameraControls(camera, canvas);
   });
   

@@ -12,8 +12,6 @@ import PhongMaterial from '../material/PhongMaterial.js';
 class WebGLRenderer {
   constructor(canvas) {
     this._canvas = canvas;
-    this._canvas.width = window.innerWidth;
-    this._canvas.height = window.innerHeight;
     
     this._gl = canvas.getContext('webgl');
     this._shaderCache = {};
@@ -21,9 +19,11 @@ class WebGLRenderer {
 
     this.setViewport();
     
-    // this.adjustCanvas();
-    // const ro = new ResizeObserver(this.adjustCanvas.bind(this));
-    // ro.observe(this._canvas, {box: 'content-box'});
+    this.adjustCanvas();
+    window.addEventListener('resize', () => {
+      this.setViewport();
+      this.adjustCanvas();
+    });
   }
     
   setViewport() {
@@ -31,12 +31,18 @@ class WebGLRenderer {
   }
 
   adjustCanvas() {
+    const canvas = this._canvas;
     const dpr = window.devicePixelRatio || 1;
     const rect = canvas.getBoundingClientRect();
     const width = rect.width * dpr;
     const height = rect.height * dpr;
     
     if (canvas.width !== width || canvas.height !== height) {
+      const resize = new CustomEvent('resize', {
+        detail: { width, height }
+      });
+      document.dispatchEvent(resize);
+
       canvas.width = width;
       canvas.height = height;
       this._gl.viewport(0, 0, width, height);

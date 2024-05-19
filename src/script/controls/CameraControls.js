@@ -1,4 +1,6 @@
 import PerspectiveCamera from "../camera/PerspectiveCamera.js";
+import OrthographicCamera from "../camera/OrthographicCamera.js";
+import ObliqueCamera from "../camera/ObliqueCamera.js";
 
 class CameraControls {
   constructor(camera, canvas, target=null) {
@@ -46,6 +48,24 @@ class CameraControls {
         radiusInput.value = 0;
       }
       this._center.setRotation(0, 0, 0);
+      this._camera.computeProjectionMatrix();
+    });
+
+    document.addEventListener('resize', (resize) => {
+      if (this._camera instanceof PerspectiveCamera) {
+        this._camera._aspect = this._canvas.clientWidth / this._canvas.clientHeight;
+      } else if (this._camera instanceof OrthographicCamera) {
+        this._camera._left = -this._canvas.clientWidth/380;
+        this._camera._right = this._canvas.clientWidth/380;
+        this._camera._bottom = -this._canvas.clientHeight/380;
+        this._camera._top = this._canvas.clientHeight/380;
+      } else if (this._camera instanceof ObliqueCamera) {
+        this._camera._left = -this._canvas.clientWidth/380;
+        this._camera._right = this._canvas.clientWidth/380;
+        this._camera._bottom = -this._canvas.clientHeight/380;
+        this._camera._top = this._canvas.clientHeight/380;
+      }
+      
       this._camera.computeProjectionMatrix();
     });
 

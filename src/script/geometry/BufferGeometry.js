@@ -65,7 +65,6 @@ class BufferGeometry {
 			normal.set(i + 1, res);
 			normal.set(i + 2, res);
 		}
-		console.log("normal", normal);
 		this.setAttribute('normal', normal);
 	}
 
@@ -108,10 +107,6 @@ class BufferGeometry {
 			deltaV1 = uvC._y - uvB._y;
 			deltaU2 = uvB._x - uvA._x;
 			deltaV2 = uvB._y - uvA._y;
-			console.log("deltaU1", deltaU1)
-			console.log("deltaV1", deltaV1)
-			console.log("deltaU2", deltaU2)
-			console.log("deltaV2", deltaV2)
 
 			let f = 1.0 / (deltaU1 * deltaV2 - deltaU2 * deltaV1);
 			if (f == Infinity || f == -Infinity || isNaN(f)) f = 0;
@@ -135,8 +130,6 @@ class BufferGeometry {
 			bitangent.set(i + 1, bitangent1.toArray());
 			bitangent.set(i + 2, bitangent1.toArray());
 		}
-		console.log(tangent);
-		console.log(bitangent);
 		this.setAttribute('tangent', tangent);
 		this.setAttribute('bitangent', bitangent);
 	}

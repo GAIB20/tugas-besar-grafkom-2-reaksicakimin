@@ -15,11 +15,11 @@
   border-right: solid 1px var(--tertiary-color);
 }
 
-#others-container::-webkit-scrollbar {
+#others-bar-container::-webkit-scrollbar {
   width: 6px;
 }
 
-#others-container::-webkit-scrollbar-thumb {
+#others-bar-container::-webkit-scrollbar-thumb {
   background-color: var(--tertiary-color);
   border-radius: 5px;
 }

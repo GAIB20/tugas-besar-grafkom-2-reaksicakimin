@@ -18,6 +18,7 @@ import Vector3 from "../script/math/Vector3.js";
 import ObjectControls from "../script/controls/ObjectControls.js";
 import LightControls from "../script/controls/LightControls.js";
 import DirectionalLight from "../script/light/DirectionalLight.js";
+import Object3D from "../script/objects/Object3D.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -40,7 +41,9 @@ let camera = new PerspectiveCamera(
   9999
 );
 camera._position._z = 5;
-let control = new CameraControls(camera, canvas);
+let center = new Object3D();
+center.add(camera);
+let control = new CameraControls(camera, canvas, center);
 
 // Camera projection type listener
 const projectionType = document.getElementById("projection-type");
@@ -75,7 +78,9 @@ const projectionType = document.getElementById("projection-type");
       )
     }
     camera._position._z = 5;
-    control = new CameraControls(camera, canvas);
+    center = new Object3D();
+    center.add(camera);
+    control = new CameraControls(camera, canvas, center);
   });
   
 // Create a mesh

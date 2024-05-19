@@ -19,9 +19,9 @@ class Matrix4 extends Matrix {
 
   static getTranslation(m, v=null) {
     if (!v) v = new Vector3;
-    v._x = m.get(0, 3);
-    v._y = m.get(1, 3);
-    v._z = m.get(2, 3);
+    v._x = m.get(3, 0);
+    v._y = m.get(3, 1);
+    v._z = m.get(3, 2);
     return v;
   }
 

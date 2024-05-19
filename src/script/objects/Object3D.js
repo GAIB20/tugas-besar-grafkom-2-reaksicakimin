@@ -42,7 +42,7 @@ class Object3D {
     const rotationMatrix = Matrix4.rotation(...this._rotation.toArray());
     const scaleMatrix = Matrix4.scale(...this._scale.toArray());
 
-    this._localMatrix = translationMatrix.mul(rotationMatrix).mul(scaleMatrix);
+    this._localMatrix = translationMatrix.premul(rotationMatrix).premul(scaleMatrix);
   }
 
   // Compute world matrix

@@ -101,7 +101,7 @@ varying highp vec2 v_textureCoord;
 void main() {
   gl_Position = u_viewMatrix * u_worldMatrix * a_position;
 
-  v_pos = vec3(u_viewMatrix * u_worldMatrix * a_position);
+  v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
   v_tangent = mat3(u_worldMatrix) * a_tangent;
   v_color = mix(vec4(1,1,1,1), a_color, float(u_useVertexColor));
@@ -194,7 +194,7 @@ void main() {
     , 1.0);
   } else if (u_textureOption == 2) {
     vec3 N = normalize(v_normal);
-    vec3 D = reflect(normalize(v_pos), N);
+    vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);
     gl_FragColor = textureCube(u_samplerCube, D);
   }
 }

@@ -8,7 +8,7 @@ class CameraControls {
     this._readyToMove = false
     this._readyToRotate = false
     this._canvas = canvas;
-    this._center = this._camera;
+    this._center = target;
     
     this.init();
     this.addEventListener();

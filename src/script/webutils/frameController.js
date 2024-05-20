@@ -49,9 +49,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (interval === null) {
       interval = setInterval(() => {
         if (isReversed) {
-          currentFrame--;
+          subtractFrame();
         } else {
-          currentFrame++;
+          addFrame();
         }
   
         if (!isAutoReplay) {
@@ -61,9 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         } else {
           if (currentFrame < 1) {
-            currentFrame = totalFrames;
+            resetFrame(totalFrames);
           } else if (currentFrame > totalFrames) {
-            currentFrame = 1;
+            resetFrame(1);
           }
         }
   
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-prev').addEventListener('click', () => {
     if (currentFrame > 1) {
-      currentFrame--;
+      subtractFrame();
       updateFrameIndicator();
       updateButtons();
     }
@@ -96,20 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-next').addEventListener('click', () => {
     if (currentFrame < totalFrames) {
-      currentFrame++;
+      addFrame();
       updateFrameIndicator();
       updateButtons();
     }
   });
 
   document.getElementById('frame-first').addEventListener('click', () => {
-    currentFrame = 1;
+    resetFrame(1);
     updateFrameIndicator();
     updateButtons();
   });
 
   document.getElementById('frame-last').addEventListener('click', () => {
-    currentFrame = totalFrames;
+    resetFrame(totalFrames);
     updateFrameIndicator();
     updateButtons();
   });
@@ -136,4 +136,23 @@ document.addEventListener('DOMContentLoaded', () => {
       autoReplayButton.style.color = 'var(--text-color)';
     }
   });
+  
+  function onChangeFrame(){
+    // TODO: setiap frame change maka load
+  }
+
+  function addFrame(){
+    currentFrame++;
+    onChangeFrame();
+  }
+
+  function subtractFrame(){
+    currentFrame--;
+    onChangeFrame();
+  }
+
+  function resetFrame(frameNum){
+    currentFrame = frameNum;
+    onChangeFrame();
+  }
 });

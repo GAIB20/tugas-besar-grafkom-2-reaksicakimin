@@ -7,17 +7,17 @@ class ShaderMaterial {
     this._fragmentShader = "";
     this._vertexShader = "";
     this._uniforms = {
-      // shininess: uniforms.shininess,
-      // ambient: uniforms.ambient,
-      // diffuse: uniforms.diffuse.color,
-      // specular: uniforms.specular.color,
-      // // nanti ganti
-      // textureOption: uniforms.textureOption,
-      // normalMap: uniforms.normalMap,
-      // displacementMap: uniforms.displacementMap,
-      // diffuseMap: uniforms.diffuseMap,
-      // specularMap: uniforms.specularMap,
-      color: uniforms.color,
+      shininess: uniforms.shininess,
+      ambient: uniforms.ambient,
+      diffuse: uniforms.diffuse.color,
+      specular: uniforms.specular.color,
+      // nanti ganti
+      textureOption: uniforms.textureOption,
+      normalMap: uniforms.normalMap,
+      displacementMap: uniforms.displacementMap,
+      diffuseMap: uniforms.diffuseMap,
+      specularMap: uniforms.specularMap,
+      // color: uniforms.color,
     }
     console.log(this._uniforms);
     this._id = ShaderMaterial._id++;

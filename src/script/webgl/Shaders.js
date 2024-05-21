@@ -51,7 +51,7 @@ void main() {
   float displaceBias = 0.0;
 
   displace.xyz += (displaceFactor * disp - displaceBias) * a_normal;
-  gl_Position = u_worldMatrix * u_viewMatrix * a_position;
+  gl_Position = u_viewMatrix * u_worldMatrix * a_position;
 
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
@@ -87,44 +87,47 @@ varying vec3 v_tangent, v_bitangent;
 varying highp vec2 v_textureCoord;
 
 mat3 transpose(in mat3 inMatrix)
-      {
-          vec3 i0 = inMatrix[0];
-          vec3 i1 = inMatrix[1];
-          vec3 i2 = inMatrix[2];
+{
+  vec3 i0 = inMatrix[0];
+  vec3 i1 = inMatrix[1];
+  vec3 i2 = inMatrix[2];
 
-          mat3 outMatrix = mat3(
-              vec3(i0.x, i1.x, i2.x),
-              vec3(i0.y, i1.y, i2.y),
-              vec3(i0.z, i1.z, i2.z)
-          );
+  mat3 outMatrix = mat3(
+    vec3(i0.x, i1.x, i2.x),
+    vec3(i0.y, i1.y, i2.y),
+    vec3(i0.z, i1.z, i2.z)
+  );
 
-          return outMatrix;
-      }
+  return outMatrix;
+}
 
 void main() {
   if (u_textureOption == 1) {
-    // vec3 T = normalize(v_tangent);
-    // vec3 N = normalize(v_normal);
-    // vec3 B = normalize(v_bitangent);
-    // vec3 normal = normalize(texture2D(u_normalMap, v_textureCoord).rgb * 2.0 - 1.0);
-    // mat3 TBN = transpose(mat3(T, B, N));
-    // vec3 lightDir = TBN * normalize(u_lightPosition - v_pos);
-    // vec3 viewDir = TBN * normalize(u_cameraPosition - v_pos);
+    vec3 T = normalize(v_tangent);
+    vec3 N = normalize(v_normal);
+    vec3 B = normalize(v_bitangent);
+    vec3 normal = normalize(texture2D(u_normalMap, v_textureCoord).rgb * 2.0 - 1.0);
+    mat3 TBN = mat3(T, B, N);
+    normal = normalize(TBN * normal);
+    
+    vec3 lightDir = normalize(u_lightPosition - v_pos);
+    vec3 viewDir = normalize(u_cameraPosition - v_pos);
 
-    // vec3 ambient = u_ambient.rgb * 0.4;
-    // vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
-    // float diffFactor = max(dot(diff, lightDir), 0.0);
-    // diffFactor = min(diffFactor, 1.1);
-    // vec3 diffuse = u_diffuse.rgb * diffFactor ;
-    // float spec = texture2D(u_specularMap, v_textureCoord).r;
-    // vec3 r = reflect(-lightDir, normal);
-    // vec3 specular = u_specular.rgb * u_lightColor.rgb * spec * pow(dot(r, viewDir), u_shininess);
+    vec3 ambient = u_ambient.rgb * 0.5;
+    vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
+    float diffFactor = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = u_diffuse.rgb * diffFactor;
     
-    // gl_FragColor = vec4(ambient + diffuse + specular , 1.0) * vec4(diff, 1.0);
-    gl_FragColor = texture2D(u_diffuseMap, v_textureCoord);
+    float spec = texture2D(u_specularMap, v_textureCoord).r;
+    vec3 r = reflect(-lightDir, normal);
+    float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
+    vec3 specular = u_specular.rgb * u_lightColor.rgb * spec * specFactor;
     
+    vec4 finalColor = vec4(ambient + diffuse + specular, 1.0) * vec4(diff, 1.0);
+    gl_FragColor = finalColor;
   }
 }
+
 `;
 
 export { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong };

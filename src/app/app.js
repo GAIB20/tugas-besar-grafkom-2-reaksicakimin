@@ -162,35 +162,35 @@ function __main__(){
   // texture.load(webgl._gl);
   // texture1.load(webgl._gl);
   // texture2.load(webgl._gl);
-  // // BUMP
-  // const geometry = new BoxGeometry(1, 1, 1);
-  // const material = new PhongMaterial({
-  //   shininess: 32,
-  //   ambient: [1, 1, 1, 1],
-  //   diffuse: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture._diffuseTexture
-  //   },
-  //   specular: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture._specularTexture
-  //   },
-  //   displacement: texture._bumpTexture,
-  //   normal: texture._normalTexture,
-  //   textureOption: 1
-  // });
-  // const mesh = new Mesh(geometry, material);
-  // mesh._name = "Object"
+  // BUMP
+  const geometry = new BoxGeometry(1, 1, 1);
+  const material = new PhongMaterial({
+    shininess: 32,
+    ambient: [1, 1, 1, 1],
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: texture._diffuseTexture
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: texture._specularTexture
+    },
+    displacement: texture._bumpTexture,
+    normal: texture._normalTexture,
+    textureOption: 1
+  });
+  const mesh = new Mesh(geometry, material);
+  mesh._name = "Object"
   // mesh._rotation._x = 45;
-  // console.log("Mesh", mesh);
-  // // mesh._position._x = 1.2;
-  // scene.add(mesh);
+  console.log("Mesh", mesh);
+  // mesh._position._x = 1.2;
+  scene.add(mesh);
 
-  const geometry1 = new BoxGeometry(1, 1, 1);
-  const material1 = new BasicMaterial([1, 0, 0, 1]);
-  const mesh1 = new Mesh(geometry1, material1);
-  mesh1._name = "Object1"
-  scene.add(mesh1);
+  // const geometry1 = new BoxGeometry(1, 1, 1);
+  // const material1 = new BasicMaterial([1, 0, 0, 1]);
+  // const mesh1 = new Mesh(geometry1, material1);
+  // mesh1._name = "Object1"
+  // scene.add(mesh1);
 
   // // WOOD
   // const geometry1 = new BoxGeometry(1, 1, 1);

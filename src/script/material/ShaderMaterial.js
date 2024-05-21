@@ -6,22 +6,26 @@ class ShaderMaterial {
   constructor(uniforms) {
     this._fragmentShader = "";
     this._vertexShader = "";
-    this._uniforms = {
-      shininess: uniforms.shininess,
-      ambient: uniforms.ambient,
-      diffuse: uniforms.diffuse.color,
-      specular: uniforms.specular.color,
-      // nanti ganti
-      textureOption: uniforms.textureOption,
-      normalMap: uniforms.normalMap,
-      displacementMap: uniforms.displacementMap,
-      diffuseMap: uniforms.diffuseMap,
-      specularMap: uniforms.specularMap,
-      environmentMap: uniforms.environmentMap,
-      // color: uniforms.color,
-    }
-    console.log(this._uniforms);
     this._id = ShaderMaterial._id++;
+
+    if (this.constructor.name === 'BasicMaterial') {
+      this._uniforms = {
+        color: uniforms.color,
+      };
+    } else if (this.constructor.name === 'PhongMaterial') {
+      this._uniforms = {
+        shininess: uniforms.shininess,
+        ambient: uniforms.ambient,
+        diffuse: uniforms.diffuse.color,
+        specular: uniforms.specular.color,
+        textureOption: uniforms.textureOption,
+        normalMap: uniforms.normalMap,
+        displacementMap: uniforms.displacementMap,
+        diffuseMap: uniforms.diffuseMap,
+        specularMap: uniforms.specularMap,
+        environmentMap: uniforms.environmentMap,
+      };
+    }
   }
 
   // Public getter

@@ -52,6 +52,8 @@ void main() {
 
   displace.xyz += (displaceFactor * disp + displaceBias) * a_normal;
   
+  // NANTI JANLUP DIUNCOMMENT
+  // gl_Position = u_viewMatrix * u_worldMatrix * displace;
   gl_Position = u_viewMatrix * u_worldMatrix * a_position;
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;

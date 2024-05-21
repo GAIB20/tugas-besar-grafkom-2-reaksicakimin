@@ -127,9 +127,7 @@ function __main__(){
     ]
   );
   texture.load(webgl._gl);
-  console.log("Texture", texture);
-  // const texture1 = new BumpTexture('../../test/texture/bumped.png');
-  // const texture1 = new BumpTexture('../../test/texture/wood.png');
+
   const texture2 = new EnvironmentTexture(
     [
       {src: '../../test/texture/pos-x.jpg',
@@ -158,11 +156,9 @@ function __main__(){
       }
     ]
   )
-
-  // texture.load(webgl._gl);
-  // texture1.load(webgl._gl);
   texture2.load(webgl._gl);
-  // BUMP
+
+  // CONCRETE
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
     shininess: 32,
@@ -181,9 +177,7 @@ function __main__(){
   });
   const mesh = new Mesh(geometry, material);
   mesh._name = "Object"
-  // mesh._rotation._x = 45;
   console.log("Mesh", mesh);
-  // mesh._position._x = 1.2;
   scene.add(mesh);
 
   // ENVIRONMENT
@@ -210,7 +204,7 @@ function __main__(){
   mesh1._position._x = -1.2;
   scene.add(mesh1);
 
-  // // BASIC
+  // BASIC
   const geometry2 = new BoxGeometry(1, 1, 1);
   const material2 = new PhongMaterial({
     shininess: 32,
@@ -230,130 +224,38 @@ function __main__(){
   });
   const mesh2 = new Mesh(geometry2, material2);
   mesh2._name = "Object2"
-  // // mesh._rotation._x = 45;
-  // console.log("Mesh", mesh);
   mesh2._position._x = 1.2;
   scene.add(mesh2);
 
   
-  // const geometry3 = new BoxGeometry(1, 1, 1);
-  // const material3 = new BasicMaterial([1, 0, 0, 1]);
-  // const mesh3 = new Mesh(geometry3, material3);
-  // mesh3._name = "Object3"
-  // scene.add(mesh3);
+  const geometry3 = new BoxGeometry(1, 1, 1);
+  const material3 = new BasicMaterial([1, 1, 1, 1]);
+  const mesh3 = new Mesh(geometry3, material3);
+  mesh3._name = "Object3"
+  mesh3._position._x = -2.4;
+  scene.add(mesh3);
 
-  // // WOOD
-  // const geometry1 = new BoxGeometry(1, 1, 1);
-  // const material1 = new PhongMaterial({
-  //   shininess: 32,
-  //   ambient: [1, 1, 1, 1],
-  //   diffuse: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture1
-  //   },
-  //   specular: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture1
-  //   },
-  //   displacement: texture1,
-  //   normal: texture1,
-  //   textureOption: 1  
-  // });
-  // const mesh1 = new Mesh(geometry1, material1);
-  // mesh1._name = "Object1"
-  // mesh1._position._x = -1.2;
-  // scene.add(mesh1);
-
-  // // OBJECT
-  // const geometry2 = new BoxGeometry(1, 1, 1);
-  // const material2 = new PhongMaterial({
-  //   shininess: 32 ,
-  //   ambient: [1, 0, 1, 1],
-  //   diffuse: {
-  //     color: [1, 0, 1, 1],
-  //     texture: texture1
-  //   },
-  //   specular: {
-  //     color: [1, 0, 1, 1],
-  //     texture: texture1
-  //   },
-  //   displacement: null,
-  //   normal: texture1,
-  //   textureOption: 0
-  // });
-  // const mesh2 = new Mesh(geometry2, material2);
-  // mesh2._position._x = 1.2;
-  // mesh2._name = "Object2"
-  // mesh.add(mesh2);
-
-  // // HOLLOW BOX
-  // const geometry3 = new HollowBoxGeometry(1, 1, 1);
-  // const material3 = new PhongMaterial({
-  //   shininess: 32,
-  //   ambient: [1, 1, 1, 1],
-  //   diffuse: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture1
-  //   },
-  //   specular: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture1
-  //   },
-  //   displacement: null,
-  //   normal: texture1,
-  //   textureOption: 0
-  // });
-  // const mesh3 = new Mesh(geometry3, material3);
-  // mesh3._position._x = -2.4;
-  // mesh3._name = "Object3"
-  // scene.add(mesh3);
-
-  // HOLLOW PYRAMID
-  // const geometry4 = new HollowPyramidGeometry(1, 1, 1);
+  // HOLLOW BOX (MASIH EROR KALO DI RUN)
+  // const geometry4 = new HollowBoxGeometry(1, 1, 1);
   // const material4 = new PhongMaterial({
   //   shininess: 32,
   //   ambient: [1, 1, 1, 1],
   //   diffuse: {
   //     color: [1, 1, 1, 1],
-  //     texture: texture1
+  //     texture: null
   //   },
   //   specular: {
   //     color: [1, 1, 1, 1],
-  //     texture: texture1
+  //     texture: null
   //   },
   //   displacement: null,
-  //   normal: texture1,
+  //   normal: null,
   //   textureOption: 0
   // });
   // const mesh4 = new Mesh(geometry4, material4);
-  // mesh4._position._x = 0;
+  // mesh4._position._x = 2.4;
   // mesh4._name = "Object4"
   // scene.add(mesh4);
-
-  // ENVIRONMENT
-  // const geometry5 = new BoxGeometry(1, 1, 1);
-  // const material5 = new PhongMaterial({
-  //   shininess: 32,
-  //   ambient: [1, 1, 1, 1],
-  //   diffuse: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture2
-  //   },
-  //   specular: {
-  //     color: [1, 1, 1, 1],
-  //     texture: texture2
-  //   },
-  //   displacement: texture2,
-  //   normal: texture2,
-  //   textureOption: 2
-  // });
-  // const mesh5 = new Mesh(geometry5, material5);
-  // mesh5._name = "Object5"
-  // mesh5._position._x = 0;
-  // loadTexture(mesh5);
-  // console.log("MEsh5", mesh5);
-  // scene.add(mesh5);
-  // mesh4.add(mesh5); 
 }
 
 

@@ -12,6 +12,7 @@ import CameraControls from "../script/controls/CameraControls.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
 import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
+import NormalTexture from "../script/texture/NormalTexture.js";
 import BumpTexture from "../script/texture/BumpTexture.js";
 import EnvironmentTexture from "../script/texture/EnvironmentTexture.js";
 import Vector3 from "../script/math/Vector3.js";
@@ -117,8 +118,16 @@ export function getWebGL() {
 
 // TEXTURE
 function __main__(){
-  const texture = new BumpTexture('../../test/texture/bumped.png');
-  const texture1 = new BumpTexture('../../test/texture/wood.png');
+  const texture = new NormalTexture(
+    [
+      "../../test/texture/concrete/Normal.jpg",
+      "../../test/texture/concrete/Bump.png", 
+      "../../test/texture/concrete/Diffuse.jpg", 
+      "../../test/texture/concrete/Specular.jpg"
+    ]
+  );
+  texture.load(webgl._gl);
+
   const texture2 = new EnvironmentTexture(
     [
       {src: '../../test/texture/pos-x.jpg',
@@ -147,96 +156,106 @@ function __main__(){
       }
     ]
   )
-
-  texture.load(webgl._gl);
-  texture1.load(webgl._gl);
   texture2.load(webgl._gl);
 
-  // BUMP
+  // CONCRETE
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    textureOption: 1,
-    texture: texture
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: texture._diffuseTexture
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: texture._specularTexture
+    },
+    displacement: texture._bumpTexture,
+    normal: texture._normalTexture,
+    textureOption: 1
   });
   const mesh = new Mesh(geometry, material);
   mesh._name = "Object"
-  mesh._position._x = 1.2;
+  console.log("Mesh", mesh);
   scene.add(mesh);
 
-  // WOOD
+  // ENVIRONMENT
   const geometry1 = new BoxGeometry(1, 1, 1);
   const material1 = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    textureOption: 1,
-    texture: texture1
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    displacement: null,
+    normal: null,
+    environment: texture2,
+    textureOption: 2
   });
+
   const mesh1 = new Mesh(geometry1, material1);
   mesh1._name = "Object1"
   mesh1._position._x = -1.2;
   scene.add(mesh1);
 
-  // OBJECT
+  // BASIC
   const geometry2 = new BoxGeometry(1, 1, 1);
   const material2 = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1]
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: null,
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    displacement: null,
+    normal: null,
+
+    textureOption: 0
   });
   const mesh2 = new Mesh(geometry2, material2);
-  mesh2._position._x = 1.2;
   mesh2._name = "Object2"
-  mesh.add(mesh2);
+  mesh2._position._x = 1.2;
+  scene.add(mesh2);
 
-  // HOLLOW BOX
-  const geometry3 = new HollowBoxGeometry(1, 1, 1);
-  const material3 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1]
-  });
+  
+  const geometry3 = new BoxGeometry(1, 1, 1);
+  const material3 = new BasicMaterial([1, 1, 1, 1]);
   const mesh3 = new Mesh(geometry3, material3);
-  mesh3._position._x = -2.4;
   mesh3._name = "Object3"
+  mesh3._position._x = -2.4;
   scene.add(mesh3);
 
-  // HOLLOW PYRAMID
-  const geometry4 = new HollowPyramidGeometry(1, 1, 1);
-  const material4 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1]
-  });
-  const mesh4 = new Mesh(geometry4, material4);
-  mesh4._position._x = 0;
-  mesh4._name = "Object4"
-  scene.add(mesh4);
-
-  // ENVIRONMENT
-  const geometry5 = new BoxGeometry(1, 1, 1);
-  const material5 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: [1, 1, 1, 1],
-    specular: [1, 1, 1, 1],
-    texture: texture2,
-    textureOption: 2
-  });
-  const mesh5 = new Mesh(geometry5, material5);
-  mesh5._name = "Object5"
-  mesh5._position._x = 0;
-  loadTexture(mesh5);
-  console.log("MEsh5", mesh5);
-  mesh4.add(mesh5);
+  // HOLLOW BOX (MASIH EROR KALO DI RUN)
+  // const geometry4 = new HollowBoxGeometry(1, 1, 1);
+  // const material4 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   displacement: null,
+  //   normal: null,
+  //   textureOption: 0
+  // });
+  // const mesh4 = new Mesh(geometry4, material4);
+  // mesh4._position._x = 2.4;
+  // mesh4._name = "Object4"
+  // scene.add(mesh4);
 }
 
 

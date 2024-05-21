@@ -2,7 +2,7 @@ import Mesh from '../objects/Mesh.js';
 import ShaderMaterial from '../material/ShaderMaterial.js';
 import WebGLUtils from './WebGLUtils.js';
 import { ShaderType } from './Types.js';
-import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from './Shaders.js';
+import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong } from './Shaders.js';
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 import DirectionalLight from '../light/DirectionalLight.js';
@@ -57,13 +57,8 @@ class WebGLRenderer {
         vertexShaderSource = vertexShaderSourceBasic;
         fragmentShaderSource = fragmentShaderSourceBasic;
       } else if (material instanceof PhongMaterial) {
-        if (material._texture) {
-          vertexShaderSource = vertexShaderSourcePhongTexture;
-          fragmentShaderSource = fragmentShaderSourcePhongTexture;
-        } else {
-          vertexShaderSource = vertexShaderSourcePhong;
-          fragmentShaderSource = fragmentShaderSourcePhong;
-        }
+        vertexShaderSource = vertexShaderSourcePhong;
+        fragmentShaderSource = fragmentShaderSourcePhong;
       }
 
       if (!this._shaderCache[progId]) {
@@ -107,15 +102,20 @@ class WebGLRenderer {
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
     const setTexture= (object) => {
-      if (object._material instanceof PhongMaterial && object._material._texture) {
-        const texture = object._material._texture;
-        if (object._material._textureOption == 2) {
-          gl.activeTexture(gl.TEXTURE1);
-          gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture._texture);
-        }
-        else if (object._material._textureOption == 1) {
+      if (object._material instanceof PhongMaterial && object._material._displacement) {
+        if (object._material._textureOption === 1) {
           gl.activeTexture(gl.TEXTURE0);
-          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._normal);
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._displacement);
+          gl.activeTexture(gl.TEXTURE2);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._diffuse.texture);
+          gl.activeTexture(gl.TEXTURE3);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._specular.texture);
+        }
+        if (object._material._textureOption === 0) {
+          gl.activeTexture(gl.TEXTURE4);
+          gl.bindTexture(gl.TEXTURE_CUBE_MAP, object._material._environment);
         }
       }
     }
@@ -139,7 +139,7 @@ class WebGLRenderer {
 
       }
 
-      object.children.forEach(child => setTexture(child));
+      // object.children.forEach(child => setTexture(child));
       object.children.forEach(child => renderObject(child, uniforms));
     };
 

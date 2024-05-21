@@ -1,6 +1,6 @@
 import ShaderMaterial from './ShaderMaterial.js';
 import Vector3 from '../math/Vector3.js';
-import { vertexShaderSourcePhong, fragmentShaderSourcePhong, vertexShaderSourcePhongTexture, fragmentShaderSourcePhongTexture } from '../webgl/Shaders.js';
+import { vertexShaderSourcePhong, fragmentShaderSourcePhong  } from '../webgl/Shaders.js';
 import Texture from '../texture/Texture.js';
 import Mesh from '../objects/Mesh.js';
 import BumpTexture from '../texture/BumpTexture.js';
@@ -9,22 +9,50 @@ import WebGLRenderer from '../webgl/WebGLRenderer.js';
 
 class PhongMaterial extends ShaderMaterial {
   constructor(options={}) {
-    const { shininess = 32, ambient = [1, 1, 1, 1], diffuse = [1, 1, 1, 1], specular = [1, 1, 1, 1], texture = null, textureOption = 0} = options;
-    const sampler = texture ? 0 : null;
-    const samplerCube = texture ? 1 : null;
-    // console.log(samplerCube); 
-    const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
-    const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
+    const { 
+      shininess = 32, 
+      ambient = [1, 1, 1, 1], 
+      diffuse = {
+        color: [1, 1, 1, 1], 
+        texture: null
+      },
+      specular = {
+        color: [1, 1, 1, 1],
+        texture: null
+      },
+      displacement = null,
+      normal = null,
+      environment = null,
+      textureOption = 0
+    } = options;
 
-    super({shininess: shininess, ambient: ambient, diffuse: diffuse, specular: specular, textureOption: textureOption, sampler: sampler, samplerCube: samplerCube});
+    const normalMap = 0;
+    const displacementMap = 1;
+    const diffuseMap = 2;
+    const specularMap = 3;
+    const environmentMap = 4;
+
+    // const sampler = 0;
+    // const samplerCube = 1;
+
+    // const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
+    // const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
+    const vertexShaderSource = vertexShaderSourcePhong;
+    const fragmentShaderSource = fragmentShaderSourcePhong;
+
+    super({shininess: shininess, ambient: ambient, diffuse: diffuse, specular: specular, displacement: displacement, normal: normal, environment: environment, textureOption: textureOption, normalMap: normalMap, displacementMap: displacementMap, diffuseMap: diffuseMap, specularMap: specularMap, environmentMap: environmentMap});
     this._shininess = shininess;
     this._ambient = ambient;
     this._diffuse = diffuse;
     this._specular = specular;
+    this._displacement = displacement;
+    this._normal = normal;
     this._textureOption = textureOption;
-    this._sampler = sampler;
-    this._samplerCube = samplerCube;
-    this._texture = texture;
+    this._normalMap = normalMap;
+    this._displacementMap = displacementMap;
+    this._diffuseMap = diffuseMap;
+    this._specularMap = specularMap;
+    this._environmentMap = environmentMap;
 
     this._vertexShader = vertexShaderSource;
     this._fragmentShader = fragmentShaderSource;
@@ -35,7 +63,6 @@ class PhongMaterial extends ShaderMaterial {
   get diffuse() { return this._diffuse; }
   get specular() { return this._specular; }
   get shininess() { return this._shininess; }
-  get lightPosition() { return this._lightPosition; }
   get texture() { return this._texture; }
 
   // Public setters
@@ -43,7 +70,6 @@ class PhongMaterial extends ShaderMaterial {
   set diffuse(diffuse) { this._diffuse = diffuse; }
   set specular(specular) { this._specular = specular; }
   set shininess(shininess) { this._shininess = shininess; }
-  set lightPosition(lightPosition) { this._lightPosition = lightPosition; }
   set texture(texture) { this._texture = texture; }
 
   // JSON parser
@@ -53,7 +79,6 @@ class PhongMaterial extends ShaderMaterial {
       diffuse: this.diffuse,
       specular: this.specular,
       shininess: this.shininess,
-      lightPosition: this.lightPosition.toJSON(),
       texture: this.texture ? this.texture.toJSON() : null,
       textureOption: this._textureOption,
       type: "PhongMaterial",
@@ -80,7 +105,6 @@ class PhongMaterial extends ShaderMaterial {
     }
     const material = new PhongMaterial({
       shininess: json.shininess, 
-      lightPosition: Vector3.fromJSON(json.lightPosition), 
       ambient: json.ambient, 
       diffuse: json.diffuse, 
       specular: json.specular, 

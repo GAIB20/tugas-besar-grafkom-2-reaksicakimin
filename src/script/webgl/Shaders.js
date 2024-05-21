@@ -112,7 +112,7 @@ void main() {
 
     vec3 ambient = u_ambient.rgb * 0.1;
     float diffFactor = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = u_diffuse.rgb * diffFactor;
+    vec3 diffuse = u_lightColor.rgb * u_diffuse.rgb * diffFactor;
 
     vec3 r = reflect(-lightDir, normal);
     float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);

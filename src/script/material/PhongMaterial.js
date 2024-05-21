@@ -32,11 +32,6 @@ class PhongMaterial extends ShaderMaterial {
     const specularMap = 3;
     const environmentMap = 4;
 
-    // const sampler = 0;
-    // const samplerCube = 1;
-
-    // const vertexShaderSource = texture ? vertexShaderSourcePhongTexture : vertexShaderSourcePhong;
-    // const fragmentShaderSource = texture ? fragmentShaderSourcePhongTexture : fragmentShaderSourcePhong;
     const vertexShaderSource = vertexShaderSourcePhong;
     const fragmentShaderSource = fragmentShaderSourcePhong;
 

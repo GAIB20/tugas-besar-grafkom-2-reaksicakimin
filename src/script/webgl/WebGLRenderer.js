@@ -87,18 +87,11 @@ class WebGLRenderer {
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);
 
-    const light = scene.getObjectByName("Light");
     const defaultUniform = {
       cameraPosition: camera.worldPosition,
       viewMatrix: camera.viewProjectionMatrix,
     }
 
-    if (light instanceof DirectionalLight) {
-      defaultUniform.lightPosition = light.position;
-      defaultUniform.lightDirection = light._direction;
-      defaultUniform.lightColor = light._color;
-    }
-    
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
     const setTexture= (object) => {
@@ -121,6 +114,7 @@ class WebGLRenderer {
     }
 
     const renderObject = (object, uniforms) => {
+      const light = scene.getObjectByName("Light");
       if (!object.visible) return;
       object.computeWorldMatrix(false, true);
       if (object instanceof Mesh && object._geometry._attributes.position) {
@@ -130,6 +124,7 @@ class WebGLRenderer {
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         setTexture(object);
         WebGLUtils.setUniforms(info, {
+          ...light._uniforms,
           ...object._material._uniforms,
           ...uniforms,
           worldMatrix: object._worldMatrix,

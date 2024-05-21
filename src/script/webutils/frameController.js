@@ -139,6 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function onChangeFrame(){
     // TODO: setiap frame change maka load
+    // var translate = vec3
+    // var rotate = vec3
+    // var scale = vec3
+    console.log(currentFrame)
   }
 
   function addFrame(){

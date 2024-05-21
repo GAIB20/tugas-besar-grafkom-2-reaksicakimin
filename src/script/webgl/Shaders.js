@@ -50,11 +50,11 @@ void main() {
   float displaceFactor = 0.1;
   float displaceBias = 0.0;
 
+  displace.xyz += (displaceFactor * disp + displaceBias) * a_normal;
   
+  gl_Position = u_viewMatrix * u_worldMatrix * a_position;
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
-  displace.xyz += (displaceFactor * disp - displaceBias) * v_normal;
-  gl_Position = u_viewMatrix * u_worldMatrix * displace;
   v_tangent = mat3(u_worldMatrix) * a_tangent;
   v_color = mix(vec4(1,1,1,1), a_color, float(u_useVertexColor));
   v_textureCoord = a_textureCoord;
@@ -79,6 +79,7 @@ uniform sampler2D u_normalMap;
 uniform sampler2D u_displacementMap;
 uniform sampler2D u_diffuseMap;
 uniform sampler2D u_specularMap;
+uniform samplerCube u_environmentMap;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
@@ -102,6 +103,22 @@ mat3 transpose(in mat3 inMatrix)
 }
 
 void main() {
+  if (u_textureOption == 0) {
+    vec3 normal = normalize(v_normal);
+    vec3 lightDir = normalize(u_lightPosition - v_pos);
+    vec3 viewDir = normalize(u_cameraPosition - v_pos);
+
+    vec3 ambient = u_ambient.rgb * 0.1;
+    float diffFactor = max(dot(normal, lightDir), 0.0);
+    vec3 diffuse = u_diffuse.rgb * diffFactor;
+
+    vec3 r = reflect(-lightDir, normal);
+    float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
+    vec3 specular = u_specular.rgb * u_lightColor.rgb * specFactor;
+
+    vec4 finalColor = vec4( (diffuse + specular) + ambient, 1.0) * v_color;
+    gl_FragColor = finalColor;
+  }
   if (u_textureOption == 1) {
     vec3 T = normalize(v_tangent);
     vec3 N = normalize(v_normal);
@@ -113,7 +130,7 @@ void main() {
     vec3 lightDir = normalize(u_lightPosition - v_pos);
     vec3 viewDir = normalize(u_cameraPosition - v_pos);
 
-    vec3 ambient = u_ambient.rgb * 0.5;
+    vec3 ambient = u_ambient.rgb * 0.1;
     vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
     // float diffFactor = max(dot(normal, lightDir), 0.0);
     // vec3 diffuse = u_diffuse.rgb * diffFactor;
@@ -129,6 +146,11 @@ void main() {
     
     vec4 finalColor = vec4( (diffuse * diffuseBump + specular) + ambient, 1.0) * vec4(diff, 1.0);
     gl_FragColor = finalColor;
+  }
+  if (u_textureOption == 2) {
+    vec3 N = normalize(v_normal);
+    vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);
+    gl_FragColor = textureCube(u_environmentMap, D);
   }
 }
 

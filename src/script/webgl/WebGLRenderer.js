@@ -113,6 +113,10 @@ class WebGLRenderer {
           gl.activeTexture(gl.TEXTURE3);
           gl.bindTexture(gl.TEXTURE_2D, object._material._specular.texture);
         }
+        if (object._material._textureOption === 0) {
+          gl.activeTexture(gl.TEXTURE4);
+          gl.bindTexture(gl.TEXTURE_CUBE_MAP, object._material._environment);
+        }
       }
     }
 

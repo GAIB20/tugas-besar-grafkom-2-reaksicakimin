@@ -130,38 +130,38 @@ function __main__(){
   console.log("Texture", texture);
   // const texture1 = new BumpTexture('../../test/texture/bumped.png');
   // const texture1 = new BumpTexture('../../test/texture/wood.png');
-  // const texture2 = new EnvironmentTexture(
-  //   [
-  //     {src: '../../test/texture/pos-x.jpg',
-  //       width: 512,
-  //       height: 512
-  //     },
-  //     {src: '../../test/texture/neg-x.jpg',
-  //       width: 512,
-  //       height: 512
-  //     },
-  //     {src: '../../test/texture/pos-y.jpg',
-  //       width: 512,
-  //       height: 512
-  //     },
-  //     {src: '../../test/texture/neg-y.jpg',
-  //       width: 512,
-  //       height: 512
-  //     },
-  //     {src: '../../test/texture/pos-z.jpg',
-  //       width: 512,
-  //       height: 512
-  //     },
-  //     {src: '../../test/texture/neg-z.jpg',
-  //       width: 512,
-  //       height: 512
-  //     }
-  //   ]
-  // )
+  const texture2 = new EnvironmentTexture(
+    [
+      {src: '../../test/texture/pos-x.jpg',
+        width: 512,
+        height: 512
+      },
+      {src: '../../test/texture/neg-x.jpg',
+        width: 512,
+        height: 512
+      },
+      {src: '../../test/texture/pos-y.jpg',
+        width: 512,
+        height: 512
+      },
+      {src: '../../test/texture/neg-y.jpg',
+        width: 512,
+        height: 512
+      },
+      {src: '../../test/texture/pos-z.jpg',
+        width: 512,
+        height: 512
+      },
+      {src: '../../test/texture/neg-z.jpg',
+        width: 512,
+        height: 512
+      }
+    ]
+  )
 
   // texture.load(webgl._gl);
   // texture1.load(webgl._gl);
-  // texture2.load(webgl._gl);
+  texture2.load(webgl._gl);
   // BUMP
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
@@ -186,11 +186,61 @@ function __main__(){
   // mesh._position._x = 1.2;
   scene.add(mesh);
 
-  // const geometry1 = new BoxGeometry(1, 1, 1);
-  // const material1 = new BasicMaterial([1, 0, 0, 1]);
-  // const mesh1 = new Mesh(geometry1, material1);
-  // mesh1._name = "Object1"
-  // scene.add(mesh1);
+  // ENVIRONMENT
+  const geometry1 = new BoxGeometry(1, 1, 1);
+  const material1 = new PhongMaterial({
+    shininess: 32,
+    ambient: [1, 1, 1, 1],
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    displacement: null,
+    normal: null,
+    environment: texture2,
+    textureOption: 2
+  });
+
+  const mesh1 = new Mesh(geometry1, material1);
+  mesh1._name = "Object1"
+  mesh1._position._x = -1.2;
+  scene.add(mesh1);
+
+  // // BASIC
+  const geometry2 = new BoxGeometry(1, 1, 1);
+  const material2 = new PhongMaterial({
+    shininess: 32,
+    ambient: [1, 1, 1, 1],
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: null,
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    displacement: null,
+    normal: null,
+
+    textureOption: 0
+  });
+  const mesh2 = new Mesh(geometry2, material2);
+  mesh2._name = "Object2"
+  // // mesh._rotation._x = 45;
+  // console.log("Mesh", mesh);
+  mesh2._position._x = 1.2;
+  scene.add(mesh2);
+
+  
+  // const geometry3 = new BoxGeometry(1, 1, 1);
+  // const material3 = new BasicMaterial([1, 0, 0, 1]);
+  // const mesh3 = new Mesh(geometry3, material3);
+  // mesh3._name = "Object3"
+  // scene.add(mesh3);
 
   // // WOOD
   // const geometry1 = new BoxGeometry(1, 1, 1);

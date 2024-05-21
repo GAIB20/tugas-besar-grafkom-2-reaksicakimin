@@ -17,6 +17,7 @@ class ShaderMaterial {
       displacementMap: uniforms.displacementMap,
       diffuseMap: uniforms.diffuseMap,
       specularMap: uniforms.specularMap,
+      environmentMap: uniforms.environmentMap,
       // color: uniforms.color,
     }
     console.log(this._uniforms);

@@ -37,6 +37,7 @@ uniform mat4 u_worldMatrix;
 uniform mat4 u_viewMatrix;
 uniform vec2 u_resolution;
 uniform bool u_useVertexColor;
+uniform sampler2D u_displacementMap;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
@@ -44,7 +45,13 @@ varying vec3 v_tangent, v_bitangent;
 varying highp vec2 v_textureCoord;
 
 void main() {
-  gl_Position = u_viewMatrix * u_worldMatrix * a_position;
+  float disp = texture2D(u_displacementMap, a_textureCoord).r;
+  vec4 displace = a_position;
+  float displaceFactor = 0.1;
+  float displaceBias = 0.0;
+
+  displace.xyz += (displaceFactor * disp - displaceBias) * a_normal;
+  gl_Position = u_worldMatrix * u_viewMatrix * a_position;
 
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
@@ -67,8 +74,11 @@ uniform vec4 u_ambient;
 uniform vec4 u_diffuse;
 uniform vec4 u_specular;
 uniform int u_textureOption;
-uniform sampler2D u_sampler;
-uniform samplerCube u_samplerCube;
+
+uniform sampler2D u_normalMap;
+uniform sampler2D u_displacementMap;
+uniform sampler2D u_diffuseMap;
+uniform sampler2D u_specularMap;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
@@ -76,90 +86,43 @@ varying vec3 v_tangent, v_bitangent;
 
 varying highp vec2 v_textureCoord;
 
-vec3 CalcBumbNormal() {
-  vec3 N = normalize(v_normal);
-  vec3 T = normalize(v_tangent);
-  vec3 B = normalize(v_bitangent);
-  vec3 N_bump = texture2D(u_sampler, v_textureCoord).rbg * 2.0 - 1.0;
-  mat3 TBN = mat3(T, B, N);
-  return normalize(TBN * N_bump);
-}
+mat3 transpose(in mat3 inMatrix)
+      {
+          vec3 i0 = inMatrix[0];
+          vec3 i1 = inMatrix[1];
+          vec3 i2 = inMatrix[2];
 
-vec3 calculateLight() {
-  vec3 N = normalize(v_normal);
-  vec3 T = normalize(v_tangent);
-  vec3 B = normalize(v_bitangent);
-  mat3 TBN = mat3(T, B, N);
-  vec3 lightPos1 = u_lightPosition * TBN;
-  vec3 ts_pos = v_pos * TBN;
-  vec3 lightDir = normalize(lightPos1 - ts_pos);
-  return lightDir;
-}
-vec3 calculateView() {
-  vec3 N = normalize(v_normal);
-  vec3 T = normalize(v_tangent);
-  vec3 B = normalize(v_bitangent);
-  mat3 TBN = mat3(T, B, N);
-  vec3 viewPos = u_cameraPosition * TBN;
-  vec3 ts_pos = v_pos * TBN;
-  vec3 viewDir = normalize(viewPos - ts_pos);
-  return viewDir;
-}
+          mat3 outMatrix = mat3(
+              vec3(i0.x, i1.x, i2.x),
+              vec3(i0.y, i1.y, i2.y),
+              vec3(i0.z, i1.z, i2.z)
+          );
 
-vec4 directionalLight(vec3 normal) {
-  vec4 ambientColor = vec4(u_ambient.rgb * u_ambient.a * u_lightColor.rgb * u_lightColor.a, 1.0) * 0.1;
-  vec3 direction = normalize(u_lightPosition - v_pos);
-  float diff = dot(normal, direction);
+          return outMatrix;
+      }
 
-  vec4 diffuseColor = vec4(0.0, 0.0, 0.0, 0.0);
-  vec4 specularColor = vec4(0.0, 0.0, 0.0, 0.0);
-
-  if (diff > 0.0) {
-    diffuseColor = vec4(u_diffuse.rgb * u_diffuse.a * u_lightColor.rgb * u_lightColor.a * diff, 1.0) * 0.4;
-    vec3 VertexToEye = normalize(u_cameraPosition - v_pos);
-    vec3 LightReflect = normalize(reflect(direction, normal));
-    float spec = max(dot(VertexToEye, direction), 0.0);
-    if (spec > 0.0) {
-      specularColor = vec4(u_specular.rgb * u_specular.a * u_lightColor.rgb * u_lightColor.a * pow(spec, u_shininess), 1.0) * 0.5;
-    }
-  }
-  return ambientColor + diffuseColor + specularColor;
-  
-}
 void main() {
-  if (u_textureOption == 0) {
-  vec3 N = normalize(v_normal);
-  vec3 L = normalize(normalize(u_lightPosition) - v_pos);
-  vec3 H = normalize(L + normalize(u_cameraPosition));
+  if (u_textureOption == 1) {
+    // vec3 T = normalize(v_tangent);
+    // vec3 N = normalize(v_normal);
+    // vec3 B = normalize(v_bitangent);
+    // vec3 normal = normalize(texture2D(u_normalMap, v_textureCoord).rgb * 2.0 - 1.0);
+    // mat3 TBN = transpose(mat3(T, B, N));
+    // vec3 lightDir = TBN * normalize(u_lightPosition - v_pos);
+    // vec3 viewDir = TBN * normalize(u_cameraPosition - v_pos);
 
-  // punya gua
-  vec4 directional = directionalLight(N);
-
-  float kDiff = max(dot(L, N), 0.0);
-  vec3 diffuse = kDiff * u_diffuse.rgb;
-
-  float kSpec = pow(max(dot(N, H), 0.0), u_shininess);
-  vec3 specular = kSpec * u_specular.rgb;
-    gl_FragColor = v_color * directional;
-  } else if (u_textureOption == 1) {
-    vec3 N = CalcBumbNormal();
-    vec3 N2 = normalize(v_normal);
-    vec3 L = calculateLight();
-    vec3 H = calculateView();
-
-    vec4 directional = directionalLight(N);
-
-    float kDiff = max(dot(L, N), 0.0);
-    vec3 diffuse = kDiff * u_diffuse.rgb;
-
-    float kSpec = pow(max(dot(N, H), 0.0), u_shininess);
-    vec3 specular = kSpec * u_specular.rgb;
-    vec4 color = texture2D(u_sampler, v_textureCoord);
-    gl_FragColor =  color * directional;
-  } else if (u_textureOption == 2) {
-    vec3 N = normalize(v_normal);
-    vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);
-    gl_FragColor = textureCube(u_samplerCube, D);
+    // vec3 ambient = u_ambient.rgb * 0.4;
+    // vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
+    // float diffFactor = max(dot(diff, lightDir), 0.0);
+    // diffFactor = min(diffFactor, 1.1);
+    // vec3 diffuse = u_diffuse.rgb * diffFactor ;
+    // float spec = texture2D(u_specularMap, v_textureCoord).r;
+    // vec3 r = reflect(-lightDir, normal);
+    // vec3 specular = u_specular.rgb * u_lightColor.rgb * spec * pow(dot(r, viewDir), u_shininess);
+    
+    // gl_FragColor = vec4(ambient + diffuse + specular , 1.0) * vec4(diff, 1.0);
+    gl_FragColor = texture2D(u_diffuseMap, v_textureCoord);
+    
   }
 }
 `;

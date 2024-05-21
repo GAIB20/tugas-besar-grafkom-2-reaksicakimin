@@ -25,8 +25,11 @@ class PhongMaterial extends ShaderMaterial {
       textureOption = 0
     } = options;
 
-    const sampler = displacement ? 0 : null;
-    const samplerCube = displacement ? 1 : null;
+    const normalMap = 0;
+    const displacementMap = 1;
+    const diffuseMap = 2;
+    const specularMap = 3;
+
     // const sampler = 0;
     // const samplerCube = 1;
 
@@ -35,7 +38,7 @@ class PhongMaterial extends ShaderMaterial {
     const vertexShaderSource = vertexShaderSourcePhong;
     const fragmentShaderSource = fragmentShaderSourcePhong;
 
-    super({shininess: shininess, ambient: ambient, diffuse: diffuse, specular: specular, displacement: displacement, normal: normal, textureOption: textureOption, sampler: sampler, samplerCube: samplerCube});
+    super({shininess: shininess, ambient: ambient, diffuse: diffuse, specular: specular, displacement: displacement, normal: normal, textureOption: textureOption, normalMap: normalMap, displacementMap: displacementMap, diffuseMap: diffuseMap, specularMap: specularMap});
     this._shininess = shininess;
     this._ambient = ambient;
     this._diffuse = diffuse;
@@ -43,8 +46,10 @@ class PhongMaterial extends ShaderMaterial {
     this._displacement = displacement;
     this._normal = normal;
     this._textureOption = textureOption;
-    this._sampler = sampler;
-    this._samplerCube = samplerCube;
+    this._normalMap = normalMap;
+    this._displacementMap = displacementMap;
+    this._diffuseMap = diffuseMap;
+    this._specularMap = specularMap;
 
     this._vertexShader = vertexShaderSource;
     this._fragmentShader = fragmentShaderSource;

@@ -103,14 +103,15 @@ class WebGLRenderer {
 
     const setTexture= (object) => {
       if (object._material instanceof PhongMaterial && object._material._displacement) {
-        const texture = object._material._displacement;
-        if (object._material._textureOption == 2) {
-          gl.activeTexture(gl.TEXTURE1);
-          gl.bindTexture(gl.TEXTURE_CUBE_MAP, texture._texture);
-        }
-        else if (object._material._textureOption == 1) {
+        if (object._material._textureOption === 1) {
           gl.activeTexture(gl.TEXTURE0);
-          gl.bindTexture(gl.TEXTURE_2D, texture._texture);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._normal);
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._displacement);
+          gl.activeTexture(gl.TEXTURE2);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._diffuse.texture);
+          gl.activeTexture(gl.TEXTURE3);
+          gl.bindTexture(gl.TEXTURE_2D, object._material._specular.texture);
         }
       }
     }
@@ -134,7 +135,7 @@ class WebGLRenderer {
 
       }
 
-      object.children.forEach(child => setTexture(child));
+      // object.children.forEach(child => setTexture(child));
       object.children.forEach(child => renderObject(child, uniforms));
     };
 

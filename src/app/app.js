@@ -12,6 +12,7 @@ import CameraControls from "../script/controls/CameraControls.js"
 import HollowBoxGeometry from "../script/geometry/HollowBoxGeometry.js";
 import HollowPyramidGeometry from "../script/geometry/HollowPyramidGeometry.js";
 import HollowRingGeometry from "../script/geometry/HollowRingGeometry.js";
+import NormalTexture from "../script/texture/NormalTexture.js";
 import BumpTexture from "../script/texture/BumpTexture.js";
 import EnvironmentTexture from "../script/texture/EnvironmentTexture.js";
 import Vector3 from "../script/math/Vector3.js";
@@ -117,84 +118,101 @@ export function getWebGL() {
 
 // TEXTURE
 function __main__(){
-  const texture = new BumpTexture('../../test/texture/bumped.png');
-  const texture1 = new BumpTexture('../../test/texture/wood.png');
-  const texture2 = new EnvironmentTexture(
+  const texture = new NormalTexture(
     [
-      {src: '../../test/texture/pos-x.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-x.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/pos-y.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-y.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/pos-z.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-z.jpg',
-        width: 512,
-        height: 512
-      }
+      "../../test/texture/concrete/Normal.jpg",
+      "../../test/texture/concrete/Bump.png", 
+      "../../test/texture/concrete/Diffuse.jpg", 
+      "../../test/texture/concrete/Specular.jpg"
     ]
-  )
-
+  );
   texture.load(webgl._gl);
-  texture1.load(webgl._gl);
-  texture2.load(webgl._gl);
+  console.log("Texture", texture);
+  // const texture1 = new BumpTexture('../../test/texture/bumped.png');
+  // const texture1 = new BumpTexture('../../test/texture/wood.png');
+  // const texture2 = new EnvironmentTexture(
+  //   [
+  //     {src: '../../test/texture/pos-x.jpg',
+  //       width: 512,
+  //       height: 512
+  //     },
+  //     {src: '../../test/texture/neg-x.jpg',
+  //       width: 512,
+  //       height: 512
+  //     },
+  //     {src: '../../test/texture/pos-y.jpg',
+  //       width: 512,
+  //       height: 512
+  //     },
+  //     {src: '../../test/texture/neg-y.jpg',
+  //       width: 512,
+  //       height: 512
+  //     },
+  //     {src: '../../test/texture/pos-z.jpg',
+  //       width: 512,
+  //       height: 512
+  //     },
+  //     {src: '../../test/texture/neg-z.jpg',
+  //       width: 512,
+  //       height: 512
+  //     }
+  //   ]
+  // )
 
-  // BUMP
-  const geometry = new BoxGeometry(1, 1, 1);
-  const material = new PhongMaterial({
-    shininess: 100,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: texture
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: texture
-    },
-    displacement: texture,
-    normal: texture,
-    textureOption: 1
-  });
-  const mesh = new Mesh(geometry, material);
-  mesh._name = "Object"
-  mesh._position._x = 1.2;
-  scene.add(mesh);
+  // texture.load(webgl._gl);
+  // texture1.load(webgl._gl);
+  // texture2.load(webgl._gl);
+  // // BUMP
+  // const geometry = new BoxGeometry(1, 1, 1);
+  // const material = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture._diffuseTexture
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture._specularTexture
+  //   },
+  //   displacement: texture._bumpTexture,
+  //   normal: texture._normalTexture,
+  //   textureOption: 1
+  // });
+  // const mesh = new Mesh(geometry, material);
+  // mesh._name = "Object"
+  // mesh._rotation._x = 45;
+  // console.log("Mesh", mesh);
+  // // mesh._position._x = 1.2;
+  // scene.add(mesh);
 
-  // WOOD
   const geometry1 = new BoxGeometry(1, 1, 1);
-  const material1 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: texture1
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: texture1
-    },
-    displacement: texture1,
-    normal: texture1,
-    textureOption: 1  
-  });
+  const material1 = new BasicMaterial([1, 0, 0, 1]);
   const mesh1 = new Mesh(geometry1, material1);
   mesh1._name = "Object1"
-  mesh1._position._x = -1.2;
   scene.add(mesh1);
+
+  // // WOOD
+  // const geometry1 = new BoxGeometry(1, 1, 1);
+  // const material1 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture1
+  //   },
+  //   displacement: texture1,
+  //   normal: texture1,
+  //   textureOption: 1  
+  // });
+  // const mesh1 = new Mesh(geometry1, material1);
+  // mesh1._name = "Object1"
+  // mesh1._position._x = -1.2;
+  // scene.add(mesh1);
 
   // // OBJECT
   // const geometry2 = new BoxGeometry(1, 1, 1);
@@ -263,28 +281,28 @@ function __main__(){
   // scene.add(mesh4);
 
   // ENVIRONMENT
-  const geometry5 = new BoxGeometry(1, 1, 1);
-  const material5 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: texture2
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: texture2
-    },
-    displacement: texture2,
-    normal: texture2,
-    textureOption: 2
-  });
-  const mesh5 = new Mesh(geometry5, material5);
-  mesh5._name = "Object5"
-  mesh5._position._x = 0;
-  loadTexture(mesh5);
-  console.log("MEsh5", mesh5);
-  scene.add(mesh5);
+  // const geometry5 = new BoxGeometry(1, 1, 1);
+  // const material5 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture2
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: texture2
+  //   },
+  //   displacement: texture2,
+  //   normal: texture2,
+  //   textureOption: 2
+  // });
+  // const mesh5 = new Mesh(geometry5, material5);
+  // mesh5._name = "Object5"
+  // mesh5._position._x = 0;
+  // loadTexture(mesh5);
+  // console.log("MEsh5", mesh5);
+  // scene.add(mesh5);
   // mesh4.add(mesh5); 
 }
 

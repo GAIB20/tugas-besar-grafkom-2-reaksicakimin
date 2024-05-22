@@ -19,6 +19,7 @@ import Vector3 from "../script/math/Vector3.js";
 import ObjectControls from "../script/controls/ObjectControls.js";
 import LightControls from "../script/controls/LightControls.js";
 import DirectionalLight from "../script/light/DirectionalLight.js";
+import MaterialControls from "../script/controls/MaterialControls.js";
 import Object3D from "../script/objects/Object3D.js";
 
 const canvas = document.querySelector('canvas');
@@ -83,6 +84,59 @@ const projectionType = document.getElementById("projection-type");
     center.add(camera);
     control = new CameraControls(camera, canvas, center);
   });
+
+// Textures
+const concreteTexture = new NormalTexture(
+  [
+    "../../test/texture/concrete/Normal.jpg",
+    "../../test/texture/concrete/Bump.png", 
+    "../../test/texture/concrete/Diffuse.jpg", 
+    "../../test/texture/concrete/Specular.jpg"
+  ]
+);
+concreteTexture.load(webgl._gl);
+
+const mudTexture = new NormalTexture(
+  [
+    "../../test/texture/mud/Normal.jpg",
+    "../../test/texture/mud/Bump.png",
+    "../../test/texture/mud/Diffuse.jpg",
+    "../../test/texture/mud/Specular.jpg"
+  ]
+);
+mudTexture.load(webgl._gl);
+
+const environmentTexture = new EnvironmentTexture(
+  [
+    {src: '../../test/texture/pos-x.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-x.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/pos-y.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-y.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/pos-z.jpg',
+      width: 512,
+      height: 512
+    },
+    {src: '../../test/texture/neg-z.jpg',
+      width: 512,
+      height: 512
+    }
+  ]
+)
+environmentTexture.load(webgl._gl);
+
+let textures = [concreteTexture, mudTexture, environmentTexture];
   
 // Create a mesh
 function loadTexture(mesh){
@@ -121,46 +175,6 @@ export function getWebGL() {
 
 // TEXTURE
 function __main__(){
-  const texture = new NormalTexture(
-    [
-      "../../test/texture/concrete/Normal.jpg",
-      "../../test/texture/concrete/Bump.png", 
-      "../../test/texture/concrete/Diffuse.jpg", 
-      "../../test/texture/concrete/Specular.jpg"
-    ]
-  );
-  texture.load(webgl._gl);
-
-  const texture2 = new EnvironmentTexture(
-    [
-      {src: '../../test/texture/pos-x.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-x.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/pos-y.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-y.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/pos-z.jpg',
-        width: 512,
-        height: 512
-      },
-      {src: '../../test/texture/neg-z.jpg',
-        width: 512,
-        height: 512
-      }
-    ]
-  )
-  texture2.load(webgl._gl);
-
   // CONCRETE
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
@@ -168,20 +182,22 @@ function __main__(){
     ambient: [1, 1, 1, 1],
     diffuse: {
       color: [1, 1, 1, 1],
-      texture: texture._diffuseTexture
+      texture: concreteTexture._diffuseTexture
     },
     specular: {
       color: [1, 1, 1, 1],
-      texture: texture._specularTexture
+      texture: concreteTexture._specularTexture
     },
-    displacement: texture._bumpTexture,
-    normal: texture._normalTexture,
-    textureOption: 1
+    displacement: concreteTexture._bumpTexture,
+    normal: concreteTexture._normalTexture,
+    textureOption: 1,
+    textureType: 'concrete'
   });
   const mesh = new Mesh(geometry, material);
   mesh._name = "Object"
   console.log("Mesh", mesh);
   scene.add(mesh);
+
 
   // ENVIRONMENT
   const geometry1 = new BoxGeometry(1, 1, 1);
@@ -198,8 +214,9 @@ function __main__(){
     },
     displacement: null,
     normal: null,
-    environment: texture2,
-    textureOption: 2
+    environment: environmentTexture,
+    textureOption: 2,
+    textureType: 'environment'
   });
 
   const mesh1 = new Mesh(geometry1, material1);
@@ -222,8 +239,8 @@ function __main__(){
     },
     displacement: null,
     normal: null,
-
-    textureOption: 0
+    textureOption: 0,
+    textureType: 'off'
   });
   const mesh2 = new Mesh(geometry2, material2);
   mesh2._name = "Object2"
@@ -269,11 +286,13 @@ __main__()
 // END OF PLAYGROUND
 buildHTML(scene.toJSON(), document.getElementById('container'));
 let objectControls = new ObjectControls(scene);
+let materialControls = new MaterialControls(scene, textures);
   document.getElementById('selected-object').addEventListener('change', function(event) {
     const selectedObjectName = event.target.value;
     const selectedObject = scene.getObjectByName(selectedObjectName);
     if (selectedObject) {
       objectControls.setObject(selectedObject);
+      materialControls.setMaterial(selectedObject._material);
     }
   });
 

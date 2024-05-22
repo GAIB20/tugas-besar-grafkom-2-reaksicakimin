@@ -18,6 +18,9 @@ class ShaderMaterial {
         ambient: uniforms.ambient,
         diffuse: uniforms.diffuse.color,
         specular: uniforms.specular.color,
+        displacemment: uniforms.displacement,
+        normal: uniforms.normal,
+        environment: uniforms.environment,
         textureOption: uniforms.textureOption,
         normalMap: uniforms.normalMap,
         displacementMap: uniforms.displacementMap,
@@ -43,6 +46,31 @@ class ShaderMaterial {
   // Check if two materials are equal
   equals(material) {
     return this.id === material.id;
+  }
+
+  // Update uniforms
+  updateUniforms() {
+    if (this.constructor.name === 'BasicMaterial') {
+      this._uniforms = {
+        color: this._color,
+      }
+    } else if (this.constructor.name === 'PhongMaterial') {
+      this._uniforms = {
+        shininess: this._shininess,
+        ambient: this._ambient,
+        diffuse: this._diffuse.color,
+        specular: this._specular.color,
+        displacemment: this._displacement,
+        normal: this._normal,
+        environment: this._environment,
+        textureOption: this._textureOption,
+        normalMap: this._normalMap,
+        displacementMap: this._displacementMap,
+        diffuseMap: this._diffuseMap,
+        specularMap: this._specularMap,
+        environmentMap: this._environmentMap,
+      };
+    }
   }
 
   

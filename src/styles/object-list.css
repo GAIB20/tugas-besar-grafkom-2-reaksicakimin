@@ -86,13 +86,13 @@
   padding-top: 5px;
 }
 
-#basic-diffuse {
+#basic-ambient {
   background-color: transparent;
   border: none;
   border-radius: 3px;
 }
 
-#phong-diffuse, #phong-specular {
+#phong-ambient, #phong-diffuse, #phong-specular {
   background-color: transparent;
   border: none;
   border-radius: 3px;
@@ -103,6 +103,7 @@
   height: fit-content;
 
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
@@ -114,7 +115,7 @@
   justify-content: space-between;
 }
 
-.material #material-type {
+.material #material-type, #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options {
   display: flex;
   justify-content: center;
   background-color: var(--primary-color);

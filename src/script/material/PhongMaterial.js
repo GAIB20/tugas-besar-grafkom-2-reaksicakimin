@@ -23,7 +23,8 @@ class PhongMaterial extends ShaderMaterial {
       displacement = null,
       normal = null,
       environment = null,
-      textureOption = 0
+      textureOption = 0,
+      textureType = 'off'
     } = options;
 
     const normalMap = 0;
@@ -42,12 +43,14 @@ class PhongMaterial extends ShaderMaterial {
     this._specular = specular;
     this._displacement = displacement;
     this._normal = normal;
+    this._environment = environment;
     this._textureOption = textureOption;
     this._normalMap = normalMap;
     this._displacementMap = displacementMap;
     this._diffuseMap = diffuseMap;
     this._specularMap = specularMap;
     this._environmentMap = environmentMap;
+    this._textureType = textureType;
 
     this._vertexShader = vertexShaderSource;
     this._fragmentShader = fragmentShaderSource;
@@ -58,14 +61,26 @@ class PhongMaterial extends ShaderMaterial {
   get diffuse() { return this._diffuse; }
   get specular() { return this._specular; }
   get shininess() { return this._shininess; }
-  get texture() { return this._texture; }
 
   // Public setters
   set ambient(ambient) { this._ambient = ambient; }
   set diffuse(diffuse) { this._diffuse = diffuse; }
   set specular(specular) { this._specular = specular; }
   set shininess(shininess) { this._shininess = shininess; }
-  set texture(texture) { this._texture = texture; }
+
+  setTextures(texture) {
+    if (texture) {
+      this._diffuse.texture = texture._diffuseTexture;
+      this._specular.texture = texture._specularTexture;
+      this._displacement = texture._bumpTexture;
+      this._normal = texture._normalTexture;
+    } else {
+      this._diffuse.texture = null;
+      this._specular.texture = null;
+      this._displacement = null;
+      this._normal = null;
+    }
+  }
 
   // JSON parser
   toJSON() {
@@ -79,6 +94,7 @@ class PhongMaterial extends ShaderMaterial {
       normal: this.normal,
       environment: this.environment,
       textureOption: this._textureOption,
+      textureType: this._textureType,
       type: "PhongMaterial",
       ...super.toJSON(),
     };
@@ -110,7 +126,8 @@ class PhongMaterial extends ShaderMaterial {
       textureOption: json.textureOption,
       displacement: json.displacement,
       normal: json.normal,
-      environment: json.environment
+      environment: json.environment,
+      textureType: json.textureType
     });  
     super.fromJSON(json, material);
     return material;

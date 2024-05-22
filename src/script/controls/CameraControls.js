@@ -39,7 +39,7 @@ class CameraControls {
         radiusSlider.value = 0;
         const radiusInput = document.getElementById("camera-radius-input");
         radiusInput.value = 0;
-        this._center.setPosition(0, 0, 5);
+        this._center.setPosition(0, 0, 0);
       } else {
         this._camera._zoom = this.initZoom;
         const radiusSlider = document.getElementById("camera-radius-slider");

@@ -3,7 +3,7 @@ import { vertexShaderSourceBasic, fragmentShaderSourceBasic } from "../webgl/Sha
 
 // TODO: not in guidebook yet, modify if necessary
 class BasicMaterial extends ShaderMaterial {
-  constructor(colors=[0, 0, 0, 0]) {
+  constructor(colors=[1, 1, 1, 1]) {
     super({color: colors});
     this._color = colors;
     
@@ -31,7 +31,8 @@ class BasicMaterial extends ShaderMaterial {
 
   static fromJSON(json) {
     const material = new BasicMaterial(json.color);
-    material.color = json.color;
+    material._color = json.color;
+    material._texture = json.texture;
     super.fromJSON(json, material);
 
     return material;

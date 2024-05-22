@@ -124,13 +124,12 @@
     </div>
 
     <!-- Material -->
-    <div class="others-group">
+    <div class="others-group"id="material-group" style="display:none;">
       <label for="material">Material</label>
         <!-- Material type -->
         <div class="material">
           <label for="material-type">Choose Material</label>
           <select id="material-type">
-            <option value="off">Off</option>
             <option value="basic">Basic</option>
             <option value="phong">Phong</option>
           </select>
@@ -138,30 +137,15 @@
 
         <!-- Basic param -->
         <div id="basic-params" class="material" style="display:none;">
-          <!-- Diffuse Color -->
-          <label for="basic-diffuse">Diffuse Color</label>
+          <!-- Ambient Color -->
+          <label for="basic-ambient">Ambient Color</label>
           <div class="color-input">
-            <input type="color" id="basic-diffuse" name="basic-diffuse" value="#e5e5e5">
-            <span id="basic-diffuse-value">#e5e5e5</span>
+            <input type="color" id="basic-ambient" name="basic-ambient" value="#e5e5e5">
           </div>
         </div>
 
         <!-- Phong param -->
         <div id="phong-params" class="material" style="display:none;">
-          <!-- Diffuse Color -->
-          <label for="phong-diffuse">Diffuse Color</label>
-          <div class="color-input">
-            <input type="color" id="phong-diffuse" name="phong-diffuse" value="#e5e5e5">
-            <span id="phong-diffuse-value">#e5e5e5</span>
-          </div>
-          
-          <!-- Specular Color -->
-          <label for="phong-specular">Specular Color</label>
-          <div class="color-input">
-            <input type="color" id="phong-specular" name="phong-specular" value="#ffffff">
-            <span id="phong-specular-value">#ffffff</span>
-          </div>
-
           <!-- Shininess -->
           <label for="shininess">Shininess</label>
           <div class="input">
@@ -170,10 +154,61 @@
             <input type="number" id="shininess-input" class="prop-input" name="shininess-input" min="0" max="100"
               step="1" value="50">
           </div>
+
+          <!-- Ambient -->
+          <label for="phong-ambient">Ambient Color</label>
+          <div class="color-input">
+            <input type="color" id="phong-ambient" name="phong-ambient" value="#e5e5e5">
+          </div>
           
-          <!-- Bump Map -->
-          <label for="bump-map">Bump Map</label>
-          <input type="file" id="bump-map" name="bump-map" accept="image/*">
+          <!-- Diffuse -->
+          <label for="phong-diffuse">Diffuse</label>
+          <div class="input">
+              <input type="color" id="phong-diffuse" name="phong-diffuse" value="#e5e5e5">
+              <select id="texture-diffuse">
+                <option value="off">Texture Off</option>
+                <option value="on">Texture On</option>
+              </select>
+          </div>
+          
+          <!-- Specular -->
+          <label for="phong-specular">Specular</label>
+          <div class="input">
+            <input type="color" id="phong-specular" name="phong-specular" value="#ffffff">
+            <select id="texture-specular">
+              <option value="off">Texture Off</option>
+              <option value="on">Texture On</option>
+            </select>
+          </div>
+
+          <!-- Displacement -->
+          <label for="phong-displacement">Displacement</label>
+          <div class="input">
+            <select id="texture-displacement">
+              <option value="off">Texture Off</option>
+              <option value="on">Texture On</option>
+            </select>
+          </div>
+
+          <!-- Normal -->
+          <label for="phong-normal">Normal</label>
+          <div class="input">
+            <select id="texture-normal">
+              <option value="off">Texture Off</option>
+              <option value="on">Texture On</option>
+            </select>
+          </div>
+
+          <!-- Texture Options -->
+          <label for="texture-options">Texture Options</label>
+          <div class="input">
+            <select id="texture-options">
+              <option value="off">Off</option>
+              <option value="concrete">Concrete</option>
+              <option value="mud">Mud</option>
+              <option value="environment">Enviroment</option>
+            </select>
+          </div>
 
         </div>
 
@@ -221,10 +256,10 @@
           <div class="label-value">
             <label for="translate-x">X</label>
             <div class="input">
-              <input type="range" id="translate-x-slider" class="prop-slider" name="translate-x" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-x-input" class="prop-input" name="translate-x-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-x-slider" class="prop-slider" name="translate-x" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-x-input" class="prop-input" name="translate-x-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
 
@@ -232,10 +267,10 @@
           <div class="label-value">
             <label for="translate-y">Y</label>
             <div class="input">
-              <input type="range" id="translate-y-slider" class="prop-slider" name="translate-y" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-y-input" class="prop-input" name="translate-y-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-y-slider" class="prop-slider" name="translate-y" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-y-input" class="prop-input" name="translate-y-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
 
@@ -243,10 +278,10 @@
           <div class="label-value">
             <label for="translate-z">Z</label>
             <div class="input">
-              <input type="range" id="translate-z-slider" class="prop-slider" name="translate-z" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-z-input" class="prop-input" name="translate-z-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-z-slider" class="prop-slider" name="translate-z" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-z-input" class="prop-input" name="translate-z-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
         </div>
@@ -416,7 +451,6 @@
     <!-- Web utils -->
     <script type="module" src="./script/webutils/menuDropdown.js"></script>
     <script src="./script/webutils/frameController.js"></script>
-    <script src="./script/webutils/materialController.js"></script>
 
     <script type="module" src="./script/webutils/treeLoader.js"></script>
 

@@ -26,6 +26,13 @@ class Mesh extends Object3D {
 
   static fromJSON(json) {
     var geometry;
+    console.log(json)
+    // if(json.children.name == "Light"){
+
+    // }
+    // else{
+      
+    // }
     switch (json.geometry.type) {
       case "BoxGeometry":
         geometry = BoxGeometry.fromJSON(json.geometry);

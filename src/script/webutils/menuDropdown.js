@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     };
                     reader.readAsText(file);
                 };
+                
                 input.click();
 
                 // showLog("Import Shape");
@@ -62,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     };
                     window.showSaveFilePicker(options).then((handle) => {
                         handle.createWritable().then((writable) => {
+                            // Event.event.preventDefault();
                             writable.write(blob).then(() => {
                                 writable.close();
                                 alert('File saved successfully.');

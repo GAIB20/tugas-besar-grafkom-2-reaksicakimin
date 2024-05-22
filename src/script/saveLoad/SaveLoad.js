@@ -1,9 +1,17 @@
 import Mesh from "../objects/Mesh.js";
 import { addMesh, clearShapes, getScene } from "../../app/app.js";
+import Scene from "../objects/Scene.js";
 
 class SaveLoad {
     static load(json){
+        // const meshes = [];
+        // scene.children.forEach(child => {
+        // if (child instanceof Mesh) {
+        //     meshes.push(child);
+        // }
+        // });
         for (var i = 0; i < json.children.length; i++){
+            if(json.children[i].name == "Light") continue;
             var mesh = Mesh.fromJSON(json.children[i]);
             addMesh(mesh);
         }
@@ -15,8 +23,15 @@ class SaveLoad {
     }
 
     static save(){
+        // var scene = new Scene();
+        // var mesh = getScene();
+        // // console.log(scene);
+        // mesh.forEach(element => {
+        //     scene.add(element);
+        // });
         var scene = getScene();
         var json = scene.toJSON();
+        console.log(json);
         return json;
     }
 

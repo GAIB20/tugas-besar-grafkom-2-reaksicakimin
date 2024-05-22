@@ -106,6 +106,9 @@ export function getScene() {
 export function clearShapes() {
   scene = new Scene();
   scene._name = "Scene";
+  const light = new DirectionalLight();
+  light._name = "Light";
+  scene.add(light);
   buildHTML(scene.toJSON(), document.getElementById('container'));
 }
 
@@ -256,6 +259,7 @@ function __main__(){
   // mesh4._position._x = 2.4;
   // mesh4._name = "Object4"
   // scene.add(mesh4);
+  console.log(scene);
 }
 
 

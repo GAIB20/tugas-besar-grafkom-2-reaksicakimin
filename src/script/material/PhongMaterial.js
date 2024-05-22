@@ -70,11 +70,14 @@ class PhongMaterial extends ShaderMaterial {
   // JSON parser
   toJSON() {
     return {
+      shininess: this.shininess,
       ambient: this.ambient,
       diffuse: this.diffuse,
       specular: this.specular,
-      shininess: this.shininess,
       texture: this.texture ? this.texture.toJSON() : null,
+      displacement: this.displacement,
+      normal: this.normal,
+      environment: this.environment,
       textureOption: this._textureOption,
       type: "PhongMaterial",
       ...super.toJSON(),
@@ -104,7 +107,10 @@ class PhongMaterial extends ShaderMaterial {
       diffuse: json.diffuse, 
       specular: json.specular, 
       texture: texture,
-      textureOption: json.textureOption
+      textureOption: json.textureOption,
+      displacement: json.displacement,
+      normal: json.normal,
+      environment: json.environment
     });  
     super.fromJSON(json, material);
     return material;

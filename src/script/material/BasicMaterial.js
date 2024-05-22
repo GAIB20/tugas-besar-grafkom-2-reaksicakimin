@@ -31,7 +31,8 @@ class BasicMaterial extends ShaderMaterial {
 
   static fromJSON(json) {
     const material = new BasicMaterial(json.color);
-    material.color = json.color;
+    material._color = json.color;
+    material._texture = json.texture;
     super.fromJSON(json, material);
 
     return material;

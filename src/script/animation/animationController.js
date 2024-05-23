@@ -1,6 +1,7 @@
 import { getScene } from '../../app/app.js'
 import { AnimationObject } from '../animation/animationObject.js';
 import { Transform } from '../animation/transform.js';
+import { Tween } from '../animation/tween.js';
 
 export default class AnimationController {
     constructor(animations = []) {
@@ -66,14 +67,27 @@ export default class AnimationController {
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
                 const frame = animation.getFrame(this.currentFrame);
-                mesh._position = frame.transform.position.clone();
-                mesh._rotation = frame.transform.rotation.clone();
-                mesh._scale = frame.transform.scale.clone();
+                const currentTransform = new Transform(
+                                            mesh._position,
+                                            mesh._rotation,
+                                            mesh._scale
+                                        );
+                const targetTransform = new Transform(
+                                            frame.transform.position.clone(),
+                                            frame.transform.rotation.clone(),
+                                            frame.transform.scale.clone()
+                                        );
+                this.animatingMesh(currentTransform, targetTransform);
             }
         }
         mesh.children.forEach(child => {
             this.applyFrameToMesh(child);
         });
+    }
+
+    animatingMesh(currentTransform, targetTransform){
+        const tween = new Tween();
+        tween.start(currentTransform, targetTransform);
     }
 
     resetAnimations() {

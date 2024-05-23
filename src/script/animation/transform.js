@@ -11,6 +11,16 @@ export class Transform {
         this.scale = scale;
     }
 
+    clone() {
+        return new Transform(this.position.clone(), this.rotation.clone(), this.scale.clone());
+    }
+
+    interpolateTo(targetTransform, alpha) {
+        this.position.add(targetTransform.position.clone().subtract(this.position.clone()).multiplyScalar(alpha)),
+        this.rotation.add(targetTransform.rotation.clone().subtract(this.rotation.clone()).multiplyScalar(alpha)),
+        this.scale.add(targetTransform.scale.clone().subtract(this.scale.clone()).multiplyScalar(alpha))
+    }
+
     static fromJSON(json) {
         return new Transform(
             Vector3.fromJSON(json.position),

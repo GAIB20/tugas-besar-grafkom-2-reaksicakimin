@@ -254,19 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addFrame(){
-    clampFrame();
+    // clampFrame();
     currentFrame++;
     clampFrame();
   }
 
   function subtractFrame(){
-    clampFrame();
+    // clampFrame();
     currentFrame--;
     clampFrame();
   }
 
   function resetFrame(frameNum){
-    clampFrame();
+    // clampFrame();
     currentFrame = frameNum;
     clampFrame();
   }

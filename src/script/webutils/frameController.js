@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function onChangeFrame(){
     animationController.setCurrentFrame(currentFrame - 1);
     if (!isEditing){
-      animationController.applyCurrentFrameToScene();
+      animationController.applyCurrentFrameToScene(fps);
     } else {
       animationController.updateCurrentFrame();
     }

@@ -58,11 +58,11 @@ export default class AnimationController {
         return this.animations;
     }
 
-    applyCurrentFrameToScene() {
-        this.applyFrameToMesh(this.scene);
+    applyCurrentFrameToScene(fps = 30) {
+        this.applyFrameToMesh(this.scene, fps);
     }
 
-    applyFrameToMesh(mesh) {
+    applyFrameToMesh(mesh, fps = 30) {
         if (mesh._name !== "Light") {
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
@@ -77,7 +77,7 @@ export default class AnimationController {
                                             frame.transform.rotation.clone(),
                                             frame.transform.scale.clone()
                                         );
-                this.animatingMesh(currentTransform, targetTransform);
+                this.animatingMesh(currentTransform, targetTransform, fps);
             }
         }
         mesh.children.forEach(child => {
@@ -85,8 +85,8 @@ export default class AnimationController {
         });
     }
 
-    animatingMesh(currentTransform, targetTransform){
-        const tween = new Tween();
+    animatingMesh(currentTransform, targetTransform, fps = 30){
+        const tween = new Tween(1000/fps);
         tween.start(currentTransform, targetTransform);
     }
 

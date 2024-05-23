@@ -1,4 +1,8 @@
 // Frame controller
+
+import AnimationController from "../animation/animationController.js";
+const animationController = new AnimationController();
+
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;
   const totalFrames = 9;
@@ -142,6 +146,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // var translate = vec3
     // var rotate = vec3
     // var scale = vec3
+    animationController.setCurrentFrame(currentFrame);
+    animationController.updateCurrentFrame();
     console.log(currentFrame)
   }
 

@@ -1,5 +1,6 @@
 import { getScene } from '../../app/app.js'
-import { AnimationObject } from './animationObject.js';
+import { AnimationObject } from '../animation/animationObject.js';
+import { Transform } from '../animation/transform.js';
 
 export default class AnimationController {
     constructor() {
@@ -10,9 +11,11 @@ export default class AnimationController {
     }
 
     loadMeshToAnimation(mesh) {
-        const initialTransform = new Transform(mesh.position, mesh.rotation, mesh.scale);
-        const animation = new AnimationObject(mesh.name, 9, [{ transform: initialTransform }]);
-        this.animations.push(animation);
+        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+            const initialTransform = new Transform(mesh._position, mesh._rotation, mesh._scale);
+            const animation = new AnimationObject(mesh._name, 9, [{ transform: initialTransform }]);
+            this.animations.push(animation);
+        }
 
         mesh.children.forEach(child => {
             this.loadMeshToAnimation(child);

@@ -1,4 +1,4 @@
-import { Transform } from "./transform";
+import { Transform } from "./transform.js";
 
 export class AnimationObject {
     constructor(

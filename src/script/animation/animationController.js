@@ -94,6 +94,12 @@ export default class AnimationController {
         });
     }
 
+    swapFrames(index1, index2) {
+        this.animations.forEach(animation => {
+            animation.swapFrames(index1, index2);
+        });
+    }
+
     static fromJSON(json) {
         return new AnimationController(
             json.animations.map(animation => AnimationObject.fromJSON(animation))

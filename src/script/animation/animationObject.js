@@ -54,6 +54,14 @@ export class AnimationObject {
         }
     }
 
+    swapFrames(index1, index2) {
+        if (index1 >= 0 && index1 < this._totalFrames && index2 >= 0 && index2 < this._totalFrames) {
+            [this._frames[index1], this._frames[index2]] = [this._frames[index2], this._frames[index1]];
+        } else {
+            throw new Error("Frame index out of range");
+        }
+    }
+
     getTotalFrames() {
         return this._totalFrames;
     }

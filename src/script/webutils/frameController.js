@@ -152,8 +152,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index > 0 && index <= totalFrames) {
       totalFrames++;
       animationController.addFrame(index - 1);
+      clampFrame();
       updateFrameIndicator();
       updateButtons();
+    }
+  });
+
+  document.getElementById('frame-swap').addEventListener('click', () => {
+    const frameSwapIndex1 = document.getElementById('frame-swap-input-1');
+    const frameSwapIndex2 = document.getElementById('frame-swap-input-2');
+    const index1 = parseInt(frameSwapIndex1.value, 10);
+    const index2 = parseInt(frameSwapIndex2.value, 10);
+    if (index1 > 0 && index1 <= totalFrames && index2 > 0 && index2 <= totalFrames) {
+      animationController.swapFrames(index1 - 1, index2 - 1);
+      clampFrame();
     }
   });
 
@@ -163,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index > 0 && index <= totalFrames) {
       totalFrames--;
       animationController.deleteFrame(index - 1);
+      clampFrame();
       updateFrameIndicator();
       updateButtons();
     }

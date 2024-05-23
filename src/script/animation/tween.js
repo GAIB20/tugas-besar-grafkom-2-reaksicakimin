@@ -22,24 +22,41 @@ export class Tween {
             case "quart":
                 this.easingFunction = (t) => t * t * t * t;
                 break;
+            case "quint":
+                this.easingFunction = (t) => t * t * t * t * t;
+                break;
             case "expo":
-                this.easingFunction = (t) => Math.pow(2, 10 * (t - 1));
+                this.easingFunction = (t) => t === 0 ? 0 : Math.pow(2, 10 * t - 10);
                 break;
             case "circ":
-                this.easingFunction = (t) => 1 - Math.sqrt(1 - t * t);
+                this.easingFunction = (t) => 1 - Math.sqrt(1 - Math.pow(t, 2));
                 break;
             case "back":
-                this.easingFunction = (t) => t * t * (2.70158 * t - 1.70158);
+                const c1 = 1.70158;
+                const c3 = c1 + 1;
+                this.easingFunction = (t) => c3 * t * t * t - c1 * t * t;
                 break;
             case "elastic":
-                this.easingFunction = (t) => -1 * Math.pow(4, -8 * t) * Math.sin((t * 6 - 1) * (2 * Math.PI) / 2) + 1;
+                const c4 = (2 * Math.PI) / 3;
+                this.easingFunction = (t) => 
+                    t === 0 ? 0
+                    : t === 1 
+                    ? 1
+                    : -Math.pow(2, 10 * t - 10) * Math.sin((t * 10 - 10.75) * c4);
                 break;
-            case "bounce":
+            case "bounce": // yang ini ease out, sisanya in
+                const n1 = 7.5625;
+                const d1 = 2.75;
+
                 this.easingFunction = (t) => {
-                    for (let a = 0, b = 1; 1; a += b, b /= 2) {
-                        if (t >= (7 - 4 * a) / 11) {
-                            return -Math.pow((11 - 6 * a - 11 * t) / 4, 2) + Math.pow(b, 2);
-                        }
+                    if (t < 1 / d1) {
+                        return n1 * t * t;
+                    } else if (t < 2 / d1) {
+                        return n1 * (t -= 1.5 / d1) * t + 0.75;
+                    } else if (t < 2.5 / d1) {
+                        return n1 * (t -= 2.25 / d1) * t + 0.9375;
+                    } else {
+                        return n1 * (t -= 2.625 / d1) * t + 0.984375;
                     }
                 };
                 break;

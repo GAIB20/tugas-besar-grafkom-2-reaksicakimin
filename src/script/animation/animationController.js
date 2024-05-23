@@ -102,6 +102,10 @@ export default class AnimationController {
         });
     }
 
+    getTotalFrames() {
+        return this.animations[0].getTotalFrames();
+    }
+
     deleteFrame(index) {
         this.animations.forEach(animation => {
             animation.deleteFrame(index);

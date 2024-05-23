@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (!isAutoReplay) {
           if (currentFrame < 1 || currentFrame > totalFrames) {
-            clampFrame();
+            onChangeFrame();
             pauseAnimation();
             return;
           }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else if (currentFrame > totalFrames) {
             resetFrame(1);
           } else {
-            clampFrame();
+            onChangeFrame();
           }
         }
   
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index > 0 && index <= totalFrames) {
       totalFrames++;
       animationController.addFrame(index - 1);
-      clampFrame();
+      onChangeFrame();
       updateFrameIndicator();
       updateButtons();
     }
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const index2 = parseInt(frameSwapIndex2.value, 10);
     if (index1 > 0 && index1 <= totalFrames && index2 > 0 && index2 <= totalFrames) {
       animationController.swapFrames(index1 - 1, index2 - 1);
-      clampFrame();
+      onChangeFrame();
     }
   });
 
@@ -175,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index > 0 && index <= totalFrames) {
       totalFrames--;
       animationController.deleteFrame(index - 1);
-      clampFrame();
+      onChangeFrame();
       updateFrameIndicator();
       updateButtons();
     }
@@ -208,6 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = (e) => {
             const json = JSON.parse(e.target.result);
             animationController = AnimationController.fromJSON(json);
+            totalFrames = animationController.getTotalFrames();
+            resetFrame(1);
+            updateFrameIndicator();
+            updateButtons();
         };
         reader.readAsText(file);
     }
@@ -244,40 +248,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   function onChangeFrame(){
+    clampFrame();
     animationController.setCurrentFrame(currentFrame - 1);
     if (!isEditing){
-      const tweeningType = document.getElementById('tweening-type').value;
-      animationController.applyCurrentFrameToScene(fps, tweeningType);
+        const tweeningType = document.getElementById('tweening-type').value;
+        animationController.applyCurrentFrameToScene(fps, tweeningType);
     } else {
-      animationController.updateCurrentFrame();
+        animationController.updateCurrentFrame();
     }
   }
 
   function addFrame(){
-    clampFrame();
-    currentFrame++;
-    clampFrame();
+      if (isEditing) onChangeFrame();
+      currentFrame++;
+      if (!isEditing) onChangeFrame();
   }
 
   function subtractFrame(){
-    clampFrame();
-    currentFrame--;
-    clampFrame();
+      if (isEditing) onChangeFrame();
+      currentFrame--;
+      if (!isEditing) onChangeFrame();
   }
 
   function resetFrame(frameNum){
-    clampFrame();
-    currentFrame = frameNum;
-    clampFrame();
+      if (isEditing) onChangeFrame();
+      currentFrame = frameNum;
+      if (!isEditing) onChangeFrame();
   }
 
   function clampFrame(){
-    if (currentFrame < 1){
-      currentFrame = 1;
-    } else if (currentFrame > totalFrames){
-      currentFrame = totalFrames;
-    }
-    onChangeFrame();
+      if (currentFrame < 1){
+          currentFrame = 1;
+      } else if (currentFrame > totalFrames){
+          currentFrame = totalFrames;
+      }
   }
 
 });

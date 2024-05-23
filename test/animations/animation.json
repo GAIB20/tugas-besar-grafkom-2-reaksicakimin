@@ -1,0 +1,181 @@
+{
+  "animations": [
+    {
+      "objectName": "Object",
+      "totalFrames": 9,
+      "frames": [
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              5
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              5,
+              5
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              5,
+              5,
+              5
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              5,
+              5
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              0.1,
+              5
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              0.1,
+              0.1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              0.1,
+              0.78
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              -54,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              1.56,
+              0.78
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

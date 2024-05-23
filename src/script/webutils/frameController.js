@@ -1,7 +1,7 @@
 // Frame controller
 
 import AnimationController from "../animation/animationController.js";
-const animationController = new AnimationController();
+var animationController = new AnimationController();
 var isEditing = false;
 console.log("Frame controller loaded");
 

@@ -48,4 +48,20 @@ export class AnimationObject {
         index = index < this._totalFrames ? index : this._totalFrames - 1;
         return this._frames[index];
     }
+
+    static fromJSON(json) {
+        return new AnimationObject(
+            json.objectName,
+            json.totalFrames,
+            json.frames.map(frame => ({ transform: Transform.fromJSON(frame.transform) }))
+        );
+    }
+
+    static toJSON(animationObject) {
+        return {
+            objectName: animationObject._objectName,
+            totalFrames: animationObject._totalFrames,
+            frames: animationObject._frames.map(frame => ({ transform: Transform.toJSON(frame.transform) }))
+        };
+    }
 }

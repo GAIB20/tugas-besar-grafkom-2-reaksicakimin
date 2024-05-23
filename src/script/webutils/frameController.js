@@ -161,6 +161,37 @@ document.addEventListener('DOMContentLoaded', () => {
       onChangeFrame();
     }
   });
+
+  document.getElementById('import-animation').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+  });
+
+  document.getElementById('file-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const json = JSON.parse(e.target.result);
+            const animationController = AnimationController.fromJSON(json);
+            console.log('Imported Animation Controller:', animationController);
+        };
+        reader.readAsText(file);
+    }
+  });
+
+  document.getElementById('export-animation').addEventListener('click', () => {
+    const animationController = new AnimationController(); // Get your current animation controller instance
+    const json = AnimationController.toJSON(animationController);
+    const jsonString = JSON.stringify(json, null, 2);
+
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'animation.json';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
   
   function onChangeFrame(){
     console.log("Frame changed");

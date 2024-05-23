@@ -10,4 +10,20 @@ export class Transform {
         this.rotation = rotation;
         this.scale = scale;
     }
+
+    static fromJSON(json) {
+        return new Transform(
+            Vector3.fromJSON(json.position),
+            Vector3.fromJSON(json.rotation),
+            Vector3.fromJSON(json.scale)
+        );
+    }
+
+    static toJSON(transform) {
+        return {
+            position: Vector3.toJSON(transform.position),
+            rotation: Vector3.toJSON(transform.rotation),
+            scale: Vector3.toJSON(transform.scale)
+        };
+    }
 }

@@ -3,9 +3,9 @@ import { AnimationObject } from '../animation/animationObject.js';
 import { Transform } from '../animation/transform.js';
 
 export default class AnimationController {
-    constructor() {
+    constructor(animations = []) {
         this.scene = getScene();
-        this.animations = [];
+        this.animations = animations;
         this.currentFrame = 0; // Current frame to update
         this.loadMeshToAnimation(this.scene);
     }
@@ -72,5 +72,23 @@ export default class AnimationController {
         mesh.children.forEach(child => {
             this.applyFrameToMesh(child);
         });
+    }
+
+    resetAnimations() {
+        this.animations.forEach(animation => {
+            animation.resetFrames();
+        });
+    }
+    
+    static fromJSON(json) {
+        return new AnimationController(
+            json.animations.map(animation => AnimationObject.fromJSON(animation))
+        );
+    }
+
+    static toJSON(animationController) {
+        return {
+            animations: animationController.animations.map(animation => AnimationObject.toJSON(animation))
+        };
     }
 }

@@ -40,12 +40,18 @@ class MaterialControls {
         this.initAmbientColor = this._material._ambient;
         this.initDiffuseColor = this._material._diffuse.color;
         this.initDiffuseTexture = this._material._diffuse.texture ? "on" : "off";
-        console.log(this.initDiffuseTexture)
         this.initSpecularColor = this._material._specular.color;
         this.initSpecularTexture = this._material._specular.texture ? "on" : "off";
         this.initDisplacementTexture = this._material._displacement ? "on" : "off";
         this.initNormalTexture = this._material._normal ? "on" : "off";
         this.initTextureOption = this._material._textureType;
+        if (this.initTextureOption === "concrete"){
+          this._textureIndex = 0;
+        } else if (this.initTextureOption === "mud"){
+          this._textureIndex = 1;
+        } else if (this.initTextureOption === "environment"){
+          this._textureIndex = 2;
+        }
 
         const shininessSlider = document.getElementById("shininess-slider");
         shininessSlider.value = this.initShininess;
@@ -108,19 +114,19 @@ class MaterialControls {
         diffuseColorPicker.addEventListener("input", this.handleDiffuseColor.bind(this));
 
         const diffuseTexture = document.getElementById("texture-diffuse");
-        diffuseTexture.addEventListener("change", this.handleTextureOption.bind(this));
+        diffuseTexture.addEventListener("change", this.handleDiffuseTexture.bind(this));
 
         const specularColorPicker = document.getElementById("phong-specular");
         specularColorPicker.addEventListener("input", this.handleSpecularColor.bind(this));
 
         const specularTexture = document.getElementById("texture-specular");
-        specularTexture.addEventListener("change", this.handleTextureOption.bind(this));
+        specularTexture.addEventListener("change", this.handleSpecularTexture.bind(this));
 
         const displacementTexture = document.getElementById("texture-displacement");
-        displacementTexture.addEventListener("change", this.handleTextureOption.bind(this));
+        displacementTexture.addEventListener("change", this.handleDisplacementTexture.bind(this));
 
         const normalTexture = document.getElementById("texture-normal");
-        normalTexture.addEventListener("change", this.handleTextureOption.bind(this));
+        normalTexture.addEventListener("change", this.handleNormalTexture.bind(this));
 
         const textureOption = document.getElementById("texture-options");
         textureOption.addEventListener("change", this.handleTextureOption.bind(this));
@@ -162,7 +168,7 @@ class MaterialControls {
   }
 
   handleDiffuseTexture(event) {
-    this._material._diffuse.texture = event.target.value === "on" ? this._textures[this._textureIndex]._diffuseTexture : null;
+    this._material._diffuse.texture = event.target.value === "on" ? this._textures[this._textureIndex]._diffuseTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
@@ -172,17 +178,17 @@ class MaterialControls {
   }
 
   handleSpecularTexture(event) {
-    this._material._specular.texture = event.target.value === "on" ? this._textures[this._textureIndex]._specularTexture : null;
+    this._material._specular.texture = event.target.value === "on" ? this._textures[this._textureIndex]._specularTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
   handleDisplacementTexture(event) {
-    this._material._displacement = event.target.value === "on" ? this._textures[this._textureIndex]._bumpTexture : null;
+    this._material._displacement = event.target.value === "on" ? this._textures[this._textureIndex]._bumpTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
   handleNormalTexture(event) {
-    this._material._normal = event.target.value === "on" ? this._textures[this._textureIndex]._normalTexture : null;
+    this._material._normal = event.target.value === "on" ? this._textures[this._textureIndex]._normalTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 

@@ -25,13 +25,11 @@ class SaveLoad {
     static save(){
         // var scene = new Scene();
         // var mesh = getScene();
-        // // console.log(scene);
         // mesh.forEach(element => {
         //     scene.add(element);
         // });
         var scene = getScene();
         var json = scene.toJSON();
-        console.log(json);
         return json;
     }
 

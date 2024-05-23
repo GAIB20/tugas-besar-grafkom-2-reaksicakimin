@@ -247,26 +247,27 @@ document.addEventListener('DOMContentLoaded', () => {
   function onChangeFrame(){
     animationController.setCurrentFrame(currentFrame - 1);
     if (!isEditing){
-      animationController.applyCurrentFrameToScene(fps);
+      const tweeningType = document.getElementById('tweening-type').value;
+      animationController.applyCurrentFrameToScene(fps, tweeningType);
     } else {
       animationController.updateCurrentFrame();
     }
   }
 
   function addFrame(){
-    // clampFrame();
+    clampFrame();
     currentFrame++;
     clampFrame();
   }
 
   function subtractFrame(){
-    // clampFrame();
+    clampFrame();
     currentFrame--;
     clampFrame();
   }
 
   function resetFrame(frameNum){
-    // clampFrame();
+    clampFrame();
     currentFrame = frameNum;
     clampFrame();
   }

@@ -35,6 +35,25 @@ export class AnimationObject {
         this._frames = Array.from({ length: this._totalFrames }, () => ({ transform: frame1 }));
     }
 
+    addFrame(index = this._totalFrames, newTransform = new Transform()) {
+        if (index >= 0 && index <= this._totalFrames) {
+            this._frames.splice(index, 0, { transform: newTransform });
+            this._totalFrames++;
+        } else {
+            throw new Error("Frame index out of range");
+        }
+        console.log(this._frames);
+    }
+
+    deleteFrame(index) {
+        if (index >= 0 && index < this._totalFrames && this._totalFrames > 1) {
+            this._frames.splice(index, 1);
+            this._totalFrames--;
+        } else {
+            throw new Error("Frame index out of range");
+        }
+    }
+
     getTotalFrames() {
         return this._totalFrames;
     }

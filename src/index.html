@@ -74,6 +74,32 @@
         <label for="frame-indicator">Frame:</label>
         <div class="frame-number"></div>
       </div>
+
+      <!-- Frame manager -->
+      <div id="frame-manager">
+        <div class="frame-label">
+          <label for="frame-manager">Frame Manager</label>
+        </div>
+        <div class="frame">
+          <button id="frame-add" class="frame-btn">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <input type="number" id="frame-add-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-delete" class="frame-btn">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <input type="number" id="frame-delete-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-swap" class="frame-btn">
+            <i class="fa-solid fa-arrows"></i>
+          </button>
+          <input type="number" id="frame-swap-input-1" name="frame-swap-1" value="0">
+          <input type="number" id="frame-swap-input-2" name="frame-swap-2" value="0">
+        </div>
+      </div>
       
       <!-- Frame controller -->
       <div id="frame-controller">

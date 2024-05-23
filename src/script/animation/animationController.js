@@ -82,6 +82,18 @@ export default class AnimationController {
         });
     }
 
+    addFrame(index) {
+        this.animations.forEach(animation => {
+            animation.addFrame(index);
+        });
+    }
+
+    deleteFrame(index) {
+        this.animations.forEach(animation => {
+            animation.deleteFrame(index);
+        });
+    }
+
     static fromJSON(json) {
         return new AnimationController(
             json.animations.map(animation => AnimationObject.fromJSON(animation))

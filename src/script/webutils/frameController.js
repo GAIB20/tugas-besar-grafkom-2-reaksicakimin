@@ -7,7 +7,7 @@ console.log("Frame controller loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;
-  const totalFrames = 9;
+  let totalFrames = 9;
   let interval = null;
   let isReversed = false;
   let isAutoReplay = false;
@@ -146,6 +146,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  document.getElementById('frame-add').addEventListener('click', () => {
+    const frameAddIndex = document.getElementById('frame-add-input');
+    const index = parseInt(frameAddIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames++;
+      animationController.addFrame(index - 1);
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
+  document.getElementById('frame-delete').addEventListener('click', () => {
+    const frameDeleteIndex = document.getElementById('frame-delete-input');
+    const index = parseInt(frameDeleteIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames--;
+      animationController.deleteFrame(index - 1);
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
   document.getElementById('start-recording').addEventListener('click', () => {
     isEditing = !isEditing;
     const editButton = document.getElementById('start-recording');
@@ -208,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('An error occurred while exporting the animation.');
     }
   });
-
   
   function onChangeFrame(){
     animationController.setCurrentFrame(currentFrame - 1);

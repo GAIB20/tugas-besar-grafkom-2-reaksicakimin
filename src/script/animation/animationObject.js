@@ -31,14 +31,6 @@ export class AnimationObject {
         }
     }
 
-    getFrame(index = 0) {
-        if (index >= 0 && index < this._totalFrames) {
-            return this._frames[index];
-        } else {
-            throw new Error("Frame index out of range");
-        }
-    }
-
     resetFrames(frame1 = new Transform()) {
         this._frames = Array.from({ length: this._totalFrames }, () => ({ transform: frame1 }));
     }
@@ -49,5 +41,11 @@ export class AnimationObject {
 
     getObjectName() {
         return this._objectName;
+    }
+
+    getFrame(index = 0) {
+        index = index >= 0 ? index : 0;
+        index = index < this._totalFrames ? index : this._totalFrames - 1;
+        return this._frames[index];
     }
 }

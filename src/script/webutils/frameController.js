@@ -2,6 +2,8 @@
 
 import AnimationController from "../animation/animationController.js";
 const animationController = new AnimationController();
+var isEditing = false;
+console.log("Frame controller loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;
@@ -147,8 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // var rotate = vec3
     // var scale = vec3
     animationController.setCurrentFrame(currentFrame);
-    animationController.updateCurrentFrame();
-    console.log(currentFrame)
+    if (isEditing){
+      animationController.updateCurrentFrame();
+    } else {
+      animationController.applyCurrentFrameToScene();
+    }
   }
 
   function addFrame(){

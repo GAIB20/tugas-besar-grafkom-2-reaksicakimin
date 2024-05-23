@@ -12,7 +12,7 @@ export default class AnimationController {
 
     loadMeshToAnimation(mesh) {
         if (mesh._name !== "Light" && mesh._name !== "Scene") {
-            const initialTransform = new Transform(mesh._position, mesh._rotation, mesh._scale);
+            const initialTransform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
             const animation = new AnimationObject(mesh._name, 9, [{ transform: initialTransform }]);
             this.animations.push(animation);
         }
@@ -28,13 +28,11 @@ export default class AnimationController {
 
     updateMeshFrame(mesh) {
         if (mesh._name !== "Light" && mesh._name !== "Scene") {
-            const transform = new Transform(mesh._position, mesh._rotation, mesh._scale);
+            const transform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
                 animation.updateFrame(this.currentFrame, transform);
             }
-            console.log(mesh);
-            console.log(this.animations[0]._frames[this.currentFrame].transform.scale);
         }
         mesh.children.forEach(child => {
             this.updateMeshFrame(child);
@@ -55,5 +53,24 @@ export default class AnimationController {
 
     getAnimations() {
         return this.animations;
+    }
+
+    applyCurrentFrameToScene() {
+        this.applyFrameToMesh(this.scene);
+    }
+
+    applyFrameToMesh(mesh) {
+        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+            const animation = this.getAnimationByName(mesh._name);
+            if (animation) {
+                const frame = animation.getFrame(this.currentFrame);
+                mesh._position = frame.transform.position.clone();
+                mesh._rotation = frame.transform.rotation.clone();
+                mesh._scale = frame.transform.scale.clone();
+            }
+        }
+        mesh.children.forEach(child => {
+            this.applyFrameToMesh(child);
+        });
     }
 }

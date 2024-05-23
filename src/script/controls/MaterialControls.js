@@ -162,7 +162,7 @@ class MaterialControls {
   }
 
   handleDiffuseTexture(event) {
-    this._material._diffuse.texture = event.target.value === "on" ? this._textures[this._textureIndex]._diffuseTexture : null;
+    this._material._diffuse.texture = event.target.value === "on" ? this._textures[this._textureIndex]._diffuseTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
@@ -172,17 +172,17 @@ class MaterialControls {
   }
 
   handleSpecularTexture(event) {
-    this._material._specular.texture = event.target.value === "on" ? this._textures[this._textureIndex]._specularTexture : null;
+    this._material._specular.texture = event.target.value === "on" ? this._textures[this._textureIndex]._specularTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
   handleDisplacementTexture(event) {
-    this._material._displacement = event.target.value === "on" ? this._textures[this._textureIndex]._bumpTexture : null;
+    this._material._displacement = event.target.value === "on" ? this._textures[this._textureIndex]._bumpTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 
   handleNormalTexture(event) {
-    this._material._normal = event.target.value === "on" ? this._textures[this._textureIndex]._normalTexture : null;
+    this._material._normal = event.target.value === "on" ? this._textures[this._textureIndex]._normalTexture : this._textures[this._textureIndex]._defaultTexture;
     this._material.updateUniforms();
   }
 

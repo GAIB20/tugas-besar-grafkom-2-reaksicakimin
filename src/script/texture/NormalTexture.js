@@ -8,6 +8,7 @@ class NormalTexture extends Texture {
     this._bumpTexture = null;
     this._diffuseTexture = null;
     this._specularTexture = null;
+    this._defaultTexture = null;
     
   }
 
@@ -16,6 +17,7 @@ class NormalTexture extends Texture {
     this.loadbump(gl);
     this.loaddiffuse(gl);
     this.loadspecular(gl);
+    this.loadDefault(gl);
   }
 
   loadNormal(gl){
@@ -148,6 +150,23 @@ class NormalTexture extends Texture {
     gl.activeTexture(gl.TEXTURE3);
     gl.bindTexture(gl.TEXTURE_2D, texture);
     this._specularTexture = texture;
+  }
+
+  loadDefault(gl){
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+    const level = 0;
+    const internalFormat = this.getGLConstant(gl, this._format);
+    const width = 1;
+    const height = 1;
+    const border = 0;
+    const srcFormat = this.getGLConstant(gl, this._format);
+    const srcType = this.getGLConstant(gl, this._dtype);
+    const pixel = new Uint8Array([0, 0, 255, 0]);
+    gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border, srcFormat, srcType, pixel);
+
+    this._defaultTexture = texture;
   }
 
   toJSON() {

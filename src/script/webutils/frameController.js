@@ -179,7 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('export-animation').addEventListener('click', async () => {
+  document.getElementById('export-animation').addEventListener('click', async (event) => {
+    event.preventDefault();
     const json = animationController.toJSON();
     const jsonString = JSON.stringify(json, null, 2);
     if (!window.showSaveFilePicker) {

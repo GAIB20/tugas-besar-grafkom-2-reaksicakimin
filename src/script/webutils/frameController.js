@@ -208,6 +208,10 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = (e) => {
             const json = JSON.parse(e.target.result);
             animationController = AnimationController.fromJSON(json);
+            totalFrames = animationController.getTotalFrames();
+            resetFrame(1);
+            updateFrameIndicator();
+            updateButtons();
         };
         reader.readAsText(file);
     }
@@ -245,7 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function onChangeFrame(){
     clampFrame();
-    console.log("Frame changed to: " + currentFrame);
     animationController.setCurrentFrame(currentFrame - 1);
     if (!isEditing){
         const tweeningType = document.getElementById('tweening-type').value;

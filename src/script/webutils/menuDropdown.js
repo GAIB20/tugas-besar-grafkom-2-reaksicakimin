@@ -87,8 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
   
-console.log("Menu Dropdown loaded");
-  
+
 function importShapes(data) {
     var shapes = JSON.parse(data);
     SaveLoad.load(shapes);

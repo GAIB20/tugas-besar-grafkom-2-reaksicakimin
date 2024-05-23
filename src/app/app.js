@@ -195,7 +195,6 @@ function __main__(){
   });
   const mesh = new Mesh(geometry, material);
   mesh._name = "Object"
-  console.log("Mesh", mesh);
   scene.add(mesh);
 
 
@@ -276,7 +275,6 @@ function __main__(){
   // mesh4._position._x = 2.4;
   // mesh4._name = "Object4"
   // scene.add(mesh4);
-  console.log(scene);
 }
 
 

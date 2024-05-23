@@ -163,7 +163,7 @@ class NormalTexture extends Texture {
     const border = 0;
     const srcFormat = this.getGLConstant(gl, this._format);
     const srcType = this.getGLConstant(gl, this._dtype);
-    const pixel = new Uint8Array([0, 0, 255, 0]);
+    const pixel = new Uint8Array([0, 0, 0, 0]);
     gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height, border, srcFormat, srcType, pixel);
 
     this._defaultTexture = texture;

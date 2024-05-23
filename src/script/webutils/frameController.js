@@ -210,26 +210,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
   function onChangeFrame(){
-    console.log("Frame changed");
     animationController.setCurrentFrame(currentFrame - 1);
     if (!isEditing){
       animationController.applyCurrentFrameToScene();
     } else {
-      saveSceneToFrame();
+      animationController.updateCurrentFrame();
     }
   }
 
-  function saveSceneToFrame(){
-    animationController.updateCurrentFrame();
-  }
-
   function addFrame(){
+    clampFrame();
     currentFrame++;
     clampFrame();
   }
 
   function subtractFrame(){
+    clampFrame();
     currentFrame--;
+    clampFrame();
+  }
+
+  function resetFrame(frameNum){
+    clampFrame();
+    currentFrame = frameNum;
     clampFrame();
   }
 
@@ -242,8 +245,4 @@ document.addEventListener('DOMContentLoaded', () => {
     onChangeFrame();
   }
 
-  function resetFrame(frameNum){
-    currentFrame = frameNum;
-    clampFrame();
-  }
 });

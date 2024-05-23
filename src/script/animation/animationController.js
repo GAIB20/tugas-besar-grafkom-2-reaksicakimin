@@ -13,7 +13,7 @@ export default class AnimationController {
     }
 
     loadMeshToAnimation(mesh) {
-        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+        if (mesh._name !== "Light") {
             const initialTransform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
             const animation = new AnimationObject(mesh._name, 9, [{ transform: initialTransform }]);
             this.animations.push(animation);
@@ -29,7 +29,7 @@ export default class AnimationController {
     }
 
     updateMeshFrame(mesh) {
-        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+        if (mesh._name !== "Light") {
             const transform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
@@ -62,7 +62,7 @@ export default class AnimationController {
     }
 
     applyFrameToMesh(mesh) {
-        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+        if (mesh._name !== "Light") {
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
                 const frame = animation.getFrame(this.currentFrame);

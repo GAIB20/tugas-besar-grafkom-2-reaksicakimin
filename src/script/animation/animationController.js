@@ -27,16 +27,18 @@ export default class AnimationController {
     }
 
     updateMeshFrame(mesh) {
-        const transform = new Transform(mesh.position, mesh.rotation, mesh.scale);
-        const animation = this.getAnimationByName(mesh.name);
-        if (animation) {
-            animation.updateFrame(this.currentFrame, transform);
+        if (mesh._name !== "Light" && mesh._name !== "Scene") {
+            const transform = new Transform(mesh._position, mesh._rotation, mesh._scale);
+            const animation = this.getAnimationByName(mesh._name);
+            if (animation) {
+                animation.updateFrame(this.currentFrame, transform);
+            }
+            console.log(mesh);
+            console.log(this.animations[0]._frames[this.currentFrame].transform.scale);
         }
-
         mesh.children.forEach(child => {
             this.updateMeshFrame(child);
         });
-        console.log(this.animations);
     }
 
     setCurrentFrame(frameIndex) {

@@ -55,13 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (interval === null) {
       interval = setInterval(() => {
         if (isReversed) {
-          subtractFrame();
+          currentFrame--;
         } else {
-          addFrame();
+          currentFrame++;
         }
   
         if (!isAutoReplay) {
           if (currentFrame < 1 || currentFrame > totalFrames) {
+            clampFrame();
             pauseAnimation();
             return;
           }
@@ -70,6 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             resetFrame(totalFrames);
           } else if (currentFrame > totalFrames) {
             resetFrame(1);
+          } else {
+            clampFrame();
           }
         }
   
@@ -142,32 +145,58 @@ document.addEventListener('DOMContentLoaded', () => {
       autoReplayButton.style.color = 'var(--text-color)';
     }
   });
+
+  document.getElementById('start-recording').addEventListener('click', () => {
+    isEditing = !isEditing;
+    const editButton = document.getElementById('start-recording');
+    if (isEditing) {
+      editButton.style.color = 'var(--accent-color)';
+    } else {
+      editButton.style.color = 'var(--text-color)';
+    }
+  });
+
+  document.getElementById('save-frame').addEventListener('click', () => {
+    if (isEditing) {
+      onChangeFrame();
+    }
+  });
   
   function onChangeFrame(){
-    // TODO: setiap frame change maka load
-    // var translate = vec3
-    // var rotate = vec3
-    // var scale = vec3
-    animationController.setCurrentFrame(currentFrame);
-    if (isEditing){
-      animationController.updateCurrentFrame();
-    } else {
+    console.log("Frame changed");
+    animationController.setCurrentFrame(currentFrame - 1);
+    if (!isEditing){
       animationController.applyCurrentFrameToScene();
+    } else {
+      saveSceneToFrame();
     }
+  }
+
+  function saveSceneToFrame(){
+    animationController.updateCurrentFrame();
   }
 
   function addFrame(){
     currentFrame++;
-    onChangeFrame();
+    clampFrame();
   }
 
   function subtractFrame(){
     currentFrame--;
+    clampFrame();
+  }
+
+  function clampFrame(){
+    if (currentFrame < 1){
+      currentFrame = 1;
+    } else if (currentFrame > totalFrames){
+      currentFrame = totalFrames;
+    }
     onChangeFrame();
   }
 
   function resetFrame(frameNum){
     currentFrame = frameNum;
-    onChangeFrame();
+    clampFrame();
   }
 });

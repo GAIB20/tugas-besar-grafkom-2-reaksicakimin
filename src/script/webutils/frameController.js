@@ -172,26 +172,42 @@ document.addEventListener('DOMContentLoaded', () => {
         const reader = new FileReader();
         reader.onload = (e) => {
             const json = JSON.parse(e.target.result);
-            const animationController = AnimationController.fromJSON(json);
+            animationController = AnimationController.fromJSON(json);
             console.log('Imported Animation Controller:', animationController);
         };
         reader.readAsText(file);
     }
   });
 
-  document.getElementById('export-animation').addEventListener('click', () => {
-    const animationController = new AnimationController(); // Get your current animation controller instance
-    const json = AnimationController.toJSON(animationController);
+  document.getElementById('export-animation').addEventListener('click', async () => {
+    const json = animationController.toJSON();
     const jsonString = JSON.stringify(json, null, 2);
+    if (!window.showSaveFilePicker) {
+        alert('Your browser does not support the File System Access API.');
+        return;
+    }
 
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'animation.json';
-    a.click();
-    URL.revokeObjectURL(url);
+    try {
+        const fileHandle = await window.showSaveFilePicker({
+            suggestedName: 'animation.json',
+            types: [{
+                description: 'JSON Files',
+                accept: {
+                    'application/json': ['.json']
+                }
+            }]
+        });
+
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonString);
+        await writable.close();
+
+    } catch (error) {
+        console.error('Error exporting animation:', error);
+        alert('An error occurred while exporting the animation.');
+    }
   });
+
   
   function onChangeFrame(){
     console.log("Frame changed");

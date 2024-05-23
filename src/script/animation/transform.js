@@ -19,11 +19,11 @@ export class Transform {
         );
     }
 
-    static toJSON(transform) {
+    toJSON() {
         return {
-            position: Vector3.toJSON(transform.position),
-            rotation: Vector3.toJSON(transform.rotation),
-            scale: Vector3.toJSON(transform.scale)
+            position: this.position.toJSON(),
+            rotation: this.rotation.toJSON(),
+            scale: this.scale.toJSON()
         };
     }
 }

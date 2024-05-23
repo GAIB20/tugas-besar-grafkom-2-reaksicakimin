@@ -57,11 +57,11 @@ export class AnimationObject {
         );
     }
 
-    static toJSON(animationObject) {
+    toJSON() {
         return {
-            objectName: animationObject._objectName,
-            totalFrames: animationObject._totalFrames,
-            frames: animationObject._frames.map(frame => ({ transform: Transform.toJSON(frame.transform) }))
+            objectName: this._objectName,
+            totalFrames: this._totalFrames,
+            frames: this._frames.map(frame => ({ transform: frame.transform.toJSON() }))
         };
     }
 }

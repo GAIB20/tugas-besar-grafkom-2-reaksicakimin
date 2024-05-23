@@ -7,7 +7,9 @@ export default class AnimationController {
         this.scene = getScene();
         this.animations = animations;
         this.currentFrame = 0; // Current frame to update
-        this.loadMeshToAnimation(this.scene);
+        if (this.animations.length === 0) {
+            this.loadMeshToAnimation(this.scene);
+        }
     }
 
     loadMeshToAnimation(mesh) {
@@ -79,16 +81,16 @@ export default class AnimationController {
             animation.resetFrames();
         });
     }
-    
+
     static fromJSON(json) {
         return new AnimationController(
             json.animations.map(animation => AnimationObject.fromJSON(animation))
         );
     }
 
-    static toJSON(animationController) {
+    toJSON() {
         return {
-            animations: animationController.animations.map(animation => AnimationObject.toJSON(animation))
+            animations: this.animations.map(animation => animation.toJSON())
         };
     }
 }

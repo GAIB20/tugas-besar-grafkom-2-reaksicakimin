@@ -208,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = (e) => {
             const json = JSON.parse(e.target.result);
             animationController = AnimationController.fromJSON(json);
-            console.log('Imported Animation Controller:', animationController);
         };
         reader.readAsText(file);
     }

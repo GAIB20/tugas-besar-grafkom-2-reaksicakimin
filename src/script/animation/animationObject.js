@@ -42,7 +42,6 @@ export class AnimationObject {
         } else {
             throw new Error("Frame index out of range");
         }
-        console.log(this._frames);
     }
 
     deleteFrame(index) {

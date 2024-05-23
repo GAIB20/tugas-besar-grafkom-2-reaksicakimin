@@ -64,7 +64,6 @@ export class Tween {
                 this.easingFunction = (t) => t;
                 break;
         }
-        console.log("Easing Function: ", this.easingFunction);
     }
 
     start(startTransform, endTransform) {

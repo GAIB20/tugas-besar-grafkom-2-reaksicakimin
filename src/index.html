@@ -74,6 +74,32 @@
         <label for="frame-indicator">Frame:</label>
         <div class="frame-number"></div>
       </div>
+
+      <!-- Frame manager -->
+      <div id="frame-manager">
+        <div class="frame-label">
+          <label for="frame-manager">Frame Manager</label>
+        </div>
+        <div class="frame">
+          <button id="frame-add" class="frame-btn">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <input type="number" id="frame-add-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-delete" class="frame-btn">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <input type="number" id="frame-delete-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-swap" class="frame-btn">
+            <i class="fa-solid fa-arrows"></i>
+          </button>
+          <input type="number" id="frame-swap-input-1" name="frame-swap-1" value="0">
+          <input type="number" id="frame-swap-input-2" name="frame-swap-2" value="0">
+        </div>
+      </div>
       
       <!-- Frame controller -->
       <div id="frame-controller">
@@ -103,6 +129,23 @@
         <div class="frame-label">
           <label for="frame-player">Player</label>
         </div>
+        <div class="frame input">
+          <div>
+            <label for="tweening">Tweening</label>
+          </div>
+          <select id="tweening-type">
+            <option value="sine">Sine</option>
+            <option value="quad">Quad</option>
+            <option value="cubic">Cubic</option>
+            <option value="quart">Quart</option>
+            <option value="quint">Quint</option>
+            <option value="expo">Expo</option>
+            <option value="circ">Circ</option>
+            <option value="back">Back</option>
+            <option value="elastic">Elastic</option>
+            <option value="bounce">Bounce</option>
+          </select>
+        </div>
         <div class="frame">
           <button id="frame-play" class="frame-btn">
             <i class="fa-solid fa-play"></i>
@@ -120,6 +163,38 @@
           </button>
         </div>
       </div>
+
+      <!-- Frame Recording -->
+      <div id="frame-recording">
+        <div class="frame-label">
+          <label for="frame-recording">Recording</label>
+        </div>
+        <div class="frame">
+          <button id="start-recording" class="frame-btn">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button id="save-frame" class="frame-btn">
+            <i class="fa-solid fa-save"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Frame import export animation -->
+      <div id="frame-import-export">
+        <div class="frame-label">
+          <label for="frame-import-export">Import/Export</label>
+        </div>
+        <div class="frame">
+          <input type="file" id="file-input" accept=".json" style="display:none"/>
+          <button id="import-animation" class="frame-btn">
+            <i class="fa-solid fa-download"></i>
+          </button>
+          <button id="export-animation" class="frame-btn">
+            <i class="fa-solid fa-upload"></i>
+          </button>
+        </div>
+      </div>
+      
 
     </div>
 
@@ -450,7 +525,7 @@
 
     <!-- Web utils -->
     <script type="module" src="./script/webutils/menuDropdown.js"></script>
-    <script src="./script/webutils/frameController.js"></script>
+    <script type="module" src="./script/webutils/frameController.js"></script>
 
     <script type="module" src="./script/webutils/treeLoader.js"></script>
 

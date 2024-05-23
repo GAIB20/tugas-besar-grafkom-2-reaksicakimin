@@ -1,7 +1,13 @@
 // Frame controller
+
+import AnimationController from "../animation/animationController.js";
+var animationController = new AnimationController();
+var isEditing = false;
+console.log("Frame controller loaded");
+
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;
-  const totalFrames = 9;
+  let totalFrames = 9;
   let interval = null;
   let isReversed = false;
   let isAutoReplay = false;
@@ -56,14 +62,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (!isAutoReplay) {
           if (currentFrame < 1 || currentFrame > totalFrames) {
+            clampFrame();
             pauseAnimation();
             return;
           }
         } else {
           if (currentFrame < 1) {
-            currentFrame = totalFrames;
+            resetFrame(totalFrames);
           } else if (currentFrame > totalFrames) {
-            currentFrame = 1;
+            resetFrame(1);
+          } else {
+            clampFrame();
           }
         }
   
@@ -88,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-prev').addEventListener('click', () => {
     if (currentFrame > 1) {
-      currentFrame--;
+      subtractFrame();
       updateFrameIndicator();
       updateButtons();
     }
@@ -96,20 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-next').addEventListener('click', () => {
     if (currentFrame < totalFrames) {
-      currentFrame++;
+      addFrame();
       updateFrameIndicator();
       updateButtons();
     }
   });
 
   document.getElementById('frame-first').addEventListener('click', () => {
-    currentFrame = 1;
+    resetFrame(1);
     updateFrameIndicator();
     updateButtons();
   });
 
   document.getElementById('frame-last').addEventListener('click', () => {
-    currentFrame = totalFrames;
+    resetFrame(totalFrames);
     updateFrameIndicator();
     updateButtons();
   });
@@ -136,4 +145,139 @@ document.addEventListener('DOMContentLoaded', () => {
       autoReplayButton.style.color = 'var(--text-color)';
     }
   });
+
+  document.getElementById('frame-add').addEventListener('click', () => {
+    const frameAddIndex = document.getElementById('frame-add-input');
+    const index = parseInt(frameAddIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames++;
+      animationController.addFrame(index - 1);
+      clampFrame();
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
+  document.getElementById('frame-swap').addEventListener('click', () => {
+    const frameSwapIndex1 = document.getElementById('frame-swap-input-1');
+    const frameSwapIndex2 = document.getElementById('frame-swap-input-2');
+    const index1 = parseInt(frameSwapIndex1.value, 10);
+    const index2 = parseInt(frameSwapIndex2.value, 10);
+    if (index1 > 0 && index1 <= totalFrames && index2 > 0 && index2 <= totalFrames) {
+      animationController.swapFrames(index1 - 1, index2 - 1);
+      clampFrame();
+    }
+  });
+
+  document.getElementById('frame-delete').addEventListener('click', () => {
+    const frameDeleteIndex = document.getElementById('frame-delete-input');
+    const index = parseInt(frameDeleteIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames--;
+      animationController.deleteFrame(index - 1);
+      clampFrame();
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
+  document.getElementById('start-recording').addEventListener('click', () => {
+    isEditing = !isEditing;
+    const editButton = document.getElementById('start-recording');
+    if (isEditing) {
+      editButton.style.color = 'var(--accent-color)';
+    } else {
+      editButton.style.color = 'var(--text-color)';
+    }
+  });
+
+  document.getElementById('save-frame').addEventListener('click', () => {
+    if (isEditing) {
+      onChangeFrame();
+    }
+  });
+
+  document.getElementById('import-animation').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+  });
+
+  document.getElementById('file-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const json = JSON.parse(e.target.result);
+            animationController = AnimationController.fromJSON(json);
+        };
+        reader.readAsText(file);
+    }
+  });
+
+  document.getElementById('export-animation').addEventListener('click', async (event) => {
+    event.preventDefault();
+    const json = animationController.toJSON();
+    const jsonString = JSON.stringify(json, null, 2);
+    if (!window.showSaveFilePicker) {
+        alert('Your browser does not support the File System Access API.');
+        return;
+    }
+
+    try {
+        const fileHandle = await window.showSaveFilePicker({
+            suggestedName: 'animation.json',
+            types: [{
+                description: 'JSON Files',
+                accept: {
+                    'application/json': ['.json']
+                }
+            }]
+        });
+
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonString);
+        await writable.close();
+
+    } catch (error) {
+        console.error('Error exporting animation:', error);
+        alert('An error occurred while exporting the animation.');
+    }
+  });
+  
+  function onChangeFrame(){
+    animationController.setCurrentFrame(currentFrame - 1);
+    if (!isEditing){
+      const tweeningType = document.getElementById('tweening-type').value;
+      animationController.applyCurrentFrameToScene(fps, tweeningType);
+    } else {
+      animationController.updateCurrentFrame();
+    }
+  }
+
+  function addFrame(){
+    clampFrame();
+    currentFrame++;
+    clampFrame();
+  }
+
+  function subtractFrame(){
+    clampFrame();
+    currentFrame--;
+    clampFrame();
+  }
+
+  function resetFrame(frameNum){
+    clampFrame();
+    currentFrame = frameNum;
+    clampFrame();
+  }
+
+  function clampFrame(){
+    if (currentFrame < 1){
+      currentFrame = 1;
+    } else if (currentFrame > totalFrames){
+      currentFrame = totalFrames;
+    }
+    onChangeFrame();
+  }
+
 });

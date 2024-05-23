@@ -1,0 +1,358 @@
+{
+  "animations": [
+    {
+      "objectName": "Scene",
+      "totalFrames": 9,
+      "frames": [
+        {
+          "transform": {
+            "position": [
+              -6.7,
+              -7.7,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              -6.7,
+              6.1,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              6,
+              6.1,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              6,
+              -7.3,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              -5.9,
+              5.6,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              5.4,
+              -6.2,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              5,
+              5,
+              0.1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              -7,
+              6.7,
+              -10
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              0.1,
+              0.1,
+              0.1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              5.2,
+              -6.9,
+              -10
+            ],
+            "rotation": [
+              -111,
+              0,
+              0
+            ],
+            "scale": [
+              5,
+              5,
+              0.1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              5.2,
+              -6.9,
+              -10
+            ],
+            "rotation": [
+              -9,
+              -101,
+              0
+            ],
+            "scale": [
+              5,
+              5,
+              0.1
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "objectName": "Object",
+      "totalFrames": 9,
+      "frames": [
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "transform": {
+            "position": [
+              0,
+              0,
+              0
+            ],
+            "rotation": [
+              0,
+              0,
+              0
+            ],
+            "scale": [
+              1,
+              1,
+              1
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

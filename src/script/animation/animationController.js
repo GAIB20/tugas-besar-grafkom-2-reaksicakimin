@@ -8,6 +8,7 @@ export default class AnimationController {
         this.scene = getScene();
         this.animations = animations;
         this.currentFrame = 0; // Current frame to update
+        this.defaultFrame = 9;
         if (this.animations.length === 0) {
             this.loadMeshToAnimation(this.scene);
         }
@@ -16,7 +17,7 @@ export default class AnimationController {
     loadMeshToAnimation(mesh) {
         if (mesh._name !== "Light") {
             const initialTransform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
-            const animation = new AnimationObject(mesh._name, 9, [{ transform: initialTransform }]);
+            const animation = new AnimationObject(mesh._name, this.defaultFrame, [{ transform: initialTransform }]);
             this.animations.push(animation);
         }
 
@@ -34,6 +35,12 @@ export default class AnimationController {
             const transform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
             const animation = this.getAnimationByName(mesh._name);
             if (animation) {
+                animation.updateFrame(this.currentFrame, transform);
+            } else {
+                const initialTransform = new Transform(mesh._position.clone(), mesh._rotation.clone(), mesh._scale.clone());
+                const newAnimation = new AnimationObject(mesh._name, this.defaultFrame, [{ transform: initialTransform }]);
+                this.animations.push(newAnimation);
+                const animation = this.getAnimationByName(mesh._name);
                 animation.updateFrame(this.currentFrame, transform);
             }
         }
@@ -78,7 +85,7 @@ export default class AnimationController {
                                             frame.transform.scale.clone()
                                         );
                 this.animatingMesh(currentTransform, targetTransform, fps, tweeningType);
-            }
+            } 
         }
         mesh.children.forEach(child => {
             this.applyFrameToMesh(child, fps, tweeningType);

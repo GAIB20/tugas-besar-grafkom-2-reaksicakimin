@@ -10,6 +10,9 @@ export class Tween {
 
     updateEasingFunction(str) {
         switch (str){
+            case "linear":
+                this.easingFunction = (t) => t;
+                break;
             case "sine":
                 this.easingFunction = (t) => 1 - Math.cos(t * Math.PI / 2);
                 break;

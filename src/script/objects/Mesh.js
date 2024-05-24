@@ -7,6 +7,7 @@ import PlaneGeometry from '../geometry/PlaneGeometry.js';
 import HollowPyramidGeometry from '../geometry/HollowPyramidGeometry.js';
 import HollowRingGeometry from '../geometry/HollowRingGeometry.js';
 import HollowGearGeometry from '../geometry/HollowGearGeometry.js';
+import HollowStarGeometry from '../geometry/HollowStarGeometry.js';
 
 class Mesh extends Object3D {
   constructor(geometry, material) {
@@ -51,6 +52,9 @@ class Mesh extends Object3D {
         break;
       case "HollowGearGeometry":
         geometry = HollowGearGeometry.fromJSON(json.geometry);
+        break;
+      case "HollowStarGeometry":
+        geometry = HollowStarGeometry.fromJSON(json.geometry);
         break;
       default:
         console.log("Geometry not found");

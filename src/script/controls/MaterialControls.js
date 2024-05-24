@@ -18,12 +18,18 @@ class MaterialControls {
     const materialType = document.getElementById("material-type");
     const basicParams = document.getElementById("basic-params");
     const phongParams = document.getElementById("phong-params");
+    const diffuse = document.getElementById("texture-diffuse");
+    const specular = document.getElementById("texture-specular");
+    const displacement = document.getElementById("displacement");
+    const normal = document.getElementById("normal");
+    const textureParams = document.getElementById("texture-params");
     if (this._material) {
       if (this._material.constructor.name === "BasicMaterial") {
         materialGroup.style.display = "block";
         materialType.value = "basic";
         basicParams.style.display = "block";
         phongParams.style.display = "none";
+        textureParams.style.display = "none";
 
         this.initAmbientColor = this._material._color;
 
@@ -35,6 +41,7 @@ class MaterialControls {
         materialType.value = "phong";
         basicParams.style.display = "none";
         phongParams.style.display = "block";
+        textureParams.style.display = "block";
 
         this.initShininess = this._material._shininess;
         this.initAmbientColor = this._material._ambient;
@@ -45,12 +52,23 @@ class MaterialControls {
         this.initDisplacementTexture = this._material._displacement ? "on" : "off";
         this.initNormalTexture = this._material._normal ? "on" : "off";
         this.initTextureOption = this._material._textureType;
+        
+        diffuse.style.display = "block";
+        specular.style.display = "block";
+        displacement.style.display = "block";
+        normal.style.display = "block";
         if (this.initTextureOption === "concrete"){
           this._textureIndex = 0;
         } else if (this.initTextureOption === "mud"){
           this._textureIndex = 1;
         } else if (this.initTextureOption === "environment"){
           this._textureIndex = 2;
+          phongParams.style.display = "none";
+        } else if (this.initTextureOption === "off"){
+          diffuse.style.display = "none";
+          specular.style.display = "none";
+          displacement.style.display = "none";
+          normal.style.display = "none";
         }
 
         const shininessSlider = document.getElementById("shininess-slider");
@@ -218,6 +236,8 @@ class MaterialControls {
     }
 
     this._material.updateUniforms();
+    this.init();
+    this.addEventListener();
   }
 
   handleMaterialType(event) {

@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pauseAnimation();
             return;
           }
+          onChangeFrame();
         } else {
           if (currentFrame < 1) {
             resetFrame(totalFrames);

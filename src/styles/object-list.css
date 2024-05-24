@@ -115,7 +115,7 @@
   justify-content: space-between;
 }
 
-.material #material-type, #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options {
+.material #material-type, #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type {
   display: flex;
   justify-content: center;
   background-color: var(--primary-color);
@@ -137,6 +137,16 @@
 
 .input .prop-input {
   height: 30px;
+  width: 50px;
+  padding: 0 8px;
+  border: none;
+  text-align: end;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
+}
+
+.frame-input {
   width: 50px;
   padding: 0 8px;
   border: none;

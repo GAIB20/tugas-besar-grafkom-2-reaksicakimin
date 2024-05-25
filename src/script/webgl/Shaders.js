@@ -38,6 +38,7 @@ uniform mat4 u_viewMatrix;
 uniform vec2 u_resolution;
 uniform bool u_useVertexColor;
 uniform sampler2D u_displacementMap;
+uniform highp int u_textureOption;
 
 varying vec4 v_color;
 varying vec3 v_normal, v_pos;
@@ -52,9 +53,12 @@ void main() {
 
   displace.xyz += (displaceFactor * disp + displaceBias) * a_normal;
   
-  // NANTI JANLUP DIUNCOMMENT
-  // gl_Position = u_viewMatrix * u_worldMatrix * displace;
-  gl_Position = u_viewMatrix * u_worldMatrix * a_position;
+  if (u_textureOption == 1) {
+    gl_Position = u_viewMatrix * u_worldMatrix * displace;
+  } else {
+    gl_Position = u_viewMatrix * u_worldMatrix * a_position;
+  }
+  
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
   v_tangent = mat3(u_worldMatrix) * a_tangent;
@@ -75,7 +79,7 @@ uniform vec3 u_cameraPosition;
 uniform vec4 u_ambient;
 uniform vec4 u_diffuse;
 uniform vec4 u_specular;
-uniform int u_textureOption;
+uniform highp int u_textureOption;
 
 uniform sampler2D u_normalMap;
 uniform sampler2D u_displacementMap;

@@ -1,6 +1,11 @@
 import Object3D from "../objects/Object3D.js";
 import BoxGeometry  from "../geometry/BoxGeometry.js";
-import  PhongMaterial  from "../material/PhongMaterial.js";
+import HollowBoxGeometry  from "../geometry/HollowBoxGeometry.js";
+import HollowGearGeometry  from "../geometry/HollowGearGeometry.js";
+import HollowPyramidGeometry  from "../geometry/HollowPyramidGeometry.js";
+import HollowRingGeometry  from "../geometry/HollowRingGeometry.js";
+import HollowStarGeometry  from "../geometry/HollowStarGeometry.js";
+import BasicMaterial  from "../material/BasicMaterial.js";
 import  Mesh  from "../objects/Mesh.js";
 import { buildHTML } from "../webutils/treeLoader.js";
 
@@ -22,30 +27,64 @@ class TreeControls {
     addObjectEventListeners(){
         const addButton = document.getElementById("add-object");
         addButton.addEventListener("click", () => {
-            const geometry2 = new BoxGeometry(1, 1, 1);
-
-            const material2 = new PhongMaterial({
-                shininess: 32,
-                ambient: [1, 1, 1, 1],
-                diffuse: {
-                color: [1, 1, 1, 1],
-                texture: null,
-                },
-                specular: {
-                color: [1, 1, 1, 1],
-                texture: null
-                },
-                displacement: null,
-                normal: null,
-                textureOption: 0,
-                textureType: 'off'
-            });
             
-            const mesh2 = new Mesh(geometry2, material2);
-            mesh2._name = "kontol";
-            mesh2._position._x = 1.2;
+            const objectshape = document.getElementById("object-shape").value;
+            let geometry, material, mesh;
 
-            this.object.add(mesh2);
+            console.log(objectshape )
+
+            switch(objectshape){
+                case "box" :
+                    geometry = new BoxGeometry(1, 1, 1);
+                    break;
+                
+                case "hollowbox" :
+                    geometry = new HollowBoxGeometry(1, 1, 1);
+                    break;
+                
+                case "hollowgear" :
+                    geometry = new HollowGearGeometry(1, 1, 1);
+                    break;
+
+                case "hollowpyramid" :
+                    geometry = new HollowPyramidGeometry(1, 1, 1);
+                    break;
+                
+                case "hollowring" :
+                    geometry = new HollowRingGeometry(1, 1, 1);
+                    break;
+                
+                case "hollowstar" :
+                    geometry = new HollowStarGeometry(1, 1, 1);
+                    break;
+            } 
+            material = new BasicMaterial([1,1,1,1]);
+            mesh = new Mesh(geometry, material);
+            mesh._name = "new object";
+            // const geometry2 = new BoxGeometry(1, 1, 1);
+
+            // const material2 = new PhongMaterial({
+            //     shininess: 32,
+            //     ambient: [1, 1, 1, 1],
+            //     diffuse: {
+            //     color: [1, 1, 1, 1],
+            //     texture: null,
+            //     },
+            //     specular: {
+            //     color: [1, 1, 1, 1],
+            //     texture: null
+            //     },
+            //     displacement: null,
+            //     normal: null,
+            //     textureOption: 0,
+            //     textureType: 'off'
+            // });
+            
+            // const mesh2 = new Mesh(geometry2, material2);
+            // mesh2._name = "kontol";
+            // mesh2._position._x = 1.2;
+
+            this.object.add(mesh);
             buildHTML(this.scene.toJSON(), document.getElementById('container'));
         });
     }
@@ -93,14 +132,6 @@ class TreeControls {
             }
         });
     }
-
-    // importShapes(data){
-    //     var jsonShapes = JSON.parse(data);
-    //     var mesh = new Mesh.fromJSON(jsonShapes);
-    //     this.object.add(mesh);
-
-    //     buildHTML(this.scene.toJSON(), document.getElementById('container'));
-    // }
 
     loadObjectEventListeners(){
         const loadButton = document.getElementById("load-object");

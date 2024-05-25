@@ -22,14 +22,6 @@
   border-radius: 5px;
 }
 
-.property-bar-container .property-container {
-  display: none;
-}
-
-.property-bar-container .property-container.active {
-  display: block;
-}
-
 .property-bar-container .property {
   width: 100%;
   height: fit-content;
@@ -110,7 +102,7 @@
   padding-top: 25px;
 }
 
-.projection #projection-type {
+.projection #projection-type, #shape-gradient {
   display: flex;
   justify-content: center;
   background-color: var(--primary-color);

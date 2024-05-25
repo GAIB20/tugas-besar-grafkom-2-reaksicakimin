@@ -5,7 +5,8 @@ class BufferGeometry {
 	constructor() {
 		this._attributes = {};
 		this._indices = undefined;
-		this._useVertexColors = false;
+		this._useVertexColors = true;
+		this._color = [1, 1, 1, 1];
 	}
 
 	// Public getter
@@ -33,6 +34,17 @@ class BufferGeometry {
 
 	deleteAttribute(name) {
 		delete this._attributes[name];
+		return this;
+	}
+
+	setColor() {
+		const colors = new Float32Array(this._verticesLength * 3); 
+		for (let i = 0; i < this._verticesLength; i += 3) {
+			colors[i] = this._color[0];
+			colors[i + 1] = this._color[1];
+			colors[i + 2] = this._color[2];
+		}
+		this.setAttribute('color', new BufferAttribute(colors, 3));
 		return this;
 	}
 

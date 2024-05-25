@@ -151,7 +151,9 @@ class HollowGearGeometry extends BufferGeometry {
     }
 
     this.setAttribute('position', new BufferAttribute(new Float32Array(vertices), 3));
+    this._verticesLength = vertices.length;
     this.calculateNormals();
+    this.setColor();
 }
 
   

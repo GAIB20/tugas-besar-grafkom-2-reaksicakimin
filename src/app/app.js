@@ -256,26 +256,26 @@ function __main__(){
   scene.add(mesh3);
 
   // HOLLOW BOX (MASIH EROR KALO DI RUN)
-  // const geometry4 = new HollowBoxGeometry(1, 1, 1);
-  // const material4 = new PhongMaterial({
-  //   shininess: 32,
-  //   ambient: [1, 1, 1, 1],
-  //   diffuse: {
-  //     color: [1, 1, 1, 1],
-  //     texture: null
-  //   },
-  //   specular: {
-  //     color: [1, 1, 1, 1],
-  //     texture: null
-  //   },
-  //   displacement: null,
-  //   normal: null,
-  //   textureOption: 0
-  // });
-  // const mesh4 = new Mesh(geometry4, material4);
-  // mesh4._position._x = 2.4;
-  // mesh4._name = "Object4"
-  // scene.add(mesh4);
+  const geometry4 = new HollowRingGeometry(1, 1, 1);
+  const material4 = new PhongMaterial({
+    shininess: 32,
+    ambient: [1, 1, 1, 1],
+    diffuse: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    specular: {
+      color: [1, 1, 1, 1],
+      texture: null
+    },
+    displacement: null,
+    normal: null,
+    textureOption: 0
+  });
+  const mesh4 = new Mesh(geometry4, material4);
+  mesh4._position._x = 2.4;
+  mesh4._name = "Object4"
+  scene.add(mesh4);
 }
 
 

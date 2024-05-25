@@ -6,6 +6,7 @@ import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourceP
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 import DirectionalLight from '../light/DirectionalLight.js';
+import { hexToRgb } from '../utils/color.js';
 
 
 class WebGLRenderer {
@@ -15,6 +16,7 @@ class WebGLRenderer {
     this._gl = canvas.getContext('webgl');
     this._shaderCache = {};
     this._currentProgram = null;
+    this._canvasColor = [0, 0, 0, 1];
 
     this.setViewport();
     
@@ -22,6 +24,14 @@ class WebGLRenderer {
     window.addEventListener('resize', () => {
       this.setViewport();
       this.adjustCanvas();
+    });
+    // listener canvas color
+    const canvasColor = document.getElementById("canvas-color-input");
+    const canvasColorLabel = document.getElementById("canvas-color-value");
+    canvasColor.addEventListener("input", () => {
+      const color = canvasColor.value;
+      canvasColorLabel.innerText = color;
+      this._canvasColor = hexToRgb(color);
     });
   }
     
@@ -82,7 +92,7 @@ class WebGLRenderer {
   
   render(scene, camera) {
     const gl = this._gl;
-    gl.clearColor(0, 0, 0, 1);
+    gl.clearColor(...this._canvasColor);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     gl.enable(gl.CULL_FACE);
     gl.enable(gl.DEPTH_TEST);

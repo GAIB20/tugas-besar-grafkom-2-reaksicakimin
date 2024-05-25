@@ -343,13 +343,25 @@
     </div>
 
     <!-- Shape property -->
-    <div id="shape-properties" class="property-container">
+    <div id="shape-color" class="property-container">
       <!-- Shape color -->
       <div class="property">
-        <label for="shape-color">Color</label>
-        <div class="color-input">
-          <input type="color" id="shape-color-input" name="shape-color" value="#e5e5e5">
-          <span id="shape-color-value">#e5e5e5</span>
+        <div id="shape-color-picker">
+          <label for="shape-color">Color</label>
+          <div class="color-input">
+            <input type="color" id="shape-color-input" name="shape-color" value="#e5e5e5">
+            <span id="shape-color-value">#e5e5e5</span>
+          </div>
+        </div>
+
+        <div id="shape-gradient-toggle">
+          <label for="shape-gradient">Gradient</label>
+          <div class="input">
+            <select id="shape-gradient">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

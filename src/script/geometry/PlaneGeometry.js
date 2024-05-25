@@ -16,7 +16,9 @@ class PlaneGeometry extends BufferGeometry {
       hw,   0,  hh,
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
+    this._verticesLength = vertices.length;
     this.calculateNormals();
+    this.setColor();
   }
 
 

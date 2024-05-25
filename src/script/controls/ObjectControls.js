@@ -1,4 +1,5 @@
 import Object3D from "../objects/Object3D.js";
+import { hexToRgb, rgbToHex } from "../utils/color.js";
 
 class ObjectControls {
   constructor(object) {
@@ -10,6 +11,35 @@ class ObjectControls {
 
   init() {
     if (this.object instanceof Object3D) {
+      const shapeColor = document.getElementById("shape-color");
+      if (this.object._geometry) {
+        const shapeColorPicker = document.getElementById("shape-color-picker");
+        const shapeGradient = document.getElementById("shape-gradient");
+        const shapeGradientToggle = document.getElementById("shape-gradient-toggle");
+        if (this.object._geometry.constructor.name === "BoxGeometry") {
+          shapeGradientToggle.style.display = "block";
+        } else {
+          shapeGradientToggle.style.display = "none";
+        }
+
+        shapeColor.style.display = "block";
+        if (this.object._geometry._color) {
+          shapeColorPicker.style.display = "block";
+          shapeGradient.value = "off";
+          this.initColor = this.object._geometry._color;
+
+          const colorPicker = document.getElementById("shape-color-input");
+          colorPicker.value = rgbToHex([this.initColor[0], this.initColor[1], this.initColor[2]]);
+          const colorValue = document.getElementById("shape-color-value");
+          colorValue.value = colorPicker.value;
+        } else {
+          shapeColorPicker.style.display = "none";
+          shapeGradient.value = "on";
+        }
+      } else {
+        shapeColor.style.display = "none";
+      }
+
       this.initPositionX = this.object._position._x;
       this.initPositionY = this.object._position._y;
       this.initPositionZ = this.object._position._z;
@@ -75,6 +105,12 @@ class ObjectControls {
   }
 
   addEventListeners() {
+    const colorPicker = document.getElementById("shape-color-input");
+    colorPicker.addEventListener("input", this.handleColorPicker.bind(this));
+
+    const shapeGradient = document.getElementById("shape-gradient");
+    shapeGradient.addEventListener("input", this.handleShapeGradient.bind(this));
+
     const translateXSlider = document.getElementById("translate-x-slider");
     translateXSlider.addEventListener("input", this.handleTranslateXSlider.bind(this));
 
@@ -128,6 +164,32 @@ class ObjectControls {
 
     const rotationZInput = document.getElementById("rotation-z-input");
     rotationZInput.addEventListener("input", this.handleRotationZInput.bind(this));
+  }
+
+  handleShapeGradient(event) {
+    const value = event.target.value;
+    if (value === "on") {
+      this.object._geometry._color = null;
+      this.object._geometry.setGradientColor();
+    } else {
+      this.object._geometry._color = [1,1,1,1];
+      this.object._geometry.setColor();
+    }
+
+    this.init();
+    this.addEventListeners();
+  }
+
+  handleColorPicker(event) {
+    const value = event.target.value;
+    const rgb = hexToRgb(value);
+    if (this.object._geometry) {
+      this.object._geometry._color = rgb;
+      const colorValue = document.getElementById("shape-color-value");
+      colorValue.value = value;
+
+      this.object._geometry.setColor();
+    }
   }
 
   handleTranslateXSlider(event) {

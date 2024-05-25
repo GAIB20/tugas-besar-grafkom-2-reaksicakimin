@@ -433,7 +433,9 @@ class HollowPyramidGeometry extends BufferGeometry {
 
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
+    this._verticesLength = vertices.length;
     this.calculateNormals();
+    this.setColor();
   }
 
   

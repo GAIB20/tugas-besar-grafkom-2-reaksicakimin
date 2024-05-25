@@ -54,7 +54,13 @@ class BoxGeometry extends BufferGeometry {
       -hw, hh,  hd
     ]);
     this.setAttribute('position', new BufferAttribute(vertices, 3));
+    this._verticesLength = vertices.length;
     this.calculateNormals();
+    if (!this._color) {
+      this.setGradientColor();
+    } else {
+      this.setColor();
+    }
     this.setTextureCoordinates();
     this.calculateTangents();
   }
@@ -105,6 +111,54 @@ class BoxGeometry extends BufferGeometry {
     ]);
     const textureCoordinates = new BufferAttribute(texCoor, 2);
     this.setAttribute('textureCoord', textureCoordinates);
+  }
+
+  setGradientColor() {
+    const colors = new Float32Array([
+      // Front face gradient (from red to yellow)
+      1.0, 0.0, 0.0,   // Top-left
+      1.0, 0.0, 0.0,   // Bottom-left
+      1.0, 1.0, 0.0,   // Bottom-right
+      1.0, 1.0, 0.0,   // Top-right
+      1.0, 0.0, 0.0,   // Top-left
+      1.0, 1.0, 0.0,   // Bottom-right
+      // Back face gradient (from green to cyan)
+      0.0, 1.0, 0.0,   // Top-left
+      0.0, 1.0, 1.0,   // Bottom-right
+      0.0, 1.0, 0.0,   // Bottom-left
+      0.0, 1.0, 1.0,   // Top-right
+      0.0, 1.0, 1.0,   // Bottom-right
+      0.0, 1.0, 0.0,   // Top-left
+      // Top face gradient (from blue to magenta)
+      0.0, 0.0, 1.0,   // Top-left
+      0.0, 0.0, 1.0,   // Bottom-left
+      1.0, 0.0, 1.0,   // Bottom-right
+      1.0, 0.0, 1.0,   // Top-right
+      0.0, 0.0, 1.0,   // Top-left
+      1.0, 0.0, 1.0,   // Bottom-right
+      // Bottom face gradient (from yellow to white)
+      1.0, 1.0, 0.0,   // Bottom-left
+      1.0, 1.0, 1.0,   // Bottom-right
+      1.0, 1.0, 1.0,   // Top-right
+      1.0, 1.0, 0.0,   // Top-left
+      1.0, 1.0, 0.0,   // Bottom-left
+      1.0, 1.0, 1.0,   // Top-right
+      // Right face gradient (from magenta to cyan)
+      1.0, 0.0, 1.0,   // Bottom-left
+      0.0, 1.0, 1.0,   // Top-right
+      1.0, 0.0, 1.0,   // Bottom-right
+      1.0, 0.0, 1.0,   // Bottom-left
+      0.0, 1.0, 1.0,   // Top-left
+      0.0, 1.0, 1.0,   // Top-right
+      // Left face gradient (from cyan to white)
+      0.0, 1.0, 1.0,   // Top-left
+      1.0, 1.0, 1.0,   // Bottom-right
+      0.0, 1.0, 1.0,   // Bottom-left
+      0.0, 1.0, 1.0,   // Top-right
+      0.0, 1.0, 1.0,   // Bottom-right
+      1.0, 1.0, 1.0    // Top-left
+    ]);
+    this.setAttribute('color', new BufferAttribute(colors, 3));
   }
 
   

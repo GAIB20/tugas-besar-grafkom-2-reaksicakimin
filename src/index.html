@@ -507,6 +507,25 @@
           <div class="property-group">
             <label>Light</label>
 
+            <!-- List Light -->
+            <div class="others-group">
+              <input id = "selected-light-object" type="text" name="selected-object" value="" readonly hidden>
+              <div id="list-light" class = "list-light">
+                <!-- <label class = "list-light-label" for="list-light-label"></label> -->
+                <div class="items" id="container-light">
+                  <!-- Placeholder for injected HTML -->
+                </div>
+              </div>
+            </div>
+
+            <button id="add-light" class="add-light-btn">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+
+            <button id="delete-light" class="delete-light-btn">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+            
             <!-- Light Type -->
             <div class="projection">
               <label for="light-type">Light Type</label>

@@ -36,6 +36,11 @@ scene._name = "Scene";
 const light = new DirectionalLight();
 light._name = "Light";
 scene.add(light);
+const light2 = new DirectionalLight();
+light2._name = "COKK";
+scene.add(light2);
+
+// console.log(light);
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -277,6 +282,8 @@ function __main__(){
   mesh4._position._x = 2.4;
   mesh4._name = "Object4"
   scene.add(mesh4);
+
+  console.log(light);
 }
 
 
@@ -285,6 +292,10 @@ __main__()
 
 // END OF PLAYGROUND
 buildHTML(scene.toJSON(), document.getElementById('container'));
+let lightControls = new LightControls(light);
+lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+// lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+
 let objectControls = new ObjectControls(scene);
 let materialControls = new MaterialControls(scene, textures);
 let treeControls = new TreeControls(scene);
@@ -306,7 +317,24 @@ let treeControls = new TreeControls(scene);
     }
   });
 
-let lightControls = new LightControls(scene, light);
+  document.getElementById('selected-light-object').addEventListener('change', function(event) {
+    const selectedLightName = event.target.value;
+    const selectedLight = scene.getObjectByName(selectedLightName);
+    const lightName = document.getElementById("lightname");
+
+    // console.log(selectedLight);
+    
+    if (selectedLight) {
+      console.log(selectedLight);
+      lightControls.setLight(selectedLight);
+
+      // lightName.value = lightControls.getLight()._name;
+    }
+    else{
+      lightName.value = "";
+    }
+  })
+
 
 // load listener
 document.addEventListener('loadComplete', (event) => {

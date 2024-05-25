@@ -43,22 +43,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const lastButton = document.getElementById('frame-last');
 
     if(currentFrame == 1) {
-      prevButton.disabled;
-      firstButton.disabled;
+      prevButton.disabled = true;
+      firstButton.disabled = true;
       prevButton.style.backgroundColor = 'var(--disabled-color)';
       firstButton.style.backgroundColor = 'var(--disabled-color)';
     }
     else{
+      prevButton.disabled = false;
+      firstButton.disabled = false;
       prevButton.style.backgroundColor = 'var(--primary-color)';
       firstButton.style.backgroundColor = 'var(--primary-color)';
     }
     if(currentFrame == totalFrames) {
-      nextButton.disabled;
-      lastButton.disabled;
+      nextButton.disabled = true;
+      lastButton.disabled = true;
       nextButton.style.backgroundColor = 'var(--disabled-color)';
       lastButton.style.backgroundColor = 'var(--disabled-color)';
     }
     else{
+      nextButton.disabled = false;
+      lastButton.disabled = false;
       nextButton.style.backgroundColor = 'var(--primary-color)';
       lastButton.style.backgroundColor = 'var(--primary-color)';
     }

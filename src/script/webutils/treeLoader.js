@@ -234,14 +234,35 @@ const data = {
     ]
 }
 
+function removeLightObjects(json) {
+    function filterChildren(children) {
+        return children
+            .filter(child => child.type !== "Light")
+            .map(child => ({
+                ...child,
+                children: filterChildren(child.children || [])
+            }));
+    }
+    return {
+        ...json,
+        children: filterChildren(json.children || [])
+    };
+}
+
 export function buildHTML(json, parent) {
   parent.innerHTML = '';
-  buildTree(json, parent);
+  
+  const filteredjson = removeLightObjects(json);
+//   console.log(json);
+//   console.log(filteredjson);
+  
+  buildTree(filteredjson, parent);
 }
 
 let currentUnderlinedLabel = null;
 export function buildTree(json, parent) {
   const div = document.createElement('div');
+//   if(json.name == "Light") continue;
   div.classList.add('list');
   
   const label = document.createElement('label');

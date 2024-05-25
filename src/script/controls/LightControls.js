@@ -1,6 +1,7 @@
 import { hexToRgb, rgbToHex } from "../utils/color.js";
 import DirectionalLight from "../light/DirectionalLight.js";
 import SpotLight from "../light/SpotLight.js";
+import { getScene } from "../../app/app.js";
 
 class LightControls {
   constructor(scene, light) {
@@ -12,6 +13,18 @@ class LightControls {
     this.init();
     this.addEventListener();
  }
+
+ // getter
+  getLight(){
+    return this._light;
+  }
+
+ // setter
+  setLight(light){
+    this._light = light;
+    this.init();
+    this.addEventListener();
+  }
 
   init() {
     const lightType = document.getElementById("light-type");
@@ -93,6 +106,12 @@ class LightControls {
   }
 
   addEventListener() {
+    const addlight = document.getElementById("add-light");
+    addlight.addEventListener("click", this.addLight.bind(this));
+
+    const deleteLight = document.getElementById("delete-light");
+    deleteLight.addEventListener("click", this.deleteLight.bind(this));
+
     const lightType = document.getElementById("light-type");
     lightType.addEventListener("change", this.handleLightType.bind(this));
 
@@ -324,6 +343,146 @@ class LightControls {
     this._light.updateUniforms();
   }
 
+  removeAnotherThanLight(json) {
+    function findLightChildren(children) {
+      let lightChildren = [];
+      children.forEach(child => {
+          if (child.type === "Light") {
+              lightChildren.push(child);
+          }
+          if (child.children && child.children.length > 0) {
+              lightChildren = lightChildren.concat(findLightChildren(child.children));
+          }
+      });
+      return lightChildren;
+  }
+  const lightObjects = findLightChildren(json.children || []);
+  return {
+      ...json,
+      children: lightObjects
+  };
+
+  }
+
+  // buildLightHTML(json, parent){
+  //   parent.innerHTML = '';
+  //   console.log(json);
+  //   const filteredjson = this.removeAnotherThanLight(json);
+  //   console.log(filteredjson);
+
+  //   const div = document.createElement('div');
+  //   div.classList.add('list');
+  //   const label = document.createElement('label');
+  //   label.setAttribute('for', json.name);
+  //   label.textContent = json.name;
+  //   div.appendChild(label);
+
+  //   div.addEventListener('click', function(event) {
+  //     event.stopPropagation();
+  //     let selectedObject = document.getElementById('selected-object');
+  //     if (currentUnderlinedLabel && currentUnderlinedLabel !== label) {
+  //       currentUnderlinedLabel.style.textDecoration = '';
+  //     }
+  //     if (label.style.textDecoration === 'underline') {
+  //       label.style.textDecoration = '';
+  //       currentUnderlinedLabel = null;
+
+  //       selectedObject.value = '';
+  //     } else {
+  //       label.style.textDecoration = 'underline';
+  //       currentUnderlinedLabel = label;
+
+  //       selectedObject.value = json.name;
+  //     }
+
+  //     selectedObject.dispatchEvent(new Event('change'));
+  //   });
+
+  //   // if (json.children && json.children.length > 0) {
+  //   //   const subDiv = document.createElement('div');
+  //   //   subDiv.classList.add('items');
+  //   //   json.children.forEach(child => {
+  //   //     buildLightHTML(child, subDiv);
+  //   //   });
+  //   //   div.appendChild(subDiv);
+  //   // }
+
+  //   parent.appendChild(div);
+  // }
+  buildLightHTML(json, parent) {
+    let currentUnderlinedLabel = null;
+    parent.innerHTML = '';
+    console.log(json);
+    const filteredjson = this.removeAnotherThanLight(json);
+    console.log(filteredjson);
+  
+    if (filteredjson.children && filteredjson.children.length > 0) {
+      filteredjson.children.forEach(light => {
+        const div = document.createElement('div');
+        div.classList.add('list');
+        const label = document.createElement('label');
+        label.setAttribute('for', light.name);
+        label.textContent = light.name;
+        div.appendChild(label);
+  
+        div.addEventListener('click', function(event) {
+          event.stopPropagation();
+          let selectedObject = document.getElementById('selected-light-object');
+          if (currentUnderlinedLabel && currentUnderlinedLabel !== label) {
+            currentUnderlinedLabel.style.textDecoration = '';
+          }
+          if (label.style.textDecoration === 'underline') {
+            label.style.textDecoration = '';
+            currentUnderlinedLabel = null;
+            selectedObject.value = '';
+          } else {
+            label.style.textDecoration = 'underline';
+            currentUnderlinedLabel = label;
+            selectedObject.value = light.name;
+          }
+          selectedObject.dispatchEvent(new Event('change'));
+        });
+  
+        parent.appendChild(div);
+      });
+    }
+  }
+
+  addLight(event){
+    // console.log("halo");
+    const newLight = new DirectionalLight();
+    newLight._name = "new light";
+    const scene = getScene();
+    console.log(newLight);
+    scene.add(newLight);
+    this.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+  }
+
+  deleteLight(event){
+    const scene = getScene();
+    // const selectedLight = document.getElementById("selected-light-object").value;
+    // const light = scene.getObjectByName(selectedLight);
+    scene.remove(this._light);
+    this.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+  }
+  
+  changeName(){
+    const renameForm = document.getElementById("rename-form");
+    const lightnameInput = document.getElementById("lightname");
+
+    renameForm.addEventListener("submit", (event) => {
+      event.preventDefault(); // Prevent form from submitting the traditional way
+      const newName = lightnameInput.value;
+
+      // Update the shape's name
+      this._light._name = newName;
+
+      // Optionally, update the scene or any other elements
+      buildLightHTML(this.scene.toJSON(), document.getElementById('container'));
+
+      alert(`Shape renamed to: ${newName}`);
+    });
+  }
 }
 
 export default LightControls;

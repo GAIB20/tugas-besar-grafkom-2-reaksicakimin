@@ -5,6 +5,7 @@ class Light extends Object3D {
     super();
     this._color = uniforms.color;
     this._intensity = uniforms.intensity;
+    this._type = 'Light';
     if (this.constructor.name === 'DirectionalLight') {
       this._uniforms = {
         lightPosition: uniforms.position,
@@ -71,6 +72,7 @@ class Light extends Object3D {
       color: this.color,
       intensity: this.intensity,
       uniforms: this.uniforms,
+      type: this._type,
       ...super.toJSON(),
     };
   }

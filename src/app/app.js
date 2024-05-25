@@ -21,6 +21,7 @@ import LightControls from "../script/controls/LightControls.js";
 import DirectionalLight from "../script/light/DirectionalLight.js";
 import MaterialControls from "../script/controls/MaterialControls.js";
 import Object3D from "../script/objects/Object3D.js";
+import TreeControls from "../script/controls/TreeControls.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -285,12 +286,15 @@ __main__()
 buildHTML(scene.toJSON(), document.getElementById('container'));
 let objectControls = new ObjectControls(scene);
 let materialControls = new MaterialControls(scene, textures);
+let treeControls = new TreeControls(scene);
   document.getElementById('selected-object').addEventListener('change', function(event) {
     const selectedObjectName = event.target.value;
     const selectedObject = scene.getObjectByName(selectedObjectName);
+    console.log(selectedObject);
     if (selectedObject) {
       objectControls.setObject(selectedObject);
       materialControls.setMaterial(selectedObject._material);
+      treeControls.setObject(selectedObject);
     }
   });
 
@@ -306,6 +310,7 @@ document.addEventListener('loadComplete', (event) => {
   document.getElementById('selected-object').addEventListener('change', function(event) {
     const selectedObjectName = event.target.value;
     const selectedObject = scene.getObjectByName(selectedObjectName);
+    
     if (selectedObject) {
       objectControls.setObject(selectedObject);
     }

@@ -290,11 +290,18 @@ let treeControls = new TreeControls(scene);
   document.getElementById('selected-object').addEventListener('change', function(event) {
     const selectedObjectName = event.target.value;
     const selectedObject = scene.getObjectByName(selectedObjectName);
+    const shapename = document.getElementById("shapename");
     console.log(selectedObject);
     if (selectedObject) {
       objectControls.setObject(selectedObject);
       materialControls.setMaterial(selectedObject._material);
       treeControls.setObject(selectedObject);
+
+      shapename.value = selectedObject._name;
+
+    }
+    else if(selectedObject == null){
+      shapename.value = "";
     }
   });
 

@@ -12,12 +12,13 @@ import { buildHTML } from "../webutils/treeLoader.js";
 class TreeControls {
     constructor(scene) {
         this.scene = scene;
-        this.object = scene;
+        this.object = null;
         
         this.addObjectEventListeners();
         this.removeObjectEventListeners();
         this.saveObjectEventListeners();
         this.loadObjectEventListeners();
+        this.changeNameEventListeners();
     }
 
     setObject(object) {
@@ -155,6 +156,24 @@ class TreeControls {
                 reader.readAsText(file);
             };
             input.click();
+        });
+    }
+
+    changeNameEventListeners(){
+        const renameForm = document.getElementById("rename-form");
+        const shapenameInput = document.getElementById("shapename");
+
+        renameForm.addEventListener("submit", (event) => {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+            const newName = shapenameInput.value;
+
+            // Update the shape's name
+            this.object._name = newName;
+
+            // Optionally, update the scene or any other elements
+            buildHTML(this.scene.toJSON(), document.getElementById('container'));
+
+            alert(`Shape renamed to: ${newName}`);
         });
     }
 }

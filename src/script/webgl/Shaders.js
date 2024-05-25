@@ -91,6 +91,9 @@ uniform vec3 u_spotLightTarget;
 uniform float u_spotLightInnerCutOff;
 uniform float u_spotLightOuterCutOff;
 
+uniform bool u_useDirLight;
+uniform bool u_useSpotLight;
+
 uniform sampler2D u_normalMap;
 uniform sampler2D u_displacementMap;
 uniform sampler2D u_diffuseMap;
@@ -120,12 +123,12 @@ vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal) {
 vec4 CalcSpotLight(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
   vec3 halfDir = normalize(LightDirection + ViewDirection);
   vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
-  float dots = dot(LightDirection, -LightDirection);
+  float dots = dot(LightDirection, -spotDir);
   float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
   float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
-  float light = inLight * dot(Normal, LightDirection);
-  vec4 specular = inLight * pow(dot(Normal, halfDir), u_shininess) * u_spotLightColor * u_spotLightIntensity;
-  return specular;
+  vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity;
+  vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
+  return light + specular;
 }
 
 void main() {
@@ -136,8 +139,12 @@ void main() {
     vec3 spotLightDir = normalize(u_spotLightPosition - v_pos);
 
     vec4 totalLight;
-    totalLight += CalcLightInternal(lightDir, normal);
-    // totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
+    if (u_useDirLight) {
+      totalLight += CalcLightInternal(lightDir, normal);
+    }
+    else if (u_useSpotLight) {
+      totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
+    }
 
     gl_FragColor = totalLight * v_color;
   }

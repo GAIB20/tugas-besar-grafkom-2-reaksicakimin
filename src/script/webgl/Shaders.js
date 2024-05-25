@@ -107,7 +107,7 @@ vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal) {
   vec4 AmbientColor = u_ambient * 0.1;
 
   float DiffuseCoefficient = max(dot(Normal, LightDirection), 0.0);
-  vec4 DiffuseColor = u_diffuse * u_lightColor * DiffuseCoefficient * 0.1;
+  vec4 DiffuseColor = u_diffuse * u_lightColor * DiffuseCoefficient * 0.4;
 
   vec3 ReflectionDirection = reflect(-LightDirection, Normal);
   vec3 ViewDirection = normalize(u_cameraPosition - v_pos);
@@ -121,7 +121,8 @@ vec4 CalcSpotLight(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
   vec3 halfDir = normalize(LightDirection + ViewDirection);
   vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
   float dots = dot(LightDirection, -LightDirection);
-  float inLight = smoothstep(u_spotLightOuterCutOff, u_spotLightInnerCutOff, dots);
+  float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
+  float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
   float light = inLight * dot(Normal, LightDirection);
   vec4 specular = inLight * pow(dot(Normal, halfDir), u_shininess) * u_spotLightColor * u_spotLightIntensity;
   return specular;
@@ -136,7 +137,7 @@ void main() {
 
     vec4 totalLight;
     totalLight += CalcLightInternal(lightDir, normal);
-    totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
+    // totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
 
     gl_FragColor = totalLight * v_color;
   }

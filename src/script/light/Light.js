@@ -39,20 +39,20 @@ class Light extends Object3D {
   updateUniforms() {
     if (this.constructor.name === 'DirectionalLight') {
       this._uniforms = {
-        lightPosition: uniforms.position,
-        lightColor: uniforms.color,
-        lightIntensity: uniforms.intensity,
+        lightPosition: this._position,
+        lightColor: this._color,
+        lightIntensity: this._intensity,
       }
     }
     
     else if (this.constructor.name === 'SpotLight') {
       this._uniforms = {
-        spotLightPosition: uniforms.position,
-        spotLightColor: uniforms.color,
-        spotLightIntensity: uniforms.intensity,
-        spotLightTarget: uniforms.target,
-        spotLightInnerCutOff: uniforms.cutOff.inner,
-        spotLightOuterCutOff: uniforms.cutOff.outer,
+        spotLightPosition: this._position,
+        spotLightColor: this._color,
+        spotLightIntensity: this._intensity,
+        spotLightTarget: this._target,
+        spotLightInnerCutOff: this._cutOff.inner,
+        spotLightOuterCutOff: this._cutOff.outer,
       }
     }
   }

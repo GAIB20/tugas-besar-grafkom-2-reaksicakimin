@@ -22,6 +22,7 @@ import DirectionalLight from "../script/light/DirectionalLight.js";
 import MaterialControls from "../script/controls/MaterialControls.js";
 import Object3D from "../script/objects/Object3D.js";
 import TreeControls from "../script/controls/TreeControls.js";
+import SpotLight from "../script/light/SpotLight.js";
 
 const canvas = document.querySelector('canvas');
 
@@ -33,7 +34,10 @@ scene._name = "Scene";
 
 // Create a directional light
 const light = new DirectionalLight();
+// const light = new SpotLight({});
+// light._name = "Light";
 light._name = "Light";
+// scene.add(light);
 scene.add(light);
 
 // Create a camera

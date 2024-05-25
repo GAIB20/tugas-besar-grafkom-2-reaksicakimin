@@ -5,17 +5,23 @@ class Light extends Object3D {
     super();
     this._color = uniforms.color;
     this._intensity = uniforms.intensity;
-
-    this._uniforms = {
-      lightPosition: uniforms.position,
-      lightColor: uniforms.color,
-      lightIntensity: uniforms.intensity,
+    if (this.constructor.name === 'DirectionalLight') {
+      this._uniforms = {
+        lightPosition: uniforms.position,
+        lightColor: uniforms.color,
+        lightIntensity: uniforms.intensity,
+      }
     }
-
-    if (this.constructor.name === 'SpotLight') {
-      this._uniforms.lightTarget = uniforms.target;
-      this._uniforms.lightInnerCutOff = uniforms.cutOff.inner;
-      this._uniforms.lightOuterCutOff = uniforms.cutOff.outer;
+    
+    else if (this.constructor.name === 'SpotLight') {
+      this._uniforms = {
+        spotLightPosition: uniforms.position,
+        spotLightColor: uniforms.color,
+        spotLightIntensity: uniforms.intensity,
+        spotLightTarget: uniforms.target,
+        spotLightInnerCutOff: uniforms.cutOff.inner,
+        spotLightOuterCutOff: uniforms.cutOff.outer,
+      }
     }
   }
 
@@ -31,16 +37,23 @@ class Light extends Object3D {
 
 // Update uniforms
   updateUniforms() {
-    this._uniforms = {
-      lightPosition: this._position,
-      lightColor: this._color,
-      lightIntensity: this._intensity,
+    if (this.constructor.name === 'DirectionalLight') {
+      this._uniforms = {
+        lightPosition: uniforms.position,
+        lightColor: uniforms.color,
+        lightIntensity: uniforms.intensity,
+      }
     }
-
-    if (this.constructor.name === 'SpotLight') {
-      this._uniforms.lightTarget = this._target;
-      this._uniforms.lightInnerCutOff = this._cutOff.inner;
-      this._uniforms.lightOuterCutOff = this._cutOff.outer;
+    
+    else if (this.constructor.name === 'SpotLight') {
+      this._uniforms = {
+        spotLightPosition: uniforms.position,
+        spotLightColor: uniforms.color,
+        spotLightIntensity: uniforms.intensity,
+        spotLightTarget: uniforms.target,
+        spotLightInnerCutOff: uniforms.cutOff.inner,
+        spotLightOuterCutOff: uniforms.cutOff.outer,
+      }
     }
   }
 

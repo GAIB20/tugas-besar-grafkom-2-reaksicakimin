@@ -89,19 +89,27 @@ varying vec3 v_tangent, v_bitangent;
 
 varying highp vec2 v_textureCoord;
 
-mat3 transpose(in mat3 inMatrix)
-{
-  vec3 i0 = inMatrix[0];
-  vec3 i1 = inMatrix[1];
-  vec3 i2 = inMatrix[2];
+vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal) {
+  vec4 AmbientColor = u_ambient * 0.1;
 
-  mat3 outMatrix = mat3(
-    vec3(i0.x, i1.x, i2.x),
-    vec3(i0.y, i1.y, i2.y),
-    vec3(i0.z, i1.z, i2.z)
-  );
+  float DiffuseCoefficient = max(dot(Normal, LightDirection), 0.0);
+  vec4 DiffuseColor = u_diffuse * u_lightColor * DiffuseCoefficient * 0.4;
 
-  return outMatrix;
+  vec3 ReflectionDirection = reflect(-LightDirection, Normal);
+  vec3 ViewDirection = normalize(u_cameraPosition - v_pos);
+  float SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess);
+  vec4 SpecularColor = u_specular * u_lightColor * SpecularCoefficient;
+
+  return AmbientColor + DiffuseColor + SpecularColor;
+}
+
+float CalcSpotLight(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
+  vec3 halfDir = normalize(LightDirection + ViewDirection);
+  float dots = dot(LightDirection, -LightDirection);
+  float inLight = smoothstep(30.0, 10.0, dots);
+  float light = inLight * dot(Normal, LightDirection);
+  float specular = inLight * pow(dot(Normal, halfDir), 580.0);
+  return light + specular;
 }
 
 void main() {
@@ -109,17 +117,19 @@ void main() {
     vec3 normal = normalize(v_normal);
     vec3 lightDir = normalize(u_lightPosition - v_pos);
     vec3 viewDir = normalize(u_cameraPosition - v_pos);
+    vec3 halfDir = normalize(lightDir + viewDir);
+    float dots = dot(lightDir, lightDir);
+    float inLight = smoothstep(20.0, 18.0, dots);
+    float light = inLight * dot(normal, lightDir);
+    float specular = inLight * pow(dot(normal, halfDir), 1080.0);
+    vec4 totalLight;
 
-    vec3 ambient = u_ambient.rgb * 0.1;
-    float diffFactor = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = u_lightColor.rgb * u_diffuse.rgb * diffFactor;
+    vec4 dirLightColor = CalcLightInternal(lightDir, normal);
 
-    vec3 r = reflect(-lightDir, normal);
-    float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
-    vec3 specular = u_specular.rgb * u_lightColor.rgb * specFactor;
-
-    vec4 finalColor = vec4( (diffuse + specular) + ambient, 1.0) * v_color;
-    gl_FragColor = finalColor;
+    // gl_FragColor = totalLight * v_color;
+    gl_FragColor = dirLightColor * v_color;
+    gl_FragColor *= light;
+    gl_FragColor += specular;
   }
   if (u_textureOption == 1) {
     vec3 T = normalize(v_tangent);

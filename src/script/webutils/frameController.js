@@ -42,10 +42,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstButton = document.getElementById('frame-first');
     const lastButton = document.getElementById('frame-last');
 
-    prevButton.disabled = (currentFrame === 1);
-    nextButton.disabled = (currentFrame === totalFrames);
-    firstButton.disabled = (currentFrame === 1);
-    lastButton.disabled = (currentFrame === totalFrames);
+    if(currentFrame == 1) {
+      prevButton.disabled;
+      firstButton.disabled;
+      prevButton.style.backgroundColor = 'var(--disabled-color)';
+      firstButton.style.backgroundColor = 'var(--disabled-color)';
+    }
+    else{
+      prevButton.style.backgroundColor = 'var(--primary-color)';
+      firstButton.style.backgroundColor = 'var(--primary-color)';
+    }
+    if(currentFrame == totalFrames) {
+      nextButton.disabled;
+      lastButton.disabled;
+      nextButton.style.backgroundColor = 'var(--disabled-color)';
+      lastButton.style.backgroundColor = 'var(--disabled-color)';
+    }
+    else{
+      nextButton.style.backgroundColor = 'var(--primary-color)';
+      lastButton.style.backgroundColor = 'var(--primary-color)';
+    }
   }
 
   // Play animation frame
@@ -187,8 +203,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const editButton = document.getElementById('start-recording');
     if (isEditing) {
       editButton.style.color = 'var(--accent-color)';
+
+      // disable and change color into gray
+      document.getElementById('frame-play').disabled = true;
+      document.getElementById('frame-play').style.backgroundColor = 'var(--disabled-color)';
+
+      document.getElementById('frame-pause').disabled = true;
+      document.getElementById('frame-pause').style.backgroundColor = 'var(--disabled-color)';
+
+      document.getElementById('frame-reverse').disabled = true;
+      document.getElementById('frame-reverse').style.backgroundColor = 'var(--disabled-color)';
+      
+      document.getElementById('frame-autoreplay').disabled = true;
+      document.getElementById('frame-autoreplay').style.backgroundColor = 'var(--disabled-color)';
+
     } else {
       editButton.style.color = 'var(--text-color)';
+
+      document.getElementById('frame-play').disabled = false;
+      document.getElementById('frame-play').style.backgroundColor = 'var(--primary-color)';
+
+      document.getElementById('frame-pause').disabled = false;
+      document.getElementById('frame-pause').style.backgroundColor = 'var(--primary-color)';
+      
+      document.getElementById('frame-reverse').disabled = false;
+      document.getElementById('frame-reverse').style.backgroundColor = 'var(--primary-color)';
+
+      document.getElementById('frame-autoreplay').disabled = false;
+      document.getElementById('frame-autoreplay').style.backgroundColor = 'var(--primary-color)';
     }
   });
 

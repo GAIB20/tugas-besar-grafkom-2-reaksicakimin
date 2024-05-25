@@ -55,7 +55,7 @@
   padding-left: 40px;
 }
 
-.others-group .frame {
+.others-group .frame, .component-editor {
   padding: 8px 12px;
   display: flex;
   justify-content: space-between;
@@ -72,7 +72,7 @@
   color: var(--text-color);
 }
 
-.others-group .frame .frame-btn {
+.others-group .frame .frame-btn, .object-btn {
   padding: 8px 12px;
   display: flex;
   justify-content: center;
@@ -109,9 +109,10 @@
   justify-content: space-between;
 }
 
-.material #material-type, #light-type,  #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type {
+.material #material-type, #light-type,  #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type, #object-shape {
   display: flex;
   justify-content: center;
+  padding: 5px 5px;
   background-color: var(--primary-color);
   color: var(--text-color);
 }
@@ -148,4 +149,14 @@
   background-color: var(--primary-color);
   border-radius: 3px;
   color: var(--text-color);
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px 8px;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
 }

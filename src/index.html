@@ -59,38 +59,43 @@
       </div>
     </div>
 
-    <!-- Component Objet-->
-    <select id = "object-shape">
-      <option value="box">Box</option>
-      <option value="hollowbox">Hollow Box</option>
-      <option value="hollowgear">Hollow Gear</option>
-      <option value="hollowpyramid">Hollow Pyramid</option>
-      <option value="hollowring">Hollow Ring</option>
-      <option value="hollowstar">Hollow Star</option>
-    </select>
+    <!-- Component Editor-->
+    <div class="others-group">
+      <label class="component-editor-label" for="component-editor-label">Component Editor</label>
+      
+      <div class="component-editor">
+        <select id="object-shape">
+          <option value="box">Box</option>
+          <option value="hollowbox">Hollow Box</option>
+          <option value="hollowgear">Hollow Gear</option>
+          <option value="hollowpyramid">Hollow Pyramid</option>
+          <option value="hollowring">Hollow Ring</option>
+          <option value="hollowstar">Hollow Star</option>
+        </select>
+      </div>
 
-    <button id="add-object" class="add-object-btn">
-      <i class="fa-solid fa-plus"></i>
-    </button>
-    
-    <button id="delete-object" class="delete-object-btn">
-      <i class="fa-solid fa-trash"></i>
-    </button>
+      <div class="component-editor">
+        <button id="add-object" class="object-btn">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button id="delete-object" class="object-btn">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button id="save-object" class="object-btn">
+          <i class="fa-solid fa-save"></i>
+        </button>
+        <button id="load-object" class="object-btn">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
 
-    <button id="save-object" class="save-object-btn">
-      <i class="fa-solid fa-save"></i>
-    </button>
-
-    <button id="load-object" class="load-object-btn">
-      <i class="fa-solid fa-download"></i>
-    </button>
-
-    <!-- <form action="/action_page.php"> -->
-    <form id="rename-form">
-      <label>Name:</label>
-      <input type="text" id="shapename" name="shapename"><br><br>
-      <input type="submit" value="Submit">
-    </form>
+      <div class="component-editor">
+        <form id="rename-form">
+          <label>Rename:</label>
+          <input type="text" id="shapename" name="shapename" class="text-input" placeholder="Object Name...">
+        </form>
+      </div>
+    </div>
 
 
     <!-- Animation -->

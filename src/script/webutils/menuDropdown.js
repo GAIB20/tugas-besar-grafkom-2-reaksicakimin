@@ -31,7 +31,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (selectedItemText === "New File") {
                 SaveLoad.clear();
                 // showLog("New File");
-            } else if (selectedItemText === "Import Model") {
+            } 
+            
+            else if (selectedItemText === "Import Model") {
                 // open file dialog
                 var input = document.createElement("input");
                 input.type = "file";
@@ -48,7 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 input.click();
 
                 // showLog("Import Shape");
-            } else if (selectedItemText === "Export Model") {
+            } 
+            
+            else if (selectedItemText === "Export Model") {
                 var jsonData = SaveLoad.save();
                 var jsonString = JSON.stringify(jsonData);
                 var blob = new Blob([jsonString], { type: 'application/json' });

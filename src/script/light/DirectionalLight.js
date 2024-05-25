@@ -6,7 +6,7 @@ class DirectionalLight extends Light {
     const {
       position = new Vector3(20, 100, 300),
       color = [1, 1, 1, 1],
-      intensity = 0.5,
+      intensity = 1,
       direction = new Vector3(0, 0, 0),
     } = options;
 

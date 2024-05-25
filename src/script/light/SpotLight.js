@@ -6,7 +6,7 @@ class SpotLight extends Light {
     const {
       position = new Vector3(0, 0, 0),
       color = [1, 1, 1, 1],
-      intensity = 0.5,
+      intensity = 1,
       target = new Vector3(0, 0, 0),
       cutOff = {
         inner: 0.5,

@@ -58,7 +58,7 @@ void main() {
   } else {
     gl_Position = u_viewMatrix * u_worldMatrix * a_position;
   }
-  
+
   v_pos = vec3(u_worldMatrix * a_position);
   v_normal = mat3(u_worldMatrix) * a_normal;
   v_tangent = mat3(u_worldMatrix) * a_tangent;
@@ -79,6 +79,7 @@ uniform vec3 u_cameraPosition;
 uniform vec4 u_ambient;
 uniform vec4 u_diffuse;
 uniform vec4 u_specular;
+uniform float u_lightIntensity;
 uniform highp int u_textureOption;
 
 uniform sampler2D u_normalMap;
@@ -122,7 +123,7 @@ void main() {
     float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
     vec3 specular = u_specular.rgb * u_lightColor.rgb * specFactor;
 
-    vec4 finalColor = vec4( (diffuse + specular) + ambient, 1.0) * v_color;
+    vec4 finalColor = vec4( (diffuse + specular) + ambient, 1.0) * v_color * u_lightIntensity;
     gl_FragColor = finalColor;
   }
   if (u_textureOption == 1) {
@@ -150,7 +151,7 @@ void main() {
     float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
     vec3 specular = u_specular.rgb * u_lightColor.rgb * spec * specFactor;
     
-    vec4 finalColor = vec4( (diffuse * diffuseBump + specular) + ambient, 1.0) * vec4(diff, 1.0);
+    vec4 finalColor = vec4( (diffuse * diffuseBump + specular) + ambient, 1.0) * vec4(diff, 1.0) * u_lightIntensity;
     gl_FragColor = finalColor;
   }
   if (u_textureOption == 2) {

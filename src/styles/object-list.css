@@ -86,13 +86,7 @@
   padding-top: 5px;
 }
 
-#basic-ambient {
-  background-color: transparent;
-  border: none;
-  border-radius: 3px;
-}
-
-#phong-ambient, #phong-diffuse, #phong-specular {
+#phong-ambient, #phong-diffuse, #phong-specular, #basic-ambient, #light-color {
   background-color: transparent;
   border: none;
   border-radius: 3px;
@@ -115,7 +109,7 @@
   justify-content: space-between;
 }
 
-.material #material-type, #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type {
+.material #material-type, #light-type,  #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type {
   display: flex;
   justify-content: center;
   background-color: var(--primary-color);

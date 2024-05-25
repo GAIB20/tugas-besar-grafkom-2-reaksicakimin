@@ -241,20 +241,10 @@ class MaterialControls {
   }
 
   handleMaterialType(event) {
-    const materialGroup = document.getElementById("material-group");
-    const basicParams = document.getElementById("basic-params");
-    const phongParams = document.getElementById("phong-params");
-  
     if (event.target.value === "basic") {
       this._material = new BasicMaterial();
-      materialGroup.style.display = "block";
-      basicParams.style.display = "block";
-      phongParams.style.display = "none";
     } else if (event.target.value === "phong") {
       this._material = new PhongMaterial({});
-      materialGroup.style.display = "block";
-      basicParams.style.display = "none";
-      phongParams.style.display = "block";
     }
   
     const selectedObjectName = document.getElementById('selected-object').value;

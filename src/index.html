@@ -456,9 +456,20 @@
           <div class="property-group">
             <label>Light</label>
 
+            <!-- Light Type -->
+            <div class="projection">
+              <label for="light-type">Light Type</label>
+              <div class="input">
+                <select id="light-type">
+                  <option value="directional">Directional</option>
+                  <option value="spot">Spot</option>
+                </select>
+              </div>
+            </div>
+
             <!-- Translate X -->
             <div class="label-value">
-              <label for="translate-x">X</label>
+              <label for="translate-x">Translate X</label>
               <div class="input">
                 <input type="range" id="light-x-slider" class="prop-slider" name="light-x" min="-100" max="100"
                   step="1" value="0">
@@ -469,7 +480,7 @@
 
             <!-- Translate Y -->
             <div class="label-value">
-              <label for="translate-y">Y</label>
+              <label for="translate-y">Translate Y</label>
               <div class="input">
                 <input type="range" id="light-y-slider" class="prop-slider" name="light-y" min="-100" max="100"
                   step="1" value="0">
@@ -480,12 +491,88 @@
 
             <!-- Translate Z -->
             <div class="label-value">
-              <label for="translate-z">Z</label>
+              <label for="translate-z">Translate Z</label>
               <div class="input">
                 <input type="range" id="light-z-slider" class="prop-slider" name="light-z" min="-100" max="100"
                   step="1" value="0">
                 <input type="number" id="light-z-input" class="prop-input" name="light-z-input" min="-100" max="100"
                   step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Light Color -->
+            <div class="label-value">
+              <label for="light-color">Color</label>
+              <div class="color-input">
+                <input type="color" id="light-color" name="light-color" value="#e5e5e5">
+              </div>
+            </div>
+
+            <!-- Light Intensity -->
+            <div class="label-value">
+              <label for="light-intensity">Intensity</label>
+              <div class="input">
+                <input type="range" id="light-intensity-slider" class="prop-slider" name="light-intensity" min="0" max="10"
+                  step="0.1" value="1">
+                <input type="number" id="light-intensity-input" class="prop-input" name="light-intensity-input" min="0"
+                  max="10" step="0.1" value="1">
+              </div>
+            </div>
+
+            <!-- Light Tarqet -->
+            <div id="light-target">
+              <div class="label-value">
+                <label for="target-x">Target X</label>
+                <div class="input">
+                  <input type="range" id="light-target-x-slider" class="prop-slider" name="light-target-x" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-x-input" class="prop-input" name="light-target-x-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+
+              <div class="label-value">
+                <label for="target-y">Target Y</label>
+                <div class="input">
+                  <input type="range" id="light-target-y-slider" class="prop-slider" name="light-target-y" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-y-input" class="prop-input
+                  " name="light-target-y-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+
+              <div class="label-value">
+                <label for="target-z">Target Z</label>
+                <div class="input">
+                  <input type="range" id="light-target-z-slider" class="prop-slider" name="light-target-z" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-z-input" class="prop-input
+                  " name="light-target-z-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+            </div>
+
+            <!-- Light Inner Cut Off -->
+            <div class="label-value" id="light-inner-cut-off" style="display:none;">
+              <label for="light-inner-cut-off">Inner Cut Off</label>
+              <div class="input">
+                <input type="range" id="light-inner-cut-off-slider" class="prop-slider" name="light-inner-cut-off" min="0" max="180"
+                  step="1" value="0">
+                <input type="number" id="light-inner-cut-off-input" class="prop-input" name="light-inner-cut-off-input" min="0"
+                  max="180" step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Light Outer Cut Off -->
+            <div class="label-value" id="light-outer-cut-off" style="display:none;">
+              <label for="light-outer-cut-off">Outer Cut Off</label>
+              <div class="input">
+                <input type="range" id="light-outer-cut-off-slider" class="prop-slider" name="light-outer-cut-off" min="0" max="180"
+                  step="1" value="0">
+                <input type="number" id="light-outer-cut-off-input" class="prop-input" name="light-outer-cut-off-input" min="0"
+                  max="180" step="1" value="0">
               </div>
             </div>
 

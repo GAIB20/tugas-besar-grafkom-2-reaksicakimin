@@ -7,18 +7,18 @@ class SpotLight extends Light {
       position = new Vector3(0, 0, 0),
       color = [1, 1, 1, 1],
       intensity = 0.5,
-      direction = new Vector3(0, 0, 0),
-      cuttOff = {
+      target = new Vector3(0, 0, 0),
+      cutOff = {
         inner: 0.5,
         outer: 0.75
       }
     } = options;
 
-    super({color: color, intensity: intensity, position: position, direction: direction, cuttOff: cuttOff});
-    this._direction = direction;
+    super({color: color, intensity: intensity, position: position, target: target, cutOff: cutOff});
+    this._target = target;
     this._cutOff = {
-      inner: cuttOff.inner,
-      outer: cuttOff.outer
+      inner: cutOff.inner,
+      outer: cutOff.outer
     };
 
     this._position = position;

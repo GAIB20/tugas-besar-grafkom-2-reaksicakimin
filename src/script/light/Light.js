@@ -6,22 +6,16 @@ class Light extends Object3D {
     this._color = uniforms.color;
     this._intensity = uniforms.intensity;
 
-    if (this.constructor.name === 'DirectionalLight') {
-      this._uniforms = {
-        lightColor: uniforms.color,
-        lightIntensity: uniforms.intensity,
-        lightPosition: uniforms.position,
-        lightDirection: uniforms.direction,
-      }
-    } else if (this.constructor.name === 'SpotLight') {
-      this._uniforms = {
-        lightColor: uniforms.color,
-        lightIntensity: uniforms.intensity,
-        lightPosition: uniforms.position,
-        lightDirection: uniforms.direction,
-        lightInnerCutOff: uniforms.cutOff.inner,
-        lightOuterCutOff: uniforms.cutOff.outer,
-      }
+    this._uniforms = {
+      lightPosition: uniforms.position,
+      lightColor: uniforms.color,
+      lightIntensity: uniforms.intensity,
+    }
+
+    if (this.constructor.name === 'SpotLight') {
+      this._uniforms.lightTarget = uniforms.target;
+      this._uniforms.lightInnerCutOff = uniforms.cutOff.inner;
+      this._uniforms.lightOuterCutOff = uniforms.cutOff.outer;
     }
   }
 
@@ -34,6 +28,21 @@ class Light extends Object3D {
   set color(color) { this._color = color; }
   set intensity(intensity) { this._intensity = intensity; }
   set uniforms(uniforms) { this._uniforms = uniforms; }
+
+// Update uniforms
+  updateUniforms() {
+    this._uniforms = {
+      lightPosition: this._position,
+      lightColor: this._color,
+      lightIntensity: this._intensity,
+    }
+
+    if (this.constructor.name === 'SpotLight') {
+      this._uniforms.lightTarget = this._target;
+      this._uniforms.lightInnerCutOff = this._cutOff.inner;
+      this._uniforms.lightOuterCutOff = this._cutOff.outer;
+    }
+  }
 
   // JSON parser
   toJSON() {

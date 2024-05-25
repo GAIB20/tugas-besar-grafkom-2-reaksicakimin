@@ -34,10 +34,7 @@ scene._name = "Scene";
 
 // Create a directional light
 const light = new DirectionalLight();
-// const light = new SpotLight({});
-// light._name = "Light";
 light._name = "Light";
-// scene.add(light);
 scene.add(light);
 
 // Create a camera
@@ -309,7 +306,7 @@ let treeControls = new TreeControls(scene);
     }
   });
 
-let lightControls = new LightControls(light);
+let lightControls = new LightControls(scene, light);
 
 // load listener
 document.addEventListener('loadComplete', (event) => {
@@ -327,7 +324,7 @@ document.addEventListener('loadComplete', (event) => {
     }
   });
 
-  let lightControls = new LightControls(light);
+  let lightControls = new LightControls(scene, light);
 });
 
 

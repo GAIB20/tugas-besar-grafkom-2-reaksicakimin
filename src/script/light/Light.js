@@ -10,6 +10,8 @@ class Light extends Object3D {
         lightPosition: uniforms.position,
         lightColor: uniforms.color,
         lightIntensity: uniforms.intensity,
+        useSpotLight: false,
+        useDirLight: true,
       }
     }
     
@@ -21,6 +23,8 @@ class Light extends Object3D {
         spotLightTarget: uniforms.target,
         spotLightInnerCutOff: uniforms.cutOff.inner,
         spotLightOuterCutOff: uniforms.cutOff.outer,
+        useSpotLight: true,
+        useDirLight: false,
       }
     }
   }
@@ -42,6 +46,8 @@ class Light extends Object3D {
         lightPosition: this._position,
         lightColor: this._color,
         lightIntensity: this._intensity,
+        useSpotLight: false,
+        useDirLight: true,
       }
     }
     
@@ -53,6 +59,8 @@ class Light extends Object3D {
         spotLightTarget: this._target,
         spotLightInnerCutOff: this._cutOff.inner,
         spotLightOuterCutOff: this._cutOff.outer,
+        useSpotLight: true,
+        useDirLight: false,
       }
     }
   }

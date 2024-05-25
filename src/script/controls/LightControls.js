@@ -3,8 +3,11 @@ import DirectionalLight from "../light/DirectionalLight.js";
 import SpotLight from "../light/SpotLight.js";
 
 class LightControls {
-  constructor(light) {
+  constructor(scene, light) {
+    this._scene = scene;
     this._light = light;
+
+    console.log(this._light)
     
     this.init();
     this.addEventListener();
@@ -159,7 +162,15 @@ class LightControls {
     } else if (event.target.value === "spot") {
       this._light = new SpotLight({});
     }
+    this._light._name = "Light";
 
+    let light = this._scene.getObjectByName("Light");
+    if (light) {
+      this._scene.add(this._light);
+      this._scene.remove(light);
+    }
+
+    this._light.updateUniforms();
     this.init();
     this.addEventListener();
   }

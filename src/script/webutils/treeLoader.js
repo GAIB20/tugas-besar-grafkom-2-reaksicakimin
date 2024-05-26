@@ -1,3 +1,5 @@
+import Light from "../light/Light.js";
+
 const data = {
     "name": "Scene",
     "position": [
@@ -236,13 +238,18 @@ const data = {
 
 function removeLightObjects(json) {
     function filterChildren(children) {
-        return children
-            .filter(child => child.type !== "Light")
-            .map(child => ({
-                ...child,
-                children: filterChildren(child.children || [])
-            }));
+        let filteredChildren = [];
+
+        for (let i = 0; i < children.length; i++) {
+            if (!(children[i].type == "Light")) {
+                children[i].children = filterChildren(children[i].children || []);
+                filteredChildren.push(children[i]);
+            }
+        }
+
+        return filteredChildren;
     }
+
     return {
         ...json,
         children: filterChildren(json.children || [])

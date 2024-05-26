@@ -35,7 +35,7 @@ scene._name = "Scene";
 // Create a directional light
 const light = new DirectionalLight();
 const light2 = new DirectionalLight();
-light._name = "Light";
+light._name = "Light1";
 light._position._x = 0;
 light._position._y = 0;
 light._position._z = 100;
@@ -50,34 +50,34 @@ light2._intensity = 1;
 scene.add(light);
 scene.add(light2);
 
-// create a spot light
-const spotLight = new SpotLight();
-spotLight._name = "SpotLight";
-spotLight._position._x = 0;
-spotLight._position._y = 0;
-spotLight._position._z = 20;
-spotLight._color = [0, 0, 1, 1];
-spotLight._intensity = 1;
-spotLight._target = new Vector3(0, 0, 0);
-spotLight._cutOff = {
-  inner: 0,
-  outer: 30
-}
-scene.add(spotLight);
+// // create a spot light
+// const spotLight = new SpotLight();
+// spotLight._name = "SpotLight";
+// spotLight._position._x = 0;
+// spotLight._position._y = 0;
+// spotLight._position._z = 20;
+// spotLight._color = [0, 0, 1, 1];
+// spotLight._intensity = 1;
+// spotLight._target = new Vector3(0, 0, 0);
+// spotLight._cutOff = {
+//   inner: 0,
+//   outer: 30
+// }
+// scene.add(spotLight);
 
-const spotLight2 = new SpotLight();
-spotLight2._name = "SpotLight2";
-spotLight2._position._x = 0;
-spotLight2._position._y = 0;
-spotLight2._position._z = -20;
-spotLight2._color = [1, 0, 1, 1];
-spotLight2._intensity = 1;
-spotLight2._target = new Vector3(0, 0, 0);
-spotLight2._cutOff = {
-  inner: 0,
-  outer: 30
-}
-scene.add(spotLight2);
+// const spotLight2 = new SpotLight();
+// spotLight2._name = "SpotLight2";
+// spotLight2._position._x = 0;
+// spotLight2._position._y = 0;
+// spotLight2._position._z = -20;
+// spotLight2._color = [1, 0, 1, 1];
+// spotLight2._intensity = 1;
+// spotLight2._target = new Vector3(0, 0, 0);
+// spotLight2._cutOff = {
+//   inner: 0,
+//   outer: 30
+// }
+// scene.add(spotLight2);
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -360,10 +360,10 @@ function __main__(){
 __main__()
 
 // END OF PLAYGROUND
+console.log(scene.toJSON())
 buildHTML(scene.toJSON(), document.getElementById('container'));
-// let lightControls = new LightControls(scene, light);
-// lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
-// lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+let lightControls = new LightControls(scene, light);
+lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 
 let objectControls = new ObjectControls(scene);
 let materialControls = new MaterialControls(scene, textures);
@@ -392,7 +392,7 @@ let treeControls = new TreeControls(scene);
     const selectedLight = scene.getObjectByName(selectedLightName);
     const lightName = document.getElementById("lightname");
 
-    // console.log(selectedLight);
+    console.log(selectedLight);
     
     console.log(selectedLight);
     if (selectedLight) {

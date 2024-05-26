@@ -12,7 +12,7 @@ class Object3D {
     this._parent = null;
     this._children = [];
     this.visible = true;
-    // this._type = "Object3D";
+    this._type = "Object3D";
   }
 
   // Public getter
@@ -31,7 +31,7 @@ class Object3D {
       this.computeWorldMatrix(false, true);
     }
   }
-  // set type(type) { this._type = type; }
+  set type(type) { this._type = type; }
 
   get worldPosition() {
     this.computeWorldMatrix(true, false);

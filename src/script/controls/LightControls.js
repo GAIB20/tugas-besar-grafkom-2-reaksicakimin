@@ -432,7 +432,6 @@ class LightControls {
     parent.innerHTML = '';
     // console.log(json);
     const filteredjson = this.removeAnotherThanLight(json);
-    // console.log(filteredjson);
   
     if (filteredjson.children && filteredjson.children.length > 0) {
       filteredjson.children.forEach(light => {

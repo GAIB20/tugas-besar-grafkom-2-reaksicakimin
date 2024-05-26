@@ -38,7 +38,7 @@ Additional:
 ## Pembagian Kerja
 | NIM       | Pembagian Kerja |
 |-----------|-----------------|
-| 13521001  |  |
-| 13521005  |  |
-| 13521015  |  |
-| 13521021  |  |
+| 13521001  | Component Editor, Web Design, Light Editor, Hand Articulated Model, Ring Hollow Model |
+| 13521005  | Shader, Texture, Environment Mapping, Spotlight, Multiple Light Source, Laptop Articulated Model, Pyramid Hollow Model |
+| 13521015  | Save Model, Load Model, Animation, Animation Editor, Tweening, Guide, Humanoid Articulated Model, Gear and Star Hollow Model |
+| 13521021  | Base Class, Web Design, Integration, Vertex Color, Component Tree, Multiple Light Source, Dragon Articulated Model, Box Hollow Model |

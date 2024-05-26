@@ -59,8 +59,6 @@ class Matrix {
       }
       str += "\n";
     }
-
-    console.log(str);
   }
 }
 

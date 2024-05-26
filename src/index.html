@@ -11,8 +11,8 @@
   <link rel="stylesheet" type="text/css" href="./styles/index.css" />
   <link rel="stylesheet" type="text/css" href="./styles/navbar.css" />
   <link rel="stylesheet" type="text/css" href="./styles/object-list.css" />
-  <link rel="stylesheet" type="text/css" href="./styles/canvas.css" />
   <link rel="stylesheet" type="text/css" href="./styles/property-bar.css" />
+  <link rel="stylesheet" type="text/css" href="./styles/canvas.css" />
 
   <!-- Font awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"
@@ -33,13 +33,11 @@
         <ul class="dropdown-menu">
           <li>New File</li>
           <li>Import Model</li>
+          <li>Export Model</li>
         </ul>
       </li>
       <li id="cursor" class="tool-btn active">
         <img src="../public/cursor-ic.svg" class="nav-icon">
-      </li>
-      <li id="canvas" class="tool-btn">
-        <img src="../public/canvas-ic.svg" class="nav-icon">
       </li>
     </ul>
   </nav>
@@ -47,67 +45,55 @@
   <!-- Others -->
   <div id="others-bar-container">
 
-    <!-- Component tree (DUMMY)-->
+    <!-- Component tree -->
     <div class="others-group">
+      <input id="selected-object" type="text" name="selected-object" value="" readonly hidden>
       <div id="component-tree" class="component-tree-list">
         <label class="component-tree-label" for="component-tree-label">Component Tree</label>
-        <div class="items">
-
-          <!-- Object -->
-          <div class="body list">
-            <input type="checkbox" id="body" name="body">
-            <label for="body">Body</label>
-            <div class="items">
-              <div class="head list">
-                <input type="checkbox" id="head" name="head">
-                <label for="head">Head</label>
-              </div>
-              <div class="hand list">
-                <input type="checkbox" id="hand" name="hand">
-                <label for="hand">Hand</label>
-                <div class="items">
-                  <div class="left list">
-                    <input type="checkbox" id="left" name="left">
-                    <label for="left">Left</label>
-                  </div>
-                  <div class="right list">
-                    <input type="checkbox" id="right" name="right">
-                    <label for="right">Right</label>
-                  </div>
-                </div>
-              </div>
-              <div class="leg list">
-                <input type="checkbox" id="leg" name="leg">
-                <label for="leg">Leg</label>
-                <div class="items">
-                  <div class="left list">
-                    <input type="checkbox" id="left" name="left">
-                    <label for="left">Left</label>
-                  </div>
-                  <div class="right list">
-                    <input type="checkbox" id="right" name="right">
-                    <label for="right">Right</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Light -->
-          <div class="light list">
-            <input type="checkbox" id="light" name="light">
-            <label for="light">Light</label>
-          </div>
-
-          <!-- Camera -->
-          <div class="camera list">
-            <input type="checkbox" id="camera" name="camera">
-            <label for="camera">Camera</label>
-          </div>
-
+        <div class="items" id="container">
+          <!-- Placeholder for injected HTML -->
         </div>
       </div>
     </div>
+
+    <!-- Component Editor-->
+    <div class="others-group">
+      <label class="component-editor-label" for="component-editor-label">Component Editor</label>
+      
+      <div class="component-editor">
+        <select id="object-shape">
+          <option value="box">Box</option>
+          <option value="hollowbox">Hollow Box</option>
+          <option value="hollowgear">Hollow Gear</option>
+          <option value="hollowpyramid">Hollow Pyramid</option>
+          <option value="hollowring">Hollow Ring</option>
+          <option value="hollowstar">Hollow Star</option>
+        </select>
+      </div>
+
+      <div class="component-editor">
+        <button id="add-object" class="object-btn">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button id="delete-object" class="object-btn">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+        <button id="save-object" class="object-btn">
+          <i class="fa-solid fa-save"></i>
+        </button>
+        <button id="load-object" class="object-btn">
+          <i class="fa-solid fa-download"></i>
+        </button>
+      </div>
+
+      <div class="component-editor">
+        <form id="rename-form">
+          <label>Rename:</label>
+          <input type="text" id="shapename" name="shapename" class="text-input" placeholder="Object Name...">
+        </form>
+      </div>
+    </div>
+
 
     <!-- Animation -->
     <div class="others-group">
@@ -123,6 +109,32 @@
       <div id="frame-indicator" class="frame">
         <label for="frame-indicator">Frame:</label>
         <div class="frame-number"></div>
+      </div>
+
+      <!-- Frame manager -->
+      <div id="frame-manager">
+        <div class="frame-label">
+          <label for="frame-manager">Frame Manager</label>
+        </div>
+        <div class="frame">
+          <button id="frame-add" class="frame-btn">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <input type="number" id="frame-add-input" class="frame-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-delete" class="frame-btn">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+          <input type="number" id="frame-delete-input" class="frame-input" name="frame-delete" value="0">
+        </div>
+        <div class="frame">
+          <button id="frame-swap" class="frame-btn">
+            <i class="fa-solid fa-arrows"></i>
+          </button>
+          <input type="number" id="frame-swap-input-1" class="frame-input" name="frame-swap-1" value="0">
+          <input type="number" id="frame-swap-input-2" class="frame-input" name="frame-swap-2" value="0">
+        </div>
       </div>
       
       <!-- Frame controller -->
@@ -147,11 +159,30 @@
           </button>
         </div>
       </div>
+    </div>
 
+    <!-- Player -->
+    <div class="others-group">
+      <label for="player">Player</label>
       <!-- Frame player -->
       <div id="frame-player">
-        <div class="frame-label">
-          <label for="frame-player">Player</label>
+        <div class="frame input">
+          <div>
+            <label for="tweening">Tweening</label>
+          </div>
+          <select id="tweening-type">
+            <option value="linear">Linear</option>
+            <option value="sine">Sine</option>
+            <option value="quad">Quad</option>
+            <option value="cubic">Cubic</option>
+            <option value="quart">Quart</option>
+            <option value="quint">Quint</option>
+            <option value="expo">Expo</option>
+            <option value="circ">Circ</option>
+            <option value="back">Back</option>
+            <option value="elastic">Elastic</option>
+            <option value="bounce">Bounce</option>
+          </select>
         </div>
         <div class="frame">
           <button id="frame-play" class="frame-btn">
@@ -171,16 +202,47 @@
         </div>
       </div>
 
+      <!-- Frame Recording -->
+      <div id="frame-recording">
+        <div class="frame-label">
+          <label for="frame-recording">Recording</label>
+        </div>
+        <div class="frame">
+          <button id="start-recording" class="frame-btn">
+            <i class="fa-solid fa-play"></i>
+          </button>
+          <button id="save-frame" class="frame-btn">
+            <i class="fa-solid fa-save"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Frame import export animation -->
+      <div id="frame-import-export">
+        <div class="frame-label">
+          <label for="frame-import-export">Import/Export</label>
+        </div>
+        <div class="frame">
+          <input type="file" id="file-input" accept=".json" style="display:none"/>
+          <button id="import-animation" class="frame-btn">
+            <i class="fa-solid fa-download"></i>
+          </button>
+          <button id="export-animation" class="frame-btn">
+            <i class="fa-solid fa-upload"></i>
+          </button>
+        </div>
+      </div>
+      
+
     </div>
 
     <!-- Material -->
-    <div class="others-group">
+    <div class="others-group"id="material-group" style="display:none;">
       <label for="material">Material</label>
         <!-- Material type -->
         <div class="material">
           <label for="material-type">Choose Material</label>
           <select id="material-type">
-            <option value="off">Off</option>
             <option value="basic">Basic</option>
             <option value="phong">Phong</option>
           </select>
@@ -188,30 +250,10 @@
 
         <!-- Basic param -->
         <div id="basic-params" class="material" style="display:none;">
-          <!-- Diffuse Color -->
-          <label for="basic-diffuse">Diffuse Color</label>
-          <div class="color-input">
-            <input type="color" id="basic-diffuse" name="basic-diffuse" value="#e5e5e5">
-            <span id="basic-diffuse-value">#e5e5e5</span>
-          </div>
         </div>
 
         <!-- Phong param -->
         <div id="phong-params" class="material" style="display:none;">
-          <!-- Diffuse Color -->
-          <label for="phong-diffuse">Diffuse Color</label>
-          <div class="color-input">
-            <input type="color" id="phong-diffuse" name="phong-diffuse" value="#e5e5e5">
-            <span id="phong-diffuse-value">#e5e5e5</span>
-          </div>
-          
-          <!-- Specular Color -->
-          <label for="phong-specular">Specular Color</label>
-          <div class="color-input">
-            <input type="color" id="phong-specular" name="phong-specular" value="#ffffff">
-            <span id="phong-specular-value">#ffffff</span>
-          </div>
-
           <!-- Shininess -->
           <label for="shininess">Shininess</label>
           <div class="input">
@@ -220,11 +262,72 @@
             <input type="number" id="shininess-input" class="prop-input" name="shininess-input" min="0" max="100"
               step="1" value="50">
           </div>
-          
-          <!-- Bump Map -->
-          <label for="bump-map">Bump Map</label>
-          <input type="file" id="bump-map" name="bump-map" accept="image/*">
 
+          <!-- Ambient -->
+          <label for="phong-ambient">Ambient Color</label>
+          <div class="color-input">
+            <input type="color" id="phong-ambient" name="phong-ambient" value="#e5e5e5">
+          </div>
+          
+          <!-- Diffuse -->
+          <label for="phong-diffuse">Diffuse</label>
+          <div class="input">
+              <input type="color" id="phong-diffuse" name="phong-diffuse" value="#e5e5e5">
+              <select id="texture-diffuse">
+                <option value="off">Texture Off</option>
+                <option value="on">Texture On</option>
+              </select>
+          </div>
+          
+          <!-- Specular -->
+          <label for="phong-specular">Specular</label>
+          <div class="input">
+            <input type="color" id="phong-specular" name="phong-specular" value="#ffffff">
+            <select id="texture-specular">
+              <option value="off">Texture Off</option>
+              <option value="on">Texture On</option>
+            </select>
+          </div>
+
+          <!-- Displacement -->
+          <div id="displacement">
+            <label for="phong-displacement">Displacement</label>
+            <div class="input">
+              <select id="texture-displacement">
+                <option value="off">Texture Off</option>
+                <option value="on">Texture On</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Normal -->
+          <div id="normal">
+            <label for="phong-normal">Normal</label>
+            <div class="input">
+              <select id="texture-normal">
+                <option value="off">Texture Off</option>
+                <option value="on">Texture On</option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Textures param -->
+        <div id="texture-params" class="material" style="display:none;">
+        <!-- Texture Options -->
+          <label for="texture-options">Texture Options</label>
+          <div class="input">
+            <select id="texture-options">
+              <option value="off">Off</option>
+              <option value="concrete">Concrete</option>
+              <option value="mud">Mud</option>
+              <option value="grass">Grass</option>
+              <option value="stone">Stone</option>
+              <option value="metallic">Metallic</option>
+              <option value="environment">Enviroment</option>
+            </select>
+          </div>
         </div>
 
     </div>
@@ -247,28 +350,31 @@
     </div>
 
     <!-- Shape property -->
-    <div id="shape-properties" class="property-container">
+    <div id="shape-color" class="property-container">
       <!-- Shape color -->
       <div class="property">
-        <label for="shape-color">Color</label>
-        <div class="color-input">
-          <input type="color" id="shape-color-input" name="shape-color" value="#e5e5e5">
-          <span id="shape-color-value">#e5e5e5</span>
+        <div id="shape-color-picker">
+          <label for="shape-color">Color</label>
+          <div class="color-input">
+            <input type="color" id="shape-color-input" name="shape-color" value="#e5e5e5">
+            <span id="shape-color-value">#e5e5e5</span>
+          </div>
+        </div>
+
+        <div id="shape-gradient-toggle">
+          <label for="shape-gradient">Gradient</label>
+          <div class="input">
+            <select id="shape-gradient">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- Edit property -->
     <div id="edit-properties" class="property-container active">
-      <!-- Edit color -->
-      <div class="property">
-        <label for="edit-color">Color</label>
-        <div class="color-input">
-          <input type="color" id="edit-color-input" name="edit-color" value="#e5e5e5">
-          <span id="edit-color-value">#e5e5e5</span>
-        </div>
-      </div>
-
       <!-- View Properties -->
       <div class="property">
 
@@ -280,10 +386,10 @@
           <div class="label-value">
             <label for="translate-x">X</label>
             <div class="input">
-              <input type="range" id="translate-x-slider" class="prop-slider" name="translate-x" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-x-input" class="prop-input" name="translate-x-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-x-slider" class="prop-slider" name="translate-x" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-x-input" class="prop-input" name="translate-x-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
 
@@ -291,10 +397,10 @@
           <div class="label-value">
             <label for="translate-y">Y</label>
             <div class="input">
-              <input type="range" id="translate-y-slider" class="prop-slider" name="translate-y" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-y-input" class="prop-input" name="translate-y-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-y-slider" class="prop-slider" name="translate-y" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-y-input" class="prop-input" name="translate-y-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
 
@@ -302,10 +408,10 @@
           <div class="label-value">
             <label for="translate-z">Z</label>
             <div class="input">
-              <input type="range" id="translate-z-slider" class="prop-slider" name="translate-z" min="-100" max="100"
-                step="1" value="0">
-              <input type="number" id="translate-z-input" class="prop-input" name="translate-z-input" min="-100"
-                max="100" step="1" value="0">
+              <input type="range" id="translate-z-slider" class="prop-slider" name="translate-z" min="-10" max="10"
+                step="0.1" value="0">
+              <input type="number" id="translate-z-input" class="prop-input" name="translate-z-input" min="-10"
+                max="10" step="0.1" value="0">
             </div>
           </div>
         </div>
@@ -388,6 +494,160 @@
 
       </div>
 
+      <!-- Light Properties -->
+      <div>
+        <div class = "property">
+          <!-- Light -->
+          <div class="property-group">
+            <label>Light</label>
+  
+            <!-- List Light -->
+            <!-- <div class="others-group"> -->
+              <input id = "selected-light-object" type="text" name="selected-object" value="" readonly hidden>
+              <div id="list-light" class = "list-light">
+                <!-- <label class = "list-light-label" for="list-light-label"></label> -->
+                <div class="items" id="container-light">
+                  <!-- Placeholder for injected HTML -->
+                </div>
+              </div>
+              <div class="component-editor">
+                <button id="add-light" class="object-btn">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+    
+                <button id="delete-light" class="object-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            <!-- </div> -->
+          </div>  
+        </div>
+
+        <div class="property" id="light-properties" style="display: none;">
+          <div class = "property-group">
+            <!-- Light Type -->
+            <div class="projection">
+              <label for="light-type">Light Type</label>
+              <div class="input">
+                <select id="light-type">
+                  <option value="directional">Directional</option>
+                  <option value="spot">Spot</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Translate X -->
+            <div class="label-value">
+              <label for="translate-x">Translate X</label>
+              <div class="input">
+                <input type="range" id="light-x-slider" class="prop-slider" name="light-x" min="-100" max="100"
+                  step="1" value="0">
+                <input type="number" id="light-x-input" class="prop-input" name="light-x-input" min="-100" max="100"
+                  step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Translate Y -->
+            <div class="label-value">
+              <label for="translate-y">Translate Y</label>
+              <div class="input">
+                <input type="range" id="light-y-slider" class="prop-slider" name="light-y" min="-100" max="100"
+                  step="1" value="0">
+                <input type="number" id="light-y-input" class="prop-input" name="light-y-input" min="-100" max="100"
+                  step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Translate Z -->
+            <div class="label-value">
+              <label for="translate-z">Translate Z</label>
+              <div class="input">
+                <input type="range" id="light-z-slider" class="prop-slider" name="light-z" min="-100" max="100"
+                  step="1" value="0">
+                <input type="number" id="light-z-input" class="prop-input" name="light-z-input" min="-100" max="100"
+                  step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Light Color -->
+            <div class="label-value">
+              <label for="light-color">Color</label>
+              <div class="color-input">
+                <input type="color" id="light-color" name="light-color" value="#e5e5e5">
+              </div>
+            </div>
+
+            <!-- Light Intensity -->
+            <div class="label-value">
+              <label for="light-intensity">Intensity</label>
+              <div class="input">
+                <input type="range" id="light-intensity-slider" class="prop-slider" name="light-intensity" min="0.1" max="2"
+                  step="0.1" value="1">
+                <input type="number" id="light-intensity-input" class="prop-input" name="light-intensity-input" min="0.1"
+                  max="2" step="0.1" value="1">
+              </div>
+            </div>
+
+            <!-- Light Tarqet -->
+            <div id="light-target">
+              <div class="label-value">
+                <label for="target-x">Target X</label>
+                <div class="input">
+                  <input type="range" id="light-target-x-slider" class="prop-slider" name="light-target-x" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-x-input" class="prop-input" name="light-target-x-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+
+              <div class="label-value">
+                <label for="target-y">Target Y</label>
+                <div class="input">
+                  <input type="range" id="light-target-y-slider" class="prop-slider" name="light-target-y" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-y-input" class="prop-input
+                  " name="light-target-y-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+
+              <div class="label-value">
+                <label for="target-z">Target Z</label>
+                <div class="input">
+                  <input type="range" id="light-target-z-slider" class="prop-slider" name="light-target-z" min="-100" max="100"
+                    step="1" value="0">
+                  <input type="number" id="light-target-z-input" class="prop-input
+                  " name="light-target-z-input" min="-100" max="100"
+                    step="1" value="0">
+                </div>
+              </div>
+            </div>
+
+            <!-- Light Inner Cut Off -->
+            <div class="label-value" id="light-inner-cut-off" style="display:none;">
+              <label for="light-inner-cut-off">Inner Cut Off</label>
+              <div class="input">
+                <input type="range" id="light-inner-cut-off-slider" class="prop-slider" name="light-inner-cut-off" min="0" max="180"
+                  step="1" value="0">
+                <input type="number" id="light-inner-cut-off-input" class="prop-input" name="light-inner-cut-off-input" min="0"
+                  max="180" step="1" value="0">
+              </div>
+            </div>
+
+            <!-- Light Outer Cut Off -->
+            <div class="label-value" id="light-outer-cut-off" style="display:none;">
+              <label for="light-outer-cut-off">Outer Cut Off</label>
+              <div class="input">
+                <input type="range" id="light-outer-cut-off-slider" class="prop-slider" name="light-outer-cut-off" min="0" max="180"
+                  step="1" value="0">
+                <input type="number" id="light-outer-cut-off-input" class="prop-input" name="light-outer-cut-off-input" min="0"
+                  max="180" step="1" value="0">
+              </div>
+            </div>
+
+        </div>
+      </div>
+
       <!-- Camera Properties -->
       <div class="property">
 
@@ -395,47 +655,14 @@
         <div class="property-group">
           <label>Camera</label>
 
-          <!-- Camera X -->
-          <div class="label-value">
-            <label for="camera-x">X</label>
-            <div class="input">
-              <input type="range" id="camera-x-slider" class="prop-slider" name="camera-x" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-x-input" class="prop-input" name="camera-x-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
-          <!-- Camera Y -->
-          <div class="label-value">
-            <label for="camera-y">Y</label>
-            <div class="input">
-              <input type="range" id="camera-y-slider" class="prop-slider" name="camera-y" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-y-input" class="prop-input" name="camera-y-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
-          <!-- Camera Z -->
-          <div class="label-value">
-            <label for="camera-z">Z</label>
-            <div class="input">
-              <input type="range" id="camera-z-slider" class="prop-slider" name="camera-z" min="-10" max="10" step="0.1"
-                value="0">
-              <input type="number" id="camera-z-input" class="prop-input" name="camera-z-input" min="-10" max="10"
-                step="0.1" value="0">
-            </div>
-          </div>
-
           <!-- Camera Radius -->
           <div class="label-value">
             <label for="camera-radius">Radius</label>
             <div class="input">
               <input type="range" id="camera-radius-slider" class="prop-slider" name="camera-radius" min="0" max="50"
-                step="1" value="25">
+                step="1" value="0">
               <input type="number" id="camera-radius-input" class="prop-input" name="camera-radius-input" min="0"
-                max="50" step="1" value="25">
+                max="50" step="1" value="0">
             </div>
           </div>
           
@@ -444,9 +671,9 @@
             <label>Projection</label>
             <div class="input">
               <select id="projection-type">
+                <option value="perspective">Perspective</option>
                 <option value="orthographic">Orthographic</option>
                 <option value="oblique">Oblique</option>
-                <option value="perspective">Perspective</option>
               </select>
             </div>
           </div>
@@ -462,14 +689,14 @@
     </div>
 
     <!-- Web utils -->
-    <script src="./script/webutils/menuDropdown.js"></script>
-    <script src="./script/webutils/propSlider.js"></script>
-    <script src="./script/webutils/treeCheckbox.js"></script>
-    <script src="./script/webutils/frameController.js"></script>
-    <script src="./script/webutils/materialController.js"></script>
+    <script type="module" src="./script/webutils/menuDropdown.js"></script>
+    <script type="module" src="./script/webutils/frameController.js"></script>
+
+    <script type="module" src="./script/webutils/treeLoader.js"></script>
 
     <!-- App -->
     <script type="module" src="./app/app.js"></script>
+    <!-- <script src="https://greggman.github.io/webgl-lint/webgl-lint.js"></script> -->
 
 </body>
 

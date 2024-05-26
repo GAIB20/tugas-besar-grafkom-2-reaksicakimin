@@ -1,7 +1,12 @@
 // Frame controller
+
+import AnimationController from "../animation/animationController.js";
+var animationController = new AnimationController();
+var isEditing = false;
+
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;
-  const totalFrames = 9;
+  let totalFrames = 9;
   let interval = null;
   let isReversed = false;
   let isAutoReplay = false;
@@ -36,10 +41,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const firstButton = document.getElementById('frame-first');
     const lastButton = document.getElementById('frame-last');
 
-    prevButton.disabled = (currentFrame === 1);
-    nextButton.disabled = (currentFrame === totalFrames);
-    firstButton.disabled = (currentFrame === 1);
-    lastButton.disabled = (currentFrame === totalFrames);
+    if(currentFrame == 1) {
+      prevButton.disabled = true;
+      firstButton.disabled = true;
+      prevButton.style.backgroundColor = 'var(--disabled-color)';
+      firstButton.style.backgroundColor = 'var(--disabled-color)';
+    }
+    else{
+      prevButton.disabled = false;
+      firstButton.disabled = false;
+      prevButton.style.backgroundColor = 'var(--primary-color)';
+      firstButton.style.backgroundColor = 'var(--primary-color)';
+    }
+    if(currentFrame == totalFrames) {
+      nextButton.disabled = true;
+      lastButton.disabled = true;
+      nextButton.style.backgroundColor = 'var(--disabled-color)';
+      lastButton.style.backgroundColor = 'var(--disabled-color)';
+    }
+    else{
+      nextButton.disabled = false;
+      lastButton.disabled = false;
+      nextButton.style.backgroundColor = 'var(--primary-color)';
+      lastButton.style.backgroundColor = 'var(--primary-color)';
+    }
   }
 
   // Play animation frame
@@ -56,14 +81,18 @@ document.addEventListener('DOMContentLoaded', () => {
   
         if (!isAutoReplay) {
           if (currentFrame < 1 || currentFrame > totalFrames) {
+            onChangeFrame();
             pauseAnimation();
             return;
           }
+          onChangeFrame();
         } else {
           if (currentFrame < 1) {
-            currentFrame = totalFrames;
+            resetFrame(totalFrames);
           } else if (currentFrame > totalFrames) {
-            currentFrame = 1;
+            resetFrame(1);
+          } else {
+            onChangeFrame();
           }
         }
   
@@ -88,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-prev').addEventListener('click', () => {
     if (currentFrame > 1) {
-      currentFrame--;
+      subtractFrame();
       updateFrameIndicator();
       updateButtons();
     }
@@ -96,20 +125,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('frame-next').addEventListener('click', () => {
     if (currentFrame < totalFrames) {
-      currentFrame++;
+      addFrame();
       updateFrameIndicator();
       updateButtons();
     }
   });
 
   document.getElementById('frame-first').addEventListener('click', () => {
-    currentFrame = 1;
+    resetFrame(1);
     updateFrameIndicator();
     updateButtons();
   });
 
   document.getElementById('frame-last').addEventListener('click', () => {
-    currentFrame = totalFrames;
+    resetFrame(totalFrames);
     updateFrameIndicator();
     updateButtons();
   });
@@ -136,4 +165,169 @@ document.addEventListener('DOMContentLoaded', () => {
       autoReplayButton.style.color = 'var(--text-color)';
     }
   });
+
+  document.getElementById('frame-add').addEventListener('click', () => {
+    const frameAddIndex = document.getElementById('frame-add-input');
+    const index = parseInt(frameAddIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames++;
+      animationController.addFrame(index - 1);
+      onChangeFrame();
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
+  document.getElementById('frame-swap').addEventListener('click', () => {
+    const frameSwapIndex1 = document.getElementById('frame-swap-input-1');
+    const frameSwapIndex2 = document.getElementById('frame-swap-input-2');
+    const index1 = parseInt(frameSwapIndex1.value, 10);
+    const index2 = parseInt(frameSwapIndex2.value, 10);
+    if (index1 > 0 && index1 <= totalFrames && index2 > 0 && index2 <= totalFrames) {
+      animationController.swapFrames(index1 - 1, index2 - 1);
+      onChangeFrame();
+    }
+  });
+
+  document.getElementById('frame-delete').addEventListener('click', () => {
+    const frameDeleteIndex = document.getElementById('frame-delete-input');
+    const index = parseInt(frameDeleteIndex.value, 10);
+    if (index > 0 && index <= totalFrames) {
+      totalFrames--;
+      animationController.deleteFrame(index - 1);
+      onChangeFrame();
+      updateFrameIndicator();
+      updateButtons();
+    }
+  });
+
+  document.getElementById('start-recording').addEventListener('click', () => {
+    isEditing = !isEditing;
+    const editButton = document.getElementById('start-recording');
+    if (isEditing) {
+      editButton.style.color = 'var(--accent-color)';
+
+      // disable and change color into gray
+      document.getElementById('frame-play').disabled = true;
+      document.getElementById('frame-play').style.backgroundColor = 'var(--disabled-color)';
+
+      document.getElementById('frame-pause').disabled = true;
+      document.getElementById('frame-pause').style.backgroundColor = 'var(--disabled-color)';
+
+      document.getElementById('frame-reverse').disabled = true;
+      document.getElementById('frame-reverse').style.backgroundColor = 'var(--disabled-color)';
+      
+      document.getElementById('frame-autoreplay').disabled = true;
+      document.getElementById('frame-autoreplay').style.backgroundColor = 'var(--disabled-color)';
+
+    } else {
+      editButton.style.color = 'var(--text-color)';
+
+      document.getElementById('frame-play').disabled = false;
+      document.getElementById('frame-play').style.backgroundColor = 'var(--primary-color)';
+
+      document.getElementById('frame-pause').disabled = false;
+      document.getElementById('frame-pause').style.backgroundColor = 'var(--primary-color)';
+      
+      document.getElementById('frame-reverse').disabled = false;
+      document.getElementById('frame-reverse').style.backgroundColor = 'var(--primary-color)';
+
+      document.getElementById('frame-autoreplay').disabled = false;
+      document.getElementById('frame-autoreplay').style.backgroundColor = 'var(--primary-color)';
+    }
+  });
+
+  document.getElementById('save-frame').addEventListener('click', () => {
+    if (isEditing) {
+      onChangeFrame();
+    }
+  });
+
+  document.getElementById('import-animation').addEventListener('click', () => {
+    document.getElementById('file-input').click();
+  });
+
+  document.getElementById('file-input').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const json = JSON.parse(e.target.result);
+            animationController = AnimationController.fromJSON(json);
+            totalFrames = animationController.getTotalFrames();
+            resetFrame(1);
+            updateFrameIndicator();
+            updateButtons();
+        };
+        reader.readAsText(file);
+    }
+  });
+
+  document.getElementById('export-animation').addEventListener('click', async (event) => {
+    event.preventDefault();
+    const json = animationController.toJSON();
+    const jsonString = JSON.stringify(json, null, 2);
+    if (!window.showSaveFilePicker) {
+        alert('Your browser does not support the File System Access API.');
+        return;
+    }
+
+    try {
+        const fileHandle = await window.showSaveFilePicker({
+            suggestedName: 'animation.json',
+            types: [{
+                description: 'JSON Files',
+                accept: {
+                    'application/json': ['.json']
+                }
+            }]
+        });
+
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonString);
+        await writable.close();
+
+    } catch (error) {
+        console.error('Error exporting animation:', error);
+        alert('An error occurred while exporting the animation.');
+    }
+  });
+  
+  function onChangeFrame(){
+    clampFrame();
+    animationController.setCurrentFrame(currentFrame - 1);
+    if (!isEditing){
+        const tweeningType = document.getElementById('tweening-type').value;
+        animationController.applyCurrentFrameToScene(fps, tweeningType);
+    } else {
+        animationController.updateCurrentFrame();
+    }
+  }
+
+  function addFrame(){
+      if (isEditing) onChangeFrame();
+      currentFrame++;
+      if (!isEditing) onChangeFrame();
+  }
+
+  function subtractFrame(){
+      if (isEditing) onChangeFrame();
+      currentFrame--;
+      if (!isEditing) onChangeFrame();
+  }
+
+  function resetFrame(frameNum){
+      if (isEditing) onChangeFrame();
+      currentFrame = frameNum;
+      if (!isEditing) onChangeFrame();
+  }
+
+  function clampFrame(){
+      if (currentFrame < 1){
+          currentFrame = 1;
+      } else if (currentFrame > totalFrames){
+          currentFrame = totalFrames;
+      }
+  }
+
 });

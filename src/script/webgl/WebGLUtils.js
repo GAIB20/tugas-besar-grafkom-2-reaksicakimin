@@ -36,88 +36,86 @@ class WebGLUtils {
     function createAttributeSetter(info) {
       const loc = gl.getAttribLocation(program, info.name);
       const buf = gl.createBuffer();
-      return (...values) => {
+      return (v) => {
         gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-        const v = values[0];
-        if (v instanceof BufferAttribute) {
-          if (v.isDirty) {
-            gl.bufferData(gl.ARRAY_BUFFER, v.data, gl.STATIC_DRAW);
-            v.consume();
-          }
-          gl.enableVertexAttribArray(loc);
-          gl.vertexAttribPointer(loc, v.size, v.dtype, v.normalize, v.stride, v.offset);
-        } else {
-          gl.disableVertexAttribArray(loc);
-          if (v instanceof Float32Array)
-            gl[`vertexAttrib${v.length}fv`](loc, v);
-          else
-            gl[`vertexAttrib${values.length}f`](loc, ...values);
-        }
-      };
+        gl.enableVertexAttribArray(loc);
+        gl.bufferData(gl.ARRAY_BUFFER, v.data, gl.STATIC_DRAW);
+        gl.vertexAttribPointer(loc, v.size, v.dtype, v.normalize, v.stride, v.offset);
+      }
     }
-  
-    const attribSetters = {};
-    const numAttribs = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
-    for (let i = 0; i < numAttribs; i++) {
+
+    const attributeSetters = {};
+    const numAttributes = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
+    for (let i = 0; i < numAttributes; i++) {
       const info = gl.getActiveAttrib(program, i);
       if (!info) continue;
-      attribSetters[info.name] = createAttributeSetter(info);
+      attributeSetters[info.name] = createAttributeSetter(info);
     }
-  
-    return attribSetters;
+
+    return attributeSetters;
   }
 
-  static createUniformSetters(gl, program) {
+  static createUniformSetters(gl, program)  {
     function createUniformSetter(info) {
       const loc = gl.getUniformLocation(program, info.name);
-      const type = info.type;
-      const setterName = UniformSetterWebGLType[type];
-      if (!setterName) {
-        return null;
-      }
-
-      return (...values) => {
-        if (loc !== null) {
-          gl[`uniform${setterName}`](loc, ...values);
+      const isArray = (info.size > 1 && info.name.substr(-3) === '[0]');
+      const type = UniformSetterWebGLType[info.type];
+      return (v) => {
+        if (typeof v === 'object' && 'toArray' in v) v = v.toArray();
+        if (isArray) {
+          gl[`uniform${type}v`](loc, v);
+        } else {
+          if (type.substr(0, 6) === 'Matrix')
+            gl[`uniform${type}`](loc, false, v.data);
+          else {
+            if (Array.isArray(v))
+              gl[`uniform${type}`](loc, ...v);
+            else {
+              gl[`uniform${type}`](loc, v);
+            }
+          }
         }
       };
     }
-  
+
     const uniformSetters = {};
     const numUniforms = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
     for (let i = 0; i < numUniforms; i++) {
       const info = gl.getActiveUniform(program, i);
       if (!info) continue;
-      uniformSetters[info.name] = createUniformSetter(info);
+      let name = (info.name.substr(-3) === '[0]') ? info.name.substr(0, info.name.length - 3) : info.name;
+      uniformSetters[name] = createUniformSetter(info);
     }
 
     return uniformSetters;
   }
 
+  // Attribute setters
   static setAttributes(programInfo, attributes) {
-    for (let attributeName in attributes) {
-      this.setAttribute(programInfo, attributeName, attributes[attributeName]);
+    for (let attrName in attributes) {
+      this.setAttribute(programInfo, attrName, attributes[attrName]);
     }
   }
-
-  static setAttribute(programInfo, attributeName, ...data) {
+  
+  static setAttribute(programInfo, attribName, ...data) {
     const setters = programInfo.attributeSetters;
-    if (attributeName in setters) {
-      const shaderName = `a_${attributeName}`;
+    const shaderName = `a_${attribName}`;
+    if (shaderName in setters) {
       setters[shaderName](...data);
     }
   }
 
+  // Uniform setters
   static setUniforms(programInfo, uniforms) {
     for (let uniformName in uniforms) {
       this.setUniform(programInfo, uniformName, uniforms[uniformName]);
     }
   }
-
+  
   static setUniform(programInfo, uniformName, ...data) {
     const setters = programInfo.uniformSetters;
-    if (uniformName in setters) {
-      const shaderName = `u_${uniformName}`;
+    const shaderName = `u_${uniformName}`;
+    if (shaderName in setters) {
       setters[shaderName](...data);
     }
   }

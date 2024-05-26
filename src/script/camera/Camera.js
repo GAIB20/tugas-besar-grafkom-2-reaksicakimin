@@ -15,7 +15,7 @@ class Camera extends Object3D {
   }
 
   get viewProjectionMatrix() {
-    this.computeWorldMatrix();
+    this.computeLocalMatrix();
     return this._projectionMatrix.premul(this._invWorldMatrix);
   }
 

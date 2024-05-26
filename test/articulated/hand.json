@@ -1,0 +1,949 @@
+{
+  "name": "Scene",
+  "position": [0, 0, 0],
+  "rotation": [0, 0, 0],
+  "scale": [1, 1, 1],
+  "children": [
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "shininess": 32,
+        "ambient": [1, 1, 1, 1],
+        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+        "specular": { "color": [1, 1, 1, 1], "texture": null },
+        "texture": null,
+        "textureOption": 0,
+        "textureType": "off",
+        "type": "PhongMaterial"
+      },
+      "name": "CarpalBones",
+      "position": [0, -2, -2],
+      "rotation": [0, 0, 0],
+      "scale": [1, 1, 1],
+      "children": [
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "shininess": 32,
+            "ambient": [1, 1, 1, 1],
+            "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+            "specular": { "color": [1, 1, 1, 1], "texture": null },
+            "texture": null,
+            "textureOption": 0,
+            "textureType": "off",
+            "type": "PhongMaterial"
+          },
+          "name": "RigCarpalThumb",
+          "position": [-0.45, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "scale": [0.1, 0.1, 0.1],
+          "children": [
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "BonesCarpalThumb",
+              "position": [0, 5.5, 0],
+              "rotation": [0, 0, 0],
+              "scale": [2, 10, 2],
+              "children": []
+            },
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "RigProximalPhalanxThumb",
+              "position": [0, 10.5, 0],
+              "rotation": [0, 0, 20],
+              "scale": [1, 1, 1],
+              "children": [
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "BonesProximalPhalanxThumb",
+                  "position": [0, 5.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [2, 10, 2],
+                  "children": []
+                },
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "RigDistalPhalanxThumb",
+                  "position": [0, 10.5, 0],
+                  "rotation": [0, 0, -20],
+                  "scale": [1, 1, 1],
+                  "children": [
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "BonesDistalPhalanxThumb",
+                      "position": [0, 5.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [2, 10, 2],
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "shininess": 32,
+            "ambient": [1, 1, 1, 1],
+            "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+            "specular": { "color": [1, 1, 1, 1], "texture": null },
+            "texture": null,
+            "textureOption": 0,
+            "textureType": "off",
+            "type": "PhongMaterial"
+          },
+          "name": "RigCarpalIndex",
+          "position": [-0.225, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "scale": [0.1, 0.1, 0.1],
+          "children": [
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "BonesCarpalIndex",
+              "position": [0, 6, 0],
+              "rotation": [0, 0, 0],
+              "scale": [2, 11, 2],
+              "children": []
+            },
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "RigProximalPhalanxIndex",
+              "position": [0, 11.5, 0],
+              "rotation": [0, 0, 10],
+              "scale": [1, 1, 1],
+              "children": [
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "BonesProximalPhalanxIndex",
+                  "position": [0, 5.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [2, 10, 2],
+                  "children": []
+                },
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "RigMiddlePhalanxIndex",
+                  "position": [0, 10.5, 0],
+                  "rotation": [0, 0, -10],
+                  "scale": [1, 1, 1],
+                  "children": [
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "BonesMiddlePhalanxIndex",
+                      "position": [0, 5.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [2, 10, 2],
+                      "children": []
+                    },
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "RigDistalPhalanxIndex",
+                      "position": [0, 10.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [1, 1, 1],
+                      "children": [
+                        {
+                          "geometry": {
+                            "width": 1,
+                            "height": 1,
+                            "depth": 1,
+                            "type": "BoxGeometry"
+                          },
+                          "material": {
+                            "shininess": 32,
+                            "ambient": [1, 1, 1, 1],
+                            "diffuse": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "specular": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "texture": null,
+                            "textureOption": 0,
+                            "textureType": "off",
+                            "type": "PhongMaterial"
+                          },
+                          "name": "BonesDistalPhalanxIndex",
+                          "position": [0, 5.5, 0],
+                          "rotation": [0, 0, 0],
+                          "scale": [2, 10, 2],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "shininess": 32,
+            "ambient": [1, 1, 1, 1],
+            "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+            "specular": { "color": [1, 1, 1, 1], "texture": null },
+            "texture": null,
+            "textureOption": 0,
+            "textureType": "off",
+            "type": "PhongMaterial"
+          },
+          "name": "RigCarpalMiddle",
+          "position": [0, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "scale": [0.1, 0.1, 0.1],
+          "children": [
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "BonesCarpalMiddle",
+              "position": [0, 6.5, 0],
+              "rotation": [0, 0, 0],
+              "scale": [2, 12, 2],
+              "children": []
+            },
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "RigProximalPhalanxMiddle",
+              "position": [0, 12.5, 0],
+              "rotation": [0, 0, 0],
+              "scale": [1, 1, 1],
+              "children": [
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "BonesProximalPhalanxMiddle",
+                  "position": [0, 5.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [2, 10, 2],
+                  "children": []
+                },
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "RigMiddlePhalanxMiddle",
+                  "position": [0, 10.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [1, 1, 1],
+                  "children": [
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "BonesMiddlePhalanxMiddle",
+                      "position": [0, 5.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [2, 10, 2],
+                      "children": []
+                    },
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "RigDistalPhalanxMiddle",
+                      "position": [0, 10.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [1, 1, 1],
+                      "children": [
+                        {
+                          "geometry": {
+                            "width": 1,
+                            "height": 1,
+                            "depth": 1,
+                            "type": "BoxGeometry"
+                          },
+                          "material": {
+                            "shininess": 32,
+                            "ambient": [1, 1, 1, 1],
+                            "diffuse": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "specular": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "texture": null,
+                            "textureOption": 0,
+                            "textureType": "off",
+                            "type": "PhongMaterial"
+                          },
+                          "name": "BonesDistalPhalanxMiddle",
+                          "position": [0, 5.5, 0],
+                          "rotation": [0, 0, 0],
+                          "scale": [2, 10, 2],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "shininess": 32,
+            "ambient": [1, 1, 1, 1],
+            "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+            "specular": { "color": [1, 1, 1, 1], "texture": null },
+            "texture": null,
+            "textureOption": 0,
+            "textureType": "off",
+            "type": "PhongMaterial"
+          },
+          "name": "RigCarpalRing",
+          "position": [0.225, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "scale": [0.1, 0.1, 0.1],
+          "children": [
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "BonesCarpalRing",
+              "position": [0, 6, 0],
+              "rotation": [0, 0, 0],
+              "scale": [2, 11, 2],
+              "children": []
+            },
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "RigProximalPhalanxRing",
+              "position": [0, 11.5, 0],
+              "rotation": [0, 0, -10],
+              "scale": [1, 1, 1],
+              "children": [
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "BonesProximalPhalanxRing",
+                  "position": [0, 5.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [2, 10, 2],
+                  "children": []
+                },
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "RigMiddlePhalanxRing",
+                  "position": [0, 10.5, 0],
+                  "rotation": [0, 0, 10],
+                  "scale": [1, 1, 1],
+                  "children": [
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "BonesMiddlePhalanxRing",
+                      "position": [0, 5.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [2, 10, 2],
+                      "children": []
+                    },
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "RigDistalPhalanxRing",
+                      "position": [0, 10.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [1, 1, 1],
+                      "children": [
+                        {
+                          "geometry": {
+                            "width": 1,
+                            "height": 1,
+                            "depth": 1,
+                            "type": "BoxGeometry"
+                          },
+                          "material": {
+                            "shininess": 32,
+                            "ambient": [1, 1, 1, 1],
+                            "diffuse": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "specular": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "texture": null,
+                            "textureOption": 0,
+                            "textureType": "off",
+                            "type": "PhongMaterial"
+                          },
+                          "name": "BonesDistalPhalanxRing",
+                          "position": [0, 5.5, 0],
+                          "rotation": [0, 0, 0],
+                          "scale": [2, 10, 2],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "shininess": 32,
+            "ambient": [1, 1, 1, 1],
+            "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+            "specular": { "color": [1, 1, 1, 1], "texture": null },
+            "texture": null,
+            "textureOption": 0,
+            "textureType": "off",
+            "type": "PhongMaterial"
+          },
+          "name": "RigCarpalPinky",
+          "position": [0.45, 0.5, 0],
+          "rotation": [0, 0, 0],
+          "scale": [0.1, 0.1, 0.1],
+          "children": [
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "BonesCarpalPinky",
+              "position": [0, 5.5, 0],
+              "rotation": [0, 0, 0],
+              "scale": [2, 10, 2],
+              "children": []
+            },
+            {
+              "geometry": {
+                "width": 1,
+                "height": 1,
+                "depth": 1,
+                "type": "BoxGeometry"
+              },
+              "material": {
+                "shininess": 32,
+                "ambient": [1, 1, 1, 1],
+                "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                "specular": { "color": [1, 1, 1, 1], "texture": null },
+                "texture": null,
+                "textureOption": 0,
+                "textureType": "off",
+                "type": "PhongMaterial"
+              },
+              "name": "RigProximalPhalanxPinky",
+              "position": [0, 10.5, 0],
+              "rotation": [0, 0, -20],
+              "scale": [1, 1, 1],
+              "children": [
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "BonesProximalPhalanxPinky",
+                  "position": [0, 5.5, 0],
+                  "rotation": [0, 0, 0],
+                  "scale": [2, 10, 2],
+                  "children": []
+                },
+                {
+                  "geometry": {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "BoxGeometry"
+                  },
+                  "material": {
+                    "shininess": 32,
+                    "ambient": [1, 1, 1, 1],
+                    "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                    "specular": { "color": [1, 1, 1, 1], "texture": null },
+                    "texture": null,
+                    "textureOption": 0,
+                    "textureType": "off",
+                    "type": "PhongMaterial"
+                  },
+                  "name": "RigMiddlePhalanxPinky",
+                  "position": [0, 10.5, 0],
+                  "rotation": [0, 0, 20],
+                  "scale": [1, 1, 1],
+                  "children": [
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "BonesMiddlePhalanxPinky",
+                      "position": [0, 5.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [2, 10, 2],
+                      "children": []
+                    },
+                    {
+                      "geometry": {
+                        "width": 1,
+                        "height": 1,
+                        "depth": 1,
+                        "type": "BoxGeometry"
+                      },
+                      "material": {
+                        "shininess": 32,
+                        "ambient": [1, 1, 1, 1],
+                        "diffuse": { "color": [1, 1, 1, 1], "texture": null },
+                        "specular": { "color": [1, 1, 1, 1], "texture": null },
+                        "texture": null,
+                        "textureOption": 0,
+                        "textureType": "off",
+                        "type": "PhongMaterial"
+                      },
+                      "name": "RigDistalPhalanxPinky",
+                      "position": [0, 10.5, 0],
+                      "rotation": [0, 0, 0],
+                      "scale": [1, 1, 1],
+                      "children": [
+                        {
+                          "geometry": {
+                            "width": 1,
+                            "height": 1,
+                            "depth": 1,
+                            "type": "BoxGeometry"
+                          },
+                          "material": {
+                            "shininess": 32,
+                            "ambient": [1, 1, 1, 1],
+                            "diffuse": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "specular": {
+                              "color": [1, 1, 1, 1],
+                              "texture": null
+                            },
+                            "texture": null,
+                            "textureOption": 0,
+                            "textureType": "off",
+                            "type": "PhongMaterial"
+                          },
+                          "name": "BonesDistalPhalanxPinky",
+                          "position": [0, 5.5, 0],
+                          "rotation": [0, 0, 0],
+                          "scale": [2, 10, 2],
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

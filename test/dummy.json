@@ -1,0 +1,386 @@
+{
+  "name": "Scene",
+  "position": [
+    0,
+    0,
+    0
+  ],
+  "rotation": [
+    0,
+    0,
+    0
+  ],
+  "scale": [
+    1,
+    1,
+    1
+  ],
+  "children": [
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "lightPosition": [
+          20,
+          100,
+          300
+        ],
+        "texture": {
+          "image": "../../test/texture/bumped.png",
+          "type": "BumpTexture"
+        },
+        "textureOption": 1,
+        "type": "PhongMaterial"
+      },
+      "name": "Object",
+      "position": [
+        1.2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": [
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "ambient": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "diffuse": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "specular": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "shininess": 32,
+            "lightPosition": [
+              20,
+              100,
+              300
+            ],
+            "texture": null,
+            "textureOption": 0,
+            "type": "PhongMaterial"
+          },
+          "name": "Object2",
+          "position": [
+            1.2,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "BoxGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "lightPosition": [
+          20,
+          100,
+          300
+        ],
+        "texture": {
+          "image": "../../test/texture/wood.png",
+          "type": "BumpTexture"
+        },
+        "textureOption": 1,
+        "type": "PhongMaterial"
+      },
+      "name": "Object1",
+      "position": [
+        -1.2,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "HollowBoxGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "lightPosition": [
+          20,
+          100,
+          300
+        ],
+        "texture": null,
+        "textureOption": 0,
+        "type": "PhongMaterial"
+      },
+      "name": "Object3",
+      "position": [
+        -2.4,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": []
+    },
+    {
+      "geometry": {
+        "width": 1,
+        "height": 1,
+        "depth": 1,
+        "type": "HollowPyramidGeometry"
+      },
+      "material": {
+        "ambient": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "diffuse": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "specular": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "shininess": 32,
+        "lightPosition": [
+          20,
+          100,
+          300
+        ],
+        "texture": null,
+        "textureOption": 0,
+        "type": "PhongMaterial"
+      },
+      "name": "Object4",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "scale": [
+        1,
+        1,
+        1
+      ],
+      "children": [
+        {
+          "geometry": {
+            "width": 1,
+            "height": 1,
+            "depth": 1,
+            "type": "BoxGeometry"
+          },
+          "material": {
+            "ambient": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "diffuse": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "specular": [
+              1,
+              1,
+              1,
+              1
+            ],
+            "shininess": 32,
+            "lightPosition": [
+              20,
+              100,
+              300
+            ],
+            "texture": {
+              "environment": [
+                {
+                  "src": "../../test/texture/pos-x.jpg",
+                  "width": 512,
+                  "height": 512
+                },
+                {
+                  "src": "../../test/texture/neg-x.jpg",
+                  "width": 512,
+                  "height": 512
+                },
+                {
+                  "src": "../../test/texture/pos-y.jpg",
+                  "width": 512,
+                  "height": 512
+                },
+                {
+                  "src": "../../test/texture/neg-y.jpg",
+                  "width": 512,
+                  "height": 512
+                },
+                {
+                  "src": "../../test/texture/pos-z.jpg",
+                  "width": 512,
+                  "height": 512
+                },
+                {
+                  "src": "../../test/texture/neg-z.jpg",
+                  "width": 512,
+                  "height": 512
+                }
+              ],
+              "type": "EnvironmentTexture"
+            },
+            "textureOption": 2,
+            "type": "PhongMaterial"
+          },
+          "name": "Object5",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "children": []
+        }
+      ]
+    }
+  ]
+}

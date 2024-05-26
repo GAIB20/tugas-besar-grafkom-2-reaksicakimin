@@ -15,11 +15,11 @@
   border-right: solid 1px var(--tertiary-color);
 }
 
-#others-container::-webkit-scrollbar {
+#others-bar-container::-webkit-scrollbar {
   width: 6px;
 }
 
-#others-container::-webkit-scrollbar-thumb {
+#others-bar-container::-webkit-scrollbar-thumb {
   background-color: var(--tertiary-color);
   border-radius: 5px;
 }
@@ -55,7 +55,7 @@
   padding-left: 40px;
 }
 
-.others-group .frame {
+.others-group .frame, .component-editor {
   padding: 8px 12px;
   display: flex;
   justify-content: space-between;
@@ -72,7 +72,7 @@
   color: var(--text-color);
 }
 
-.others-group .frame .frame-btn {
+.others-group .frame .frame-btn, .object-btn {
   padding: 8px 12px;
   display: flex;
   justify-content: center;
@@ -86,13 +86,7 @@
   padding-top: 5px;
 }
 
-#basic-diffuse {
-  background-color: transparent;
-  border: none;
-  border-radius: 3px;
-}
-
-#phong-diffuse, #phong-specular {
+#phong-ambient, #phong-diffuse, #phong-specular, #basic-ambient, #light-color {
   background-color: transparent;
   border: none;
   border-radius: 3px;
@@ -103,6 +97,7 @@
   height: fit-content;
 
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
@@ -114,9 +109,10 @@
   justify-content: space-between;
 }
 
-.material #material-type {
+.material #material-type, #light-type,  #texture-diffuse, #texture-normal, #texture-specular, #texture-displacement, #texture-options, #tweening-type, #object-shape {
   display: flex;
   justify-content: center;
+  padding: 5px 5px;
   background-color: var(--primary-color);
   color: var(--text-color);
 }
@@ -143,4 +139,24 @@
   background-color: var(--primary-color);
   border-radius: 3px;
   color: var(--text-color);
+}
+
+.frame-input {
+  width: 50px;
+  padding: 0 8px;
+  border: none;
+  text-align: end;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
+}
+
+.text-input {
+  width: 100%;
+  padding: 8px 8px;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: 3px;
+  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
 }

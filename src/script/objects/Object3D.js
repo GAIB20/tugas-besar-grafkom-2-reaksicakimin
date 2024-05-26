@@ -1,15 +1,18 @@
 import Matrix4 from "../math/Matrix4.js";
+import Vector3 from "../math/Vector3.js";
 
 class Object3D {
   constructor() {
-    this._position = [0, 0, 0];
-    this._rotation = [0, 0, 0];
-    this._scale = [1, 1, 1];
+    this._name = "Object3D";
+    this._position = new Vector3;
+    this._rotation = new Vector3;
+    this._scale = new Vector3(1, 1, 1);
     this._localMatrix = Matrix4.identity();
     this._worldMatrix = Matrix4.identity();
     this._parent = null;
     this._children = [];
     this.visible = true;
+    this._type = "Object3D";
   }
 
   // Public getter
@@ -28,14 +31,20 @@ class Object3D {
       this.computeWorldMatrix(false, true);
     }
   }
+  set type(type) { this._type = type; }
+
+  get worldPosition() {
+    this.computeWorldMatrix(true, false);
+    return Matrix4.getTranslation(this._worldMatrix);
+  }
 
   // Compute local matrix
   computeLocalMatrix() {
-    const translationMatrix = Matrix4.translation(...this._position);
-    const rotationMatrix = Matrix4.rotation(...this._rotation);
-    const scaleMatrix = Matrix4.scale(...this._scale);
+    const translationMatrix = Matrix4.translation(...this._position.toArray());
+    const rotationMatrix = Matrix4.rotation(...this._rotation.toArray());
+    const scaleMatrix = Matrix4.scale(...this._scale.toArray());
 
-    this._localMatrix = translationMatrix.mul(rotationMatrix).mul(scaleMatrix);
+    this._localMatrix = translationMatrix.premul(rotationMatrix).premul(scaleMatrix);
   }
 
   // Compute world matrix
@@ -44,7 +53,7 @@ class Object3D {
       this.parent.computeWorldMatrix(true, false);
     this.computeLocalMatrix();
     if (this.parent) {
-      this._worldMatrix = this.parent.worldMatrix.mul(this._localMatrix);
+      this._worldMatrix = this.parent.worldMatrix.premul(this._localMatrix);
     } else {
       this._worldMatrix = this._localMatrix.clone();
     }
@@ -83,7 +92,7 @@ class Object3D {
   }
 
   //
-  lookAt(target, up=[0, 1, 0]) {
+  lookAt(target, up=Vector3.up()) {
     // TODO: Implement
   }
 
@@ -99,6 +108,107 @@ class Object3D {
     // TODO: Implement
   }
 
+
+  // Translate X
+  translateX(x) {
+    this._position._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Translate Y
+  translateY(y) {
+    this._position._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Translate Z
+  translateZ(z) {
+    this._position._z = z;
+    this.computeLocalMatrix();
+  }
+
+
+  // Scale X
+  scaleX(x) {
+    this._scale._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Scale Y
+  scaleY(y) {
+    this._scale._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Scale Z
+  scaleZ(z) {
+    this._scale._z = z;
+    this.computeLocalMatrix();
+  }
+
+
+  // Rotate X
+  rotateX(x) {
+    this._rotation._x = x;
+    this.computeLocalMatrix();
+  }
+
+  // Rotate Y
+  rotateY(y) {
+    this._rotation._y = y;
+    this.computeLocalMatrix();
+  }
+
+  // Rotate Z
+  rotateZ(z) {
+    this._rotation._z = z;
+    this.computeLocalMatrix();
+  }
+
+  // Position
+  setPosition(x, y, z) {
+    this._position.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Rotation
+  setRotation(x, y, z) {
+    this._rotation.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+  // Scale
+  setScale(x, y, z) {
+    this._scale.set(x, y, z);
+    this.computeLocalMatrix();
+  }
+
+
+  getObjectByName(name) {
+    if (this._name === name) return this;
+    for (let child of this.children) {
+      if (child._name === name) return child;
+      if (child.children) {
+        let found = child.getObjectByName(name);
+        if (found) return found;
+      }
+    }
+    return null;
+  }
+
+  getObjectByClassName(classname){
+    let result = [];
+    if(this instanceof classname){
+      result.push(this);
+    }
+    for (let child of this.children) {
+      if(child instanceof classname){
+        result.push(child);
+      }
+    }
+    return result;
+  }
+
   // Traverse
   traverse(onLeaf=null) {
     if (onLeaf) onLeaf(this);
@@ -110,20 +220,20 @@ class Object3D {
   // JSON parser
   toJSON() {
     return {
-      position: this.position,
-      rotation: this.rotation,
-      scale: this.scale,
-      children: this.children.map((child) => child.toJSON()),
+      name: this._name,
+      position: this._position.toArray(),
+      rotation: this._rotation.toArray(),
+      scale: this._scale.toArray(),
+      children: this._children.map((child) => child.toJSON()),
     };
   }
 
   static fromJSON(json, object=null) {
     if (!object) object = new Object3D();
-    object.position = json.position;
-    object.rotation = json.rotation;
-    object.scale = json.scale;
-    object.children = json.children.map((child) => Object3D.fromJSON(child));
-    
+    object._name = json.name;
+    object._position = Vector3.fromJSON(json.position);
+    object._rotation = Vector3.fromJSON(json.rotation);
+    object._scale = Vector3.fromJSON(json.scale);
     return object;
   }
 }

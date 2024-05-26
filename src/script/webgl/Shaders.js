@@ -140,8 +140,6 @@ vec4 CalcSpotLight(vec3 LightPosition, vec3 ViewDirection, vec3 Normal, vec3 Lig
 
   vec4 color = CalcLightInternal(LightDirection, Normal, LightColor, LightIntensity, true);
 
-  
-
   return color * (1.0 - (1.0 - spotFactor) * 1.0/(1.0 - OuterCutOff));
 }
 
@@ -169,14 +167,18 @@ void main() {
     vec4 totalLight = vec4(0.0);
     if (u_textureOption == 0) {
         if (u_useDirLight) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < MAX_DIR_LIGHTS; i++) {
+              if (u_lightPosition[i] != vec3(0.0)) {
                 vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
                 totalLight += CalcLightInternal(lightDir, normal, u_lightColor[i], u_lightIntensity[i], false);
+              }
             }
         }
         if (u_useSpotLight) {
-            for (int i = 0; i < 2; i++) {
-              totalLight += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);
+            for (int i = 0; i < MAX_SPOT_LIGHTS; i++) {
+              if (u_spotLightPosition[i] != vec3(0.0)) {
+                totalLight += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);                 
+              }
             }
         }
         gl_FragColor = totalLight * v_color;
@@ -190,14 +192,18 @@ void main() {
 
         vec4 finalColor = vec4(0.0);
         if (u_useDirLight) {
-            for (int i = 0; i < 2; i++) {
+            for (int i = 0; i < MAX_DIR_LIGHTS; i++) {
+              if (u_lightPosition[i] != vec3(0.0)) {
                 vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
                 finalColor += CalcInternalTextureLight(lightDir, normal, viewDir, u_lightColor[i], u_lightIntensity[i], false);
+              }
             }
         }
         if (u_useSpotLight) {
-            for (int i = 0; i < 2; i++) {
-              finalColor += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);
+            for (int i = 0; i < MAX_SPOT_LIGHTS; i++) {
+              if (u_spotLightPosition[i] != vec3(0.0)) {
+                finalColor += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);
+              }
             }
         }
 

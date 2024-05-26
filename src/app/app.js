@@ -32,52 +32,29 @@ const webgl = new WebGLRenderer(canvas);
 var scene = new Scene();
 scene._name = "Scene";
 
-// Create a directional light
+// Create a light
 const light = new DirectionalLight();
-const light2 = new DirectionalLight();
 light._name = "Light1";
 light._position._x = 0;
-light._position._y = 0;
+light._position._y = 100;
 light._position._z = 100;
-light._color = [0, 1, 1, 0.4];
-light._intensity = 1;
-light2._name = "Light2";
-light2._position._x = 0;
-light2._position._y = 0;
-light2._position._z = -100;
-light2._color = [1, 1, 0, 0.4];
-light2._intensity = 1;
+light._color = [1, 1, 1, 1];
+light._intensity = 2;
 scene.add(light);
-scene.add(light2);
 
-// // create a spot light
-// const spotLight = new SpotLight();
-// spotLight._name = "SpotLight";
-// spotLight._position._x = 0;
-// spotLight._position._y = 0;
-// spotLight._position._z = 20;
-// spotLight._color = [0, 0, 1, 1];
-// spotLight._intensity = 1;
-// spotLight._target = new Vector3(0, 0, 0);
-// spotLight._cutOff = {
-//   inner: 0,
-//   outer: 30
-// }
-// scene.add(spotLight);
-
-// const spotLight2 = new SpotLight();
-// spotLight2._name = "SpotLight2";
-// spotLight2._position._x = 0;
-// spotLight2._position._y = 0;
-// spotLight2._position._z = -20;
-// spotLight2._color = [1, 0, 1, 1];
-// spotLight2._intensity = 1;
-// spotLight2._target = new Vector3(0, 0, 0);
-// spotLight2._cutOff = {
-//   inner: 0,
-//   outer: 30
-// }
-// scene.add(spotLight2);
+const spotLight = new SpotLight();
+spotLight._name = "Light2";
+spotLight._position._x = 0;
+spotLight._position._y = 0;
+spotLight._position._z = -20;
+spotLight._color = [1, 0, 1, 1];
+spotLight._intensity = 1;
+spotLight._target = new Vector3(0, 0, 0);
+spotLight._cutOff = {
+  inner: 0,
+  outer: 30
+}
+scene.add(spotLight);
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -251,21 +228,21 @@ export function getWebGL() {
 
 // TEXTURE
 function __main__(){
-  // CONCRETE
+  // STONE
   const geometry = new BoxGeometry(1, 1, 1);
   const material = new PhongMaterial({
     shininess: 32,
     ambient: [1, 1, 1, 1],
     diffuse: {
       color: [1, 1, 1, 1],
-      texture: concreteTexture._diffuseTexture
+      texture: stoneTexture._diffuseTexture
     },
     specular: {
       color: [1, 1, 1, 1],
-      texture: concreteTexture._specularTexture
+      texture: stoneTexture._specularTexture
     },
-    displacement: concreteTexture._bumpTexture,
-    normal: concreteTexture._normalTexture,
+    displacement: stoneTexture._bumpTexture,
+    normal: stoneTexture._normalTexture,
     textureOption: 1,
     textureType: 'concrete'
   });
@@ -275,82 +252,82 @@ function __main__(){
 
 
   // ENVIRONMENT
-  const geometry1 = new BoxGeometry(1, 1, 1);
-  const material1 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: null
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: null
-    },
-    displacement: null,
-    normal: null,
-    environment: environmentTexture,
-    textureOption: 2,
-    textureType: 'environment'
-  });
+  // const geometry1 = new BoxGeometry(1, 1, 1);
+  // const material1 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   displacement: null,
+  //   normal: null,
+  //   environment: environmentTexture,
+  //   textureOption: 2,
+  //   textureType: 'environment'
+  // });
 
-  const mesh1 = new Mesh(geometry1, material1);
-  mesh1._name = "Object1"
-  mesh1._position._x = -1.2;
-  scene.add(mesh1);
+  // const mesh1 = new Mesh(geometry1, material1);
+  // mesh1._name = "Object1"
+  // mesh1._position._x = -1.2;
+  // scene.add(mesh1);
 
   // BASIC
-  const geometry2 = new BoxGeometry(1, 1, 1);
-  const material2 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: null,
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: null
-    },
-    displacement: null,
-    normal: null,
-    textureOption: 0,
-    textureType: 'off'
-  });
-  const mesh2 = new Mesh(geometry2, material2);
-  mesh2._name = "Object2"
-  mesh2._position._x = 1.2;
-  scene.add(mesh2);
+  // const geometry2 = new BoxGeometry(1, 1, 1);
+  // const material2 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null,
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   displacement: null,
+  //   normal: null,
+  //   textureOption: 0,
+  //   textureType: 'off'
+  // });
+  // const mesh2 = new Mesh(geometry2, material2);
+  // mesh2._name = "Object2"
+  // mesh2._position._x = 1.2;
+  // scene.add(mesh2);
 
   
-  const geometry3 = new BoxGeometry(1, 1, 1);
-  const material3 = new BasicMaterial([1, 1, 1, 1]);
-  const mesh3 = new Mesh(geometry3, material3);
-  mesh3._name = "Object3"
-  mesh3._position._x = -2.4;
-  scene.add(mesh3);
+  // const geometry3 = new BoxGeometry(1, 1, 1);
+  // const material3 = new BasicMaterial([1, 1, 1, 1]);
+  // const mesh3 = new Mesh(geometry3, material3);
+  // mesh3._name = "Object3"
+  // mesh3._position._x = -2.4;
+  // scene.add(mesh3);
 
   // HOLLOW BOX (MASIH EROR KALO DI RUN)
-  const geometry4 = new HollowRingGeometry(1, 1, 1);
-  const material4 = new PhongMaterial({
-    shininess: 32,
-    ambient: [1, 1, 1, 1],
-    diffuse: {
-      color: [1, 1, 1, 1],
-      texture: null
-    },
-    specular: {
-      color: [1, 1, 1, 1],
-      texture: null
-    },
-    displacement: null,
-    normal: null,
-    textureOption: 0
-  });
-  const mesh4 = new Mesh(geometry4, material4);
-  mesh4._position._x = 2.4;
-  mesh4._name = "Object4"
-  scene.add(mesh4);
+  // const geometry4 = new HollowRingGeometry(1, 1, 1);
+  // const material4 = new PhongMaterial({
+  //   shininess: 32,
+  //   ambient: [1, 1, 1, 1],
+  //   diffuse: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   specular: {
+  //     color: [1, 1, 1, 1],
+  //     texture: null
+  //   },
+  //   displacement: null,
+  //   normal: null,
+  //   textureOption: 0
+  // });
+  // const mesh4 = new Mesh(geometry4, material4);
+  // mesh4._position._x = 2.4;
+  // mesh4._name = "Object4"
+  // scene.add(mesh4);
 
   // console.log(light);
 }
@@ -360,7 +337,6 @@ function __main__(){
 __main__()
 
 // END OF PLAYGROUND
-console.log(scene.toJSON())
 buildHTML(scene.toJSON(), document.getElementById('container'));
 let lightControls = new LightControls(scene, light);
 lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
@@ -390,18 +366,14 @@ let treeControls = new TreeControls(scene);
   document.getElementById('selected-light-object').addEventListener('change', function(event) {
     const selectedLightName = event.target.value;
     const selectedLight = scene.getObjectByName(selectedLightName);
-    const lightName = document.getElementById("lightname");
+    const lightProperties = document.getElementById("light-properties");
 
-    console.log(selectedLight);
-    
-    console.log(selectedLight);
     if (selectedLight) {
+      lightProperties.style.display = "block";
       lightControls.setLight(selectedLight);
-
-      // lightName.value = lightControls.getLight()._name;
     }
-    else{
-      // lightName.value = "";
+    else {
+      lightProperties.style.display = "none";
     }
   })
 

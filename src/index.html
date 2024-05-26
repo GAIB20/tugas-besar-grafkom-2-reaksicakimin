@@ -39,9 +39,6 @@
       <li id="cursor" class="tool-btn active">
         <img src="../public/cursor-ic.svg" class="nav-icon">
       </li>
-      <li id="canvas" class="tool-btn">
-        <img src="../public/canvas-ic.svg" class="nav-icon">
-      </li>
     </ul>
   </nav>
 
@@ -253,11 +250,6 @@
 
         <!-- Basic param -->
         <div id="basic-params" class="material" style="display:none;">
-          <!-- Ambient Color -->
-          <label for="basic-ambient">Ambient Color</label>
-          <div class="color-input">
-            <input type="color" id="basic-ambient" name="basic-ambient" value="#e5e5e5">
-          </div>
         </div>
 
         <!-- Phong param -->
@@ -531,7 +523,7 @@
           </div>  
         </div>
 
-        <div class="property">
+        <div class="property" id="light-properties" style="display: none;">
           <div class = "property-group">
             <!-- Light Type -->
             <div class="projection">

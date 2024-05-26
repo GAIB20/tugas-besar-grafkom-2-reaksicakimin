@@ -7,6 +7,7 @@ class LightControls {
   constructor(scene, light) {
     this._scene = scene;
     this._light = light;
+    this._lightCount = 0;
     this._listeners = {};
 
     this.init();
@@ -112,14 +113,19 @@ class LightControls {
     if (this._listeners.deleteLight) {
       document.getElementById("delete-light").removeEventListener("click", this._listeners.deleteLight);
     }
+    if (this._listeners.lightType) {
+      document.getElementById("light-type").removeEventListener("change", this._listeners.lightType);
+    }
   }
 
   addEventListener() {
     this._listeners.addLight = this.addLight.bind(this);
     this._listeners.deleteLight = this.deleteLight.bind(this);
+    this._listeners.lightType = this.handleLightType.bind(this);
 
     document.getElementById("add-light").addEventListener("click", this._listeners.addLight);
     document.getElementById("delete-light").addEventListener("click", this._listeners.deleteLight);
+    document.getElementById("light-type").addEventListener("change", this._listeners.lightType);
 
 
 
@@ -129,8 +135,8 @@ class LightControls {
     // const deleteLight = document.getElementById("delete-light");
     // deleteLight.addEventListener("click", this.deleteLight.bind(this));
 
-    const lightType = document.getElementById("light-type");
-    lightType.addEventListener("change", this.handleLightType.bind(this));
+    // const lightType = document.getElementById("light-type");
+    // lightType.addEventListener("change", this.handleLightType.bind(this));
 
     const lightPositionXSlider = document.getElementById("light-x-slider");
     lightPositionXSlider.addEventListener("input", this.handleLightPositionXSlider.bind(this));
@@ -193,14 +199,14 @@ class LightControls {
   }
 
   handleLightType(event) {
+    let light = this._scene.getObjectByName(this._light._name);
     if (event.target.value === "directional") {
       this._light = new DirectionalLight({});
     } else if (event.target.value === "spot") {
       this._light = new SpotLight({});
     }
-    this._light._name = "Light";
-
-    let light = this._scene.getObjectByName("Light");
+    this._light._name = light._name;
+    console.log(this._light);
     if (light) {
       this._scene.add(this._light);
       this._scene.remove(light);
@@ -432,6 +438,7 @@ class LightControls {
     parent.innerHTML = '';
     // console.log(json);
     const filteredjson = this.removeAnotherThanLight(json);
+    this._lightCount = filteredjson.children.length + 1;
   
     if (filteredjson.children && filteredjson.children.length > 0) {
       filteredjson.children.forEach(light => {
@@ -468,11 +475,12 @@ class LightControls {
   addLight(event){
     console.log(event);
     const newLight = new DirectionalLight();
-    newLight._name = "new light";
+    newLight._name = "New Light" + this._lightCount;
     const scene = getScene();
-    console.log(newLight);
     scene.add(newLight);
     this.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+    this.removeEventListener();
+    this.addEventListener();
   }
 
   deleteLight(event){

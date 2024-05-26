@@ -10,7 +10,7 @@ class SpotLight extends Light {
       target = new Vector3(0, 0, 0),
       cutOff = {
         inner: 0.5,
-        outer: 0.75
+        outer: 30
       }
     } = options;
 

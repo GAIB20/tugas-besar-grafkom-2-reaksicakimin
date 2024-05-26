@@ -12,6 +12,7 @@ class Object3D {
     this._parent = null;
     this._children = [];
     this.visible = true;
+    // this._type = "Object3D";
   }
 
   // Public getter
@@ -30,6 +31,7 @@ class Object3D {
       this.computeWorldMatrix(false, true);
     }
   }
+  // set type(type) { this._type = type; }
 
   get worldPosition() {
     this.computeWorldMatrix(true, false);
@@ -192,6 +194,25 @@ class Object3D {
       }
     }
     return null;
+  }
+
+  getObjectByType(type){
+    if(this._type == type) return this;
+    return null;
+  }
+
+  getObjectByClass(classname){
+    let result = [];
+    if(this instanceof classname){
+      result.push(this);
+    }
+    for (let child of this.children) {
+      // console.log(child);
+      if(child instanceof classname){
+        result.push(child);
+      }
+    }
+    return result;
   }
 
   // Traverse

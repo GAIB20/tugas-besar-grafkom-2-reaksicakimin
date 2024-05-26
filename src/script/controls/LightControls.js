@@ -8,6 +8,8 @@ class LightControls {
     this._scene = scene;
     this._light = light;
 
+    this._listeners = {};
+
     console.log(this._light)
     
     this.init();
@@ -23,6 +25,7 @@ class LightControls {
   setLight(light){
     this._light = light;
     this.init();
+    this.removeEventListener();
     this.addEventListener();
   }
 
@@ -105,12 +108,29 @@ class LightControls {
     lightIntensityInput.value = this.initIntensity;
   }
 
-  addEventListener() {
-    const addlight = document.getElementById("add-light");
-    addlight.addEventListener("click", this.addLight.bind(this));
+  removeEventListener() {
+    if (this._listeners.addLight) {
+      document.getElementById("add-light").removeEventListener("click", this._listeners.addLight);
+    }
+    if (this._listeners.deleteLight) {
+      document.getElementById("delete-light").removeEventListener("click", this._listeners.deleteLight);
+    }
+  }
 
-    const deleteLight = document.getElementById("delete-light");
-    deleteLight.addEventListener("click", this.deleteLight.bind(this));
+  addEventListener() {
+    this._listeners.addLight = this.addLight.bind(this);
+    this._listeners.deleteLight = this.deleteLight.bind(this);
+
+    document.getElementById("add-light").addEventListener("click", this._listeners.addLight);
+    document.getElementById("delete-light").addEventListener("click", this._listeners.deleteLight);
+
+
+
+    // const addlight = document.getElementById("add-light");
+    // addlight.addEventListener("click", this.addLight.bind(this));
+
+    // const deleteLight = document.getElementById("delete-light");
+    // deleteLight.addEventListener("click", this.deleteLight.bind(this));
 
     const lightType = document.getElementById("light-type");
     lightType.addEventListener("change", this.handleLightType.bind(this));
@@ -203,6 +223,7 @@ class LightControls {
   }
 
   handleLightPositionXSlider(event) {
+    console.log(event);
     const value = parseFloat(event.target.value);
     const lightPositionXInput = document.getElementById("light-x-input");
     lightPositionXInput.value = value;
@@ -412,9 +433,9 @@ class LightControls {
   buildLightHTML(json, parent) {
     let currentUnderlinedLabel = null;
     parent.innerHTML = '';
-    console.log(json);
+    // console.log(json);
     const filteredjson = this.removeAnotherThanLight(json);
-    console.log(filteredjson);
+    // console.log(filteredjson);
   
     if (filteredjson.children && filteredjson.children.length > 0) {
       filteredjson.children.forEach(light => {
@@ -449,7 +470,7 @@ class LightControls {
   }
 
   addLight(event){
-    // console.log("halo");
+    console.log(event);
     const newLight = new DirectionalLight();
     newLight._name = "new light";
     const scene = getScene();
@@ -459,6 +480,7 @@ class LightControls {
   }
 
   deleteLight(event){
+    console.log(event);
     const scene = getScene();
     // const selectedLight = document.getElementById("selected-light-object").value;
     // const light = scene.getObjectByName(selectedLight);

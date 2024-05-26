@@ -35,9 +35,11 @@ scene._name = "Scene";
 // Create a directional light
 const light = new DirectionalLight();
 light._name = "Light";
+light._type = "Light";
 scene.add(light);
 const light2 = new DirectionalLight();
 light2._name = "COKK";
+light2._type = "Light";
 scene.add(light2);
 
 // console.log(light);
@@ -169,7 +171,10 @@ export function clearShapes() {
   scene._name = "Scene";
   const light = new DirectionalLight();
   light._name = "Light";
+  light._type = "Light";
   scene.add(light);
+  let lightControls = new LightControls(scene,light);
+  lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
   buildHTML(scene.toJSON(), document.getElementById('container'));
 }
 
@@ -292,13 +297,15 @@ __main__()
 
 // END OF PLAYGROUND
 buildHTML(scene.toJSON(), document.getElementById('container'));
-let lightControls = new LightControls(light);
+let lightControls = new LightControls(scene, light);
+console.log("haloooo");
 lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 // lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 
 let objectControls = new ObjectControls(scene);
 let materialControls = new MaterialControls(scene, textures);
 let treeControls = new TreeControls(scene);
+
   document.getElementById('selected-object').addEventListener('change', function(event) {
     const selectedObjectName = event.target.value;
     const selectedObject = scene.getObjectByName(selectedObjectName);
@@ -324,14 +331,14 @@ let treeControls = new TreeControls(scene);
 
     // console.log(selectedLight);
     
+    console.log(selectedLight);
     if (selectedLight) {
-      console.log(selectedLight);
       lightControls.setLight(selectedLight);
 
       // lightName.value = lightControls.getLight()._name;
     }
     else{
-      lightName.value = "";
+      // lightName.value = "";
     }
   })
 
@@ -340,7 +347,9 @@ let treeControls = new TreeControls(scene);
 document.addEventListener('loadComplete', (event) => {
   let json = scene.toJSON();
   var container = document.getElementById('container');
+  let lightControls = new LightControls(scene, light);
   buildHTML(json, container);
+  lightControls.buildLightHTML(json, document.getElementById('container-light'));
 
   let objectControls = new ObjectControls(scene);
   document.getElementById('selected-object').addEventListener('change', function(event) {
@@ -352,7 +361,6 @@ document.addEventListener('loadComplete', (event) => {
     }
   });
 
-  let lightControls = new LightControls(scene, light);
 });
 
 

@@ -62,29 +62,7 @@ class TreeControls {
             material = new BasicMaterial([1,1,1,1]);
             mesh = new Mesh(geometry, material);
             mesh._name = "new object";
-            // const geometry2 = new BoxGeometry(1, 1, 1);
-
-            // const material2 = new PhongMaterial({
-            //     shininess: 32,
-            //     ambient: [1, 1, 1, 1],
-            //     diffuse: {
-            //     color: [1, 1, 1, 1],
-            //     texture: null,
-            //     },
-            //     specular: {
-            //     color: [1, 1, 1, 1],
-            //     texture: null
-            //     },
-            //     displacement: null,
-            //     normal: null,
-            //     textureOption: 0,
-            //     textureType: 'off'
-            // });
             
-            // const mesh2 = new Mesh(geometry2, material2);
-            // mesh2._name = "kontol";
-            // mesh2._position._x = 1.2;
-
             this.object.add(mesh);
             buildHTML(this.scene.toJSON(), document.getElementById('container'));
         });

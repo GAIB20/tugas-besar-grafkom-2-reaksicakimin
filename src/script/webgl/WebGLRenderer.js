@@ -7,6 +7,7 @@ import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
 import DirectionalLight from '../light/DirectionalLight.js';
 import { hexToRgb } from '../utils/color.js';
+import Light from '../light/Light.js';
 
 
 class WebGLRenderer {
@@ -124,7 +125,8 @@ class WebGLRenderer {
     }
 
     const renderObject = (object, uniforms) => {
-      const light = scene.getObjectByName("Light");
+      const lights = scene.getObjectByClass(Light);
+      // console.log(lights);
       if (!object.visible) return;
       object.computeWorldMatrix(false, true);
       if (object instanceof Mesh && object._geometry._attributes.position) {
@@ -133,12 +135,14 @@ class WebGLRenderer {
         this.setProgramInfo(info);
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         setTexture(object);
-        WebGLUtils.setUniforms(info, {
-          ...light._uniforms,
-          ...object._material._uniforms,
-          ...uniforms,
-          worldMatrix: object._worldMatrix,
-          useVertexColor: object._geometry._useVertexColors,
+        lights.forEach(light => {
+          WebGLUtils.setUniforms(info, {
+            ...light._uniforms,
+            ...object._material._uniforms,
+            ...uniforms,
+            worldMatrix: object._worldMatrix,
+            useVertexColor: object._geometry._useVertexColors,
+          });
         });
         this._gl.drawArrays(this._gl.TRIANGLES, 0, object._geometry._attributes.position.count);
 

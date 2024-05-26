@@ -11,7 +11,8 @@ class SaveLoad {
         // }
         // });
         for (var i = 0; i < json.children.length; i++){
-            if(json.children[i].name == "Light") continue;
+            // if(json.children[i].name == "Light") continue;
+            if(json.children[i].type == "Light") continue;
             var mesh = Mesh.fromJSON(json.children[i]);
             addMesh(mesh);
         }

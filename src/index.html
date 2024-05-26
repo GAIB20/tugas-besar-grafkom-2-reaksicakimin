@@ -501,12 +501,11 @@
 
       <!-- Light Properties -->
       <div>
-        <div class="property">
-
+        <div class = "property">
           <!-- Light -->
           <div class="property-group">
             <label>Light</label>
-
+  
             <!-- List Light -->
             <div class="others-group">
               <input id = "selected-light-object" type="text" name="selected-object" value="" readonly hidden>
@@ -515,17 +514,22 @@
                 <div class="items" id="container-light">
                   <!-- Placeholder for injected HTML -->
                 </div>
+                <div class="component-editor">
+                  <button id="add-light" class="object-btn">
+                    <i class="fa-solid fa-plus"></i>
+                  </button>
+      
+                  <button id="delete-light" class="object-btn">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
               </div>
             </div>
+          </div>  
+        </div>
 
-            <button id="add-light" class="add-light-btn">
-              <i class="fa-solid fa-plus"></i>
-            </button>
-
-            <button id="delete-light" class="delete-light-btn">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-            
+        <div class="property">
+          <div class = "property-group">
             <!-- Light Type -->
             <div class="projection">
               <label for="light-type">Light Type</label>

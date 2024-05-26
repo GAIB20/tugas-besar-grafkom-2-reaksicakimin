@@ -224,9 +224,14 @@ class MaterialControls {
         this._textureIndex = 1;
         this._material._textureOption = 1;
         break;
-      case "environment":
-        this._material._environment = this._textures[2];
+      case "grass":
+        this._material.setTextures(this._textures[2]);
         this._textureIndex = 2;
+        this._material._textureOption = 1;
+        break;
+      case "environment":
+        this._material._environment = this._textures[3];
+        this._textureIndex = 3;
         this._material._textureOption = 2;
         break;
       default:

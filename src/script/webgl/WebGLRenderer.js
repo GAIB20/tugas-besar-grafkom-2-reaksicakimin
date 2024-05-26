@@ -207,7 +207,7 @@ class WebGLRenderer {
         setTexture(object);
         WebGLUtils.setUniforms(info, {
           ...lightDirUniforms,
-          // ...lightSpotUniforms,
+          ...lightSpotUniforms,
           ...object._material._uniforms,
           ...uniforms,
           worldMatrix: object._worldMatrix,

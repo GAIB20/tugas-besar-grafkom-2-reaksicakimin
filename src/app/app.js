@@ -39,14 +39,45 @@ light._name = "Light";
 light._position._x = 0;
 light._position._y = 0;
 light._position._z = 100;
-light._color = [0, 1, 1, 1];
+light._color = [0, 1, 1, 0.4];
+light._intensity = 0.2;
 light2._name = "Light2";
 light2._position._x = 0;
 light2._position._y = 0;
 light2._position._z = -100;
-light2._color = [1, 1, 0, 1];
+light2._color = [1, 1, 0, 0.4];
+light2._intensity = 0.2;
 scene.add(light);
 scene.add(light2);
+
+// create a spot light
+const spotLight = new SpotLight();
+spotLight._name = "SpotLight";
+spotLight._position._x = 0;
+spotLight._position._y = 0;
+spotLight._position._z = 20;
+spotLight._color = [0, 0, 1, 1];
+spotLight._intensity = 1;
+spotLight._target = new Vector3(0, 0, 0);
+spotLight._cutOff = {
+  inner: 0,
+  outer: 30
+}
+scene.add(spotLight);
+
+const spotLight2 = new SpotLight();
+spotLight2._name = "SpotLight2";
+spotLight2._position._x = 0;
+spotLight2._position._y = 0;
+spotLight2._position._z = -20;
+spotLight2._color = [1, 0, 1, 1];
+spotLight2._intensity = 1;
+spotLight2._target = new Vector3(0, 0, 0);
+spotLight2._cutOff = {
+  inner: 0,
+  outer: 30
+}
+scene.add(spotLight2);
 
 // Create a camera
 let camera = new PerspectiveCamera(
@@ -119,6 +150,16 @@ const mudTexture = new NormalTexture(
 );
 mudTexture.load(webgl._gl);
 
+const grassTexture = new NormalTexture(
+  [
+    "../../test/texture/grass/Normal.jpg",
+    "../../test/texture/grass/Bump.png",
+    "../../test/texture/grass/Diffuse.jpg",
+    "../../test/texture/grass/Specular.jpg"
+  ]
+);
+grassTexture.load(webgl._gl);
+
 const environmentTexture = new EnvironmentTexture(
   [
     {src: '../../test/texture/pos-x.jpg',
@@ -149,7 +190,7 @@ const environmentTexture = new EnvironmentTexture(
 )
 environmentTexture.load(webgl._gl);
 
-let textures = [concreteTexture, mudTexture, environmentTexture];
+let textures = [concreteTexture, mudTexture, grassTexture, environmentTexture];
   
 // Create a mesh
 function loadTexture(mesh){
@@ -292,7 +333,7 @@ function __main__(){
   mesh4._name = "Object4"
   scene.add(mesh4);
 
-  console.log(light);
+  // console.log(light);
 }
 
 
@@ -301,9 +342,9 @@ __main__()
 
 // END OF PLAYGROUND
 buildHTML(scene.toJSON(), document.getElementById('container'));
-let lightControls = new LightControls(scene, light);
+// let lightControls = new LightControls(scene, light);
 console.log("haloooo");
-lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
+// lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 // lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 
 let objectControls = new ObjectControls(scene);

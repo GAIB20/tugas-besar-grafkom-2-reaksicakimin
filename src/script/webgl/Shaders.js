@@ -86,12 +86,12 @@ uniform vec3 u_lightPosition[MAX_DIR_LIGHTS];
 uniform vec4 u_lightColor[MAX_DIR_LIGHTS];
 uniform float u_lightIntensity[MAX_DIR_LIGHTS];
 
-uniform vec3 u_spotLightPosition;
-uniform vec4 u_spotLightColor;
-uniform float u_spotLightIntensity;
-uniform vec3 u_spotLightTarget;
-uniform float u_spotLightInnerCutOff;
-uniform float u_spotLightOuterCutOff;
+uniform vec3 u_spotLightPosition[MAX_SPOT_LIGHTS];
+uniform vec4 u_spotLightColor[MAX_SPOT_LIGHTS];
+uniform float u_spotLightIntensity[MAX_SPOT_LIGHTS];
+uniform vec3 u_spotLightTarget[MAX_SPOT_LIGHTS];
+uniform float u_spotLightInnerCutOff[MAX_SPOT_LIGHTS];
+uniform float u_spotLightOuterCutOff[MAX_SPOT_LIGHTS];
 
 uniform bool u_useDirLight;
 uniform bool u_useSpotLight;
@@ -107,32 +107,45 @@ varying vec3 v_normal, v_pos;
 varying vec3 v_tangent, v_bitangent;
 varying highp vec2 v_textureCoord;
 
-vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal, vec4 LightColor, float LightIntensity) {
+vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal, vec4 LightColor, float LightIntensity, bool isSpot) {
     vec4 AmbientColor = u_ambient * 0.1;
 
     float DiffuseCoefficient = max(dot(Normal, LightDirection), 0.0);
-    vec4 DiffuseColor = u_diffuse * LightColor * DiffuseCoefficient * 0.4;
-
+    vec4 DiffuseColor = vec4(0.0);
+    if (!isSpot) {
+      DiffuseColor = u_diffuse * LightColor * DiffuseCoefficient * 0.4;
+    }
+    else {
+      DiffuseColor = u_diffuse * LightColor * DiffuseCoefficient * 0.1;
+    }
     vec3 ReflectionDirection = reflect(-LightDirection, Normal);
     vec3 ViewDirection = normalize(u_cameraPosition - v_pos);
-    float SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess);
+    float SpecularCoefficient = 0.0;
+    if (!isSpot) {
+      SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess);
+    }
+    else {
+      SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess * 100.0);
+    }
     vec4 SpecularColor = u_specular * LightColor * SpecularCoefficient;
 
     return (AmbientColor + DiffuseColor + SpecularColor) * LightIntensity;
 }
 
-vec4 CalcSpotLight(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
-    vec3 halfDir = normalize(LightDirection + ViewDirection);
-    vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
-    float dots = dot(LightDirection, -spotDir);
-    float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
-    float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
-    vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity * 0.4;
-    vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
-    return light + specular;
+vec4 CalcSpotLight(vec3 LightPosition, vec3 ViewDirection, vec3 Normal, vec3 LightTarget, vec4 LightColor, float LightIntensity, float InnerCutOff, float OuterCutOff) {
+  vec3 LightDirection = normalize(LightPosition - v_pos);
+  vec3 halfDir = normalize(LightDirection + ViewDirection);
+  vec3 spotDir = normalize(LightPosition - LightTarget);
+  float spotFactor = dot(-LightDirection, spotDir);
+
+  vec4 color = CalcLightInternal(LightDirection, Normal, LightColor, LightIntensity, true);
+
+  
+
+  return color * (1.0 - (1.0 - spotFactor) * 1.0/(1.0 - OuterCutOff));
 }
 
-vec4 CalcInternalTextureLight(vec3 LightDirection, vec3 Normal, vec3 ViewDirection, vec4 LightColor, float LightIntensity) {
+vec4 CalcInternalTextureLight(vec3 LightDirection, vec3 Normal, vec3 ViewDirection, vec4 LightColor, float LightIntensity, bool isSpot) {
     vec3 ambient = u_ambient.rgb * 0.1;
     vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
 
@@ -149,31 +162,22 @@ vec4 CalcInternalTextureLight(vec3 LightDirection, vec3 Normal, vec3 ViewDirecti
     return finalColor;
 }
 
-vec4 CalcSpotLightTexture(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
-    vec3 halfDir = normalize(LightDirection + ViewDirection);
-    vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
-    float dots = dot(LightDirection, -spotDir);
-    float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
-    float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
-    vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity;
-    vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
-    return light + specular;
-}
 
 void main() {
     vec3 normal = normalize(v_normal);
     vec3 viewDir = normalize(u_cameraPosition - v_pos);
-    vec3 spotLightDir = normalize(u_spotLightPosition - v_pos);
     vec4 totalLight = vec4(0.0);
     if (u_textureOption == 0) {
         if (u_useDirLight) {
             for (int i = 0; i < 2; i++) {
                 vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
-                totalLight += CalcLightInternal(lightDir, normal, u_lightColor[i], u_lightIntensity[i]);
+                totalLight += CalcLightInternal(lightDir, normal, u_lightColor[i], u_lightIntensity[i], false);
             }
         }
         if (u_useSpotLight) {
-            totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
+            for (int i = 0; i < 2; i++) {
+              totalLight += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);
+            }
         }
         gl_FragColor = totalLight * v_color;
     } else if (u_textureOption == 1) {
@@ -188,11 +192,13 @@ void main() {
         if (u_useDirLight) {
             for (int i = 0; i < 2; i++) {
                 vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
-                finalColor += CalcInternalTextureLight(lightDir, normal, viewDir, u_lightColor[i], u_lightIntensity[i]);
+                finalColor += CalcInternalTextureLight(lightDir, normal, viewDir, u_lightColor[i], u_lightIntensity[i], false);
             }
         }
         if (u_useSpotLight) {
-            finalColor += CalcSpotLightTexture(spotLightDir, viewDir, normal);
+            for (int i = 0; i < 2; i++) {
+              finalColor += CalcSpotLight(u_spotLightPosition[i], viewDir, normal, u_spotLightTarget[i], u_spotLightColor[i], u_spotLightIntensity[i], u_spotLightInnerCutOff[i], u_spotLightOuterCutOff[i]);
+            }
         }
 
         gl_FragColor = finalColor * texture2D(u_diffuseMap, v_textureCoord);

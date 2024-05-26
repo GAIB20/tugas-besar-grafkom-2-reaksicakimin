@@ -6,8 +6,6 @@ class LightControls {
   constructor(scene, light) {
     this._scene = scene;
     this._light = light;
-
-    console.log(this._light)
     
     this.init();
     this.addEventListener();

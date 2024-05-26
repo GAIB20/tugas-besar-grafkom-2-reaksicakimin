@@ -5,8 +5,11 @@ import { ShaderType } from './Types.js';
 import { vertexShaderSourceBasic, fragmentShaderSourceBasic, vertexShaderSourcePhong, fragmentShaderSourcePhong } from './Shaders.js';
 import BasicMaterial from '../material/BasicMaterial.js';
 import PhongMaterial from '../material/PhongMaterial.js';
+import Light from '../light/Light.js';
 import DirectionalLight from '../light/DirectionalLight.js';
+import SpotLight from '../light/SpotLight.js';
 import { hexToRgb } from '../utils/color.js';
+import Vector3 from '../math/Vector3.js';
 
 
 class WebGLRenderer {
@@ -124,7 +127,76 @@ class WebGLRenderer {
     }
 
     const renderObject = (object, uniforms) => {
-      const light = scene.getObjectByName("Light");
+      const lights = scene.getObjectByClassName(Light);
+      const directionalLights = scene.getObjectByClassName(DirectionalLight);
+      const spotLights = scene.getObjectByClassName(SpotLight);
+
+      let lightDirPositions = new Float32Array(directionalLights.length * 3);
+      let lightDirColors = new Float32Array(directionalLights.length * 4);
+      let lightDirIntensities = new Float32Array(directionalLights.length);
+
+      let lightSpotPositions = new Float32Array(spotLights.length * 3);
+      let lightSpotColors = new Float32Array(spotLights.length * 4);
+      let lightSpotIntensities = new Float32Array(spotLights.length);
+      let lightSpotTargets = new Float32Array(spotLights.length * 3);
+      let lightSpotInnerCutOffs = new Float32Array(spotLights.length);
+      let lightSpotOuterCutOffs = new Float32Array(spotLights.length);
+
+      let useSpotLights = false;
+      let useDirLights = false;
+      
+      let dir = 0;
+      let spot = 0;
+      for (let i = 0; i < lights.length; i++) {
+        const light = lights[i];
+        if (light instanceof DirectionalLight) {
+          let pos = light._position;
+          let color = light._color;
+          let intensity = light._intensity;
+          lightDirPositions.set([pos._x, pos._y, pos._z], dir * 3);
+          lightDirColors.set(color, dir * 4);
+          lightDirIntensities[dir] = intensity;
+          useDirLights = true;
+
+          dir++;
+        } else if (light instanceof SpotLight) {
+          let pos = light._position;
+          let color = light._color;
+          let intensity = light._intensity;
+          let target = light._target;
+          let innerCutOff = light._cutOff.inner;
+          let outerCutOff = light._cutOff.outer;
+          lightSpotPositions.set([pos._x, pos._y, pos._z], spot * 3);
+          lightSpotColors.set(color, spot * 4);
+          lightSpotIntensities[spot] = intensity;
+          lightSpotTargets.set([target._x, target._y, target._z], spot * 3);
+          lightSpotInnerCutOffs[spot] = innerCutOff;
+          lightSpotOuterCutOffs[spot] = outerCutOff;
+          useSpotLights = true;
+
+          spot++;
+        }
+      }
+
+      const lightDirUniforms = {
+        lightPosition: lightDirPositions,
+        lightColor: lightDirColors,
+        lightIntensity: lightDirIntensities,
+        useDirLight: useDirLights,
+        useSpotLight: useSpotLights,
+      };
+
+      const lightSpotUniforms = {
+        spotLightPosition: lightSpotPositions,
+        spotLightColor: lightSpotColors,
+        spotLightIntensity: lightSpotIntensities,
+        spotLightTarget: lightSpotTargets,
+        spotLightInnerCutOff: lightSpotInnerCutOffs,
+        spotLightOuterCutOff: lightSpotOuterCutOffs,
+        useSpotLight: useSpotLights,
+        useDirLight: useDirLights,
+      };
+
       if (!object.visible) return;
       object.computeWorldMatrix(false, true);
       if (object instanceof Mesh && object._geometry._attributes.position) {
@@ -134,7 +206,8 @@ class WebGLRenderer {
         WebGLUtils.setAttributes(info, object._geometry._attributes);
         setTexture(object);
         WebGLUtils.setUniforms(info, {
-          ...light._uniforms,
+          ...lightDirUniforms,
+          // ...lightSpotUniforms,
           ...object._material._uniforms,
           ...uniforms,
           worldMatrix: object._worldMatrix,

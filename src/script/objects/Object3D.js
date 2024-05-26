@@ -194,6 +194,19 @@ class Object3D {
     return null;
   }
 
+  getObjectByClassName(classname){
+    let result = [];
+    if(this instanceof classname){
+      result.push(this);
+    }
+    for (let child of this.children) {
+      if(child instanceof classname){
+        result.push(child);
+      }
+    }
+    return result;
+  }
+
   // Traverse
   traverse(onLeaf=null) {
     if (onLeaf) onLeaf(this);

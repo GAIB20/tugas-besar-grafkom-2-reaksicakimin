@@ -19,6 +19,21 @@ class PlaneGeometry extends BufferGeometry {
     this._verticesLength = vertices.length;
     this.calculateNormals();
     this.setColor();
+    this.setTextureCoordinates();
+    this.calculateTangents();
+  }
+
+  setTextureCoordinates() {
+    const texCoor = new Float32Array([
+      1.0, 1.0,
+      1.0, 0.0,
+      0.0, 0.0,
+      0.0, 1.0,
+      1.0, 1.0,
+      0.0, 0.0,
+    ]);
+    const textureCoordinates = new BufferAttribute(texCoor, 2);
+    this.setAttribute('textureCoord', textureCoordinates);
   }
 
 

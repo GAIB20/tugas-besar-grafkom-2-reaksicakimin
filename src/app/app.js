@@ -34,15 +34,19 @@ scene._name = "Scene";
 
 // Create a directional light
 const light = new DirectionalLight();
-light._name = "Light";
-light._type = "Light";
-scene.add(light);
 const light2 = new DirectionalLight();
-light2._name = "COKK";
-light2._type = "Light";
+light._name = "Light";
+light._position._x = 0;
+light._position._y = 0;
+light._position._z = 100;
+light._color = [0, 1, 1, 1];
+light2._name = "Light2";
+light2._position._x = 0;
+light2._position._y = 0;
+light2._position._z = -100;
+light2._color = [1, 1, 0, 1];
+scene.add(light);
 scene.add(light2);
-
-// console.log(light);
 
 // Create a camera
 let camera = new PerspectiveCamera(

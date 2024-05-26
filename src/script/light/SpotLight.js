@@ -4,7 +4,7 @@ import Vector3 from "../math/Vector3.js";
 class SpotLight extends Light {
   constructor(options = {}) {
     const {
-      position = new Vector3(4, 2, 2),
+      position = new Vector3(0, 0, 10),
       color = [1, 1, 1, 1],
       intensity = 1,
       target = new Vector3(0, 0, 0),

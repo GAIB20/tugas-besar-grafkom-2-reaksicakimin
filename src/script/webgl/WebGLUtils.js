@@ -70,8 +70,9 @@ class WebGLUtils {
           else {
             if (Array.isArray(v))
               gl[`uniform${type}`](loc, ...v);
-            else
+            else {
               gl[`uniform${type}`](loc, v);
+            }
           }
         }
       };

@@ -3,7 +3,6 @@
 import AnimationController from "../animation/animationController.js";
 var animationController = new AnimationController();
 var isEditing = false;
-console.log("Frame controller loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
   let currentFrame = 1;

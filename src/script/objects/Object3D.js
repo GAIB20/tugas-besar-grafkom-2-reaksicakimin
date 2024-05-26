@@ -196,18 +196,12 @@ class Object3D {
     return null;
   }
 
-  getObjectByType(type){
-    if(this._type == type) return this;
-    return null;
-  }
-
-  getObjectByClass(classname){
+  getObjectByClassName(classname){
     let result = [];
     if(this instanceof classname){
       result.push(this);
     }
     for (let child of this.children) {
-      // console.log(child);
       if(child instanceof classname){
         result.push(child);
       }

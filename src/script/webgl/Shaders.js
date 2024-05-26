@@ -72,6 +72,9 @@ void main() {
 let fragmentShaderSourcePhong = `
 precision mediump float;
 
+const int MAX_DIR_LIGHTS = 5;
+const int MAX_SPOT_LIGHTS = 5;
+
 uniform float u_shininess;
 uniform vec3 u_cameraPosition;
 uniform vec4 u_ambient;
@@ -79,10 +82,9 @@ uniform vec4 u_diffuse;
 uniform vec4 u_specular;
 uniform highp int u_textureOption;
 
-uniform vec3 u_lightPosition;
-uniform vec3 u_lightDirection;
-uniform vec4 u_lightColor;
-uniform float u_lightIntensity;
+uniform vec3 u_lightPosition[MAX_DIR_LIGHTS];
+uniform vec4 u_lightColor[MAX_DIR_LIGHTS];
+uniform float u_lightIntensity[MAX_DIR_LIGHTS];
 
 uniform vec3 u_spotLightPosition;
 uniform vec4 u_spotLightColor;
@@ -105,83 +107,102 @@ varying vec3 v_normal, v_pos;
 varying vec3 v_tangent, v_bitangent;
 varying highp vec2 v_textureCoord;
 
+vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal, vec4 LightColor, float LightIntensity) {
+    vec4 AmbientColor = u_ambient * 0.1;
 
-vec4 CalcLightInternal(vec3 LightDirection, vec3 Normal) {
-  vec4 AmbientColor = u_ambient * 0.1;
+    float DiffuseCoefficient = max(dot(Normal, LightDirection), 0.0);
+    vec4 DiffuseColor = u_diffuse * LightColor * DiffuseCoefficient * 0.4;
 
-  float DiffuseCoefficient = max(dot(Normal, LightDirection), 0.0);
-  vec4 DiffuseColor = u_diffuse * u_lightColor * DiffuseCoefficient * 0.4;
+    vec3 ReflectionDirection = reflect(-LightDirection, Normal);
+    vec3 ViewDirection = normalize(u_cameraPosition - v_pos);
+    float SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess);
+    vec4 SpecularColor = u_specular * LightColor * SpecularCoefficient;
 
-  vec3 ReflectionDirection = reflect(-LightDirection, Normal);
-  vec3 ViewDirection = normalize(u_cameraPosition - v_pos);
-  float SpecularCoefficient = pow(max(dot(ReflectionDirection, ViewDirection), 0.0), u_shininess);
-  vec4 SpecularColor = u_specular * u_lightColor * SpecularCoefficient;
-
-  return (AmbientColor + DiffuseColor + SpecularColor) * u_lightIntensity;
+    return (AmbientColor + DiffuseColor + SpecularColor) * LightIntensity;
 }
 
 vec4 CalcSpotLight(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
-  vec3 halfDir = normalize(LightDirection + ViewDirection);
-  vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
-  float dots = dot(LightDirection, -spotDir);
-  float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
-  float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
-  vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity;
-  vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
-  return light + specular;
+    vec3 halfDir = normalize(LightDirection + ViewDirection);
+    vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
+    float dots = dot(LightDirection, -spotDir);
+    float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
+    float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
+    vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity * 0.4;
+    vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
+    return light + specular;
+}
+
+vec4 CalcInternalTextureLight(vec3 LightDirection, vec3 Normal, vec3 ViewDirection, vec4 LightColor, float LightIntensity) {
+    vec3 ambient = u_ambient.rgb * 0.1;
+    vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
+
+    float nDotL = max(dot(Normal, LightDirection), 0.0);
+    vec3 diffuse = LightColor.rgb * u_diffuse.rgb * nDotL  * 0.5;
+    vec3 diffuseBump = min(diffuse + dot(Normal, LightDirection), 1.1);
+
+    float spec = texture2D(u_specularMap, v_textureCoord).r;
+    vec3 r = reflect(-LightDirection, Normal);
+    float specFactor = pow(max(dot(r, ViewDirection), 0.0), u_shininess);
+    vec3 specular = u_specular.rgb * LightColor.rgb * spec * specFactor;
+
+    vec4 finalColor = vec4((diffuse * diffuseBump + specular) + ambient, 1.0) * vec4(diff, 1.0) * LightIntensity;
+    return finalColor;
+}
+
+vec4 CalcSpotLightTexture(vec3 LightDirection, vec3 ViewDirection, vec3 Normal) {
+    vec3 halfDir = normalize(LightDirection + ViewDirection);
+    vec3 spotDir = normalize(u_spotLightPosition - u_spotLightTarget);
+    float dots = dot(LightDirection, -spotDir);
+    float limitRange = u_spotLightInnerCutOff - u_spotLightOuterCutOff;
+    float inLight = clamp((dots - u_spotLightOuterCutOff) / limitRange, 0.0, 1.0);
+    vec4 light = inLight * dot(Normal, LightDirection) * u_spotLightColor * u_spotLightIntensity;
+    vec4 specular = inLight * pow(dot(Normal, halfDir), (u_shininess * 100.0)) * u_spotLightColor * u_spotLightIntensity;
+    return light + specular;
 }
 
 void main() {
-  if (u_textureOption == 0) {
     vec3 normal = normalize(v_normal);
-    vec3 lightDir = normalize(u_lightPosition - v_pos);
     vec3 viewDir = normalize(u_cameraPosition - v_pos);
     vec3 spotLightDir = normalize(u_spotLightPosition - v_pos);
+    vec4 totalLight = vec4(0.0);
+    if (u_textureOption == 0) {
+        if (u_useDirLight) {
+            for (int i = 0; i < 2; i++) {
+                vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
+                totalLight += CalcLightInternal(lightDir, normal, u_lightColor[i], u_lightIntensity[i]);
+            }
+        }
+        if (u_useSpotLight) {
+            totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
+        }
+        gl_FragColor = totalLight * v_color;
+    } else if (u_textureOption == 1) {
+        vec3 T = normalize(v_tangent);
+        vec3 N = normalize(v_normal);
+        vec3 B = normalize(v_bitangent);
+        vec3 normal = normalize(texture2D(u_normalMap, v_textureCoord).rgb * 2.0 - 1.0);
+        mat3 TBN = mat3(T, B, N);
+        normal = normalize(TBN * normal);
 
-    vec4 totalLight;
-    if (u_useDirLight) {
-      totalLight += CalcLightInternal(lightDir, normal);
+        vec4 finalColor = vec4(0.0);
+        if (u_useDirLight) {
+            for (int i = 0; i < 2; i++) {
+                vec3 lightDir = normalize(u_lightPosition[i] - v_pos);
+                finalColor += CalcInternalTextureLight(lightDir, normal, viewDir, u_lightColor[i], u_lightIntensity[i]);
+            }
+        }
+        if (u_useSpotLight) {
+            finalColor += CalcSpotLightTexture(spotLightDir, viewDir, normal);
+        }
+
+        gl_FragColor = finalColor * texture2D(u_diffuseMap, v_textureCoord);
+    } else if (u_textureOption == 2) {
+        vec3 N = normalize(v_normal);
+        vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);
+        gl_FragColor = textureCube(u_environmentMap, D);
     }
-    else if (u_useSpotLight) {
-      totalLight += CalcSpotLight(spotLightDir, viewDir, normal);
-    }
-
-    gl_FragColor = totalLight * v_color;
-  }
-  if (u_textureOption == 1) {
-    vec3 T = normalize(v_tangent);
-    vec3 N = normalize(v_normal);
-    vec3 B = normalize(v_bitangent);
-    vec3 normal = normalize(texture2D(u_normalMap, v_textureCoord).rgb * 2.0 - 1.0);
-    mat3 TBN = mat3(T, B, N);
-    normal = normalize(TBN * normal);
-    
-    vec3 lightDir = normalize(u_lightPosition - v_pos);
-    vec3 viewDir = normalize(u_cameraPosition - v_pos);
-
-    vec3 ambient = u_ambient.rgb * 0.1;
-    vec3 diff = texture2D(u_diffuseMap, v_textureCoord).rgb;
-    // float diffFactor = max(dot(normal, lightDir), 0.0);
-    // vec3 diffuse = u_diffuse.rgb * diffFactor;
-
-    float nDotL = max(dot(normal, lightDir), 0.0);
-    vec3 diffuse = u_lightColor.rgb * u_diffuse.rgb * nDotL;
-    vec3 diffuseBump = min(diffuse + dot(normal, lightDir), 1.1);
-    
-    float spec = texture2D(u_specularMap, v_textureCoord).r;
-    vec3 r = reflect(-lightDir, normal);
-    float specFactor = pow(max(dot(r, viewDir), 0.0), u_shininess);
-    vec3 specular = u_specular.rgb * u_lightColor.rgb * spec * specFactor;
-    
-    vec4 finalColor = vec4( (diffuse * diffuseBump + specular) + ambient, 1.0) * vec4(diff, 1.0) * u_lightIntensity;
-    gl_FragColor = finalColor;
-  }
-  if (u_textureOption == 2) {
-    vec3 N = normalize(v_normal);
-    vec3 D = reflect(normalize(v_pos - u_cameraPosition), N);
-    gl_FragColor = textureCube(u_environmentMap, D);
-  }
 }
+
 
 `;
 

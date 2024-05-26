@@ -7,11 +7,8 @@ class LightControls {
   constructor(scene, light) {
     this._scene = scene;
     this._light = light;
-
     this._listeners = {};
 
-    console.log(this._light)
-    
     this.init();
     this.addEventListener();
  }

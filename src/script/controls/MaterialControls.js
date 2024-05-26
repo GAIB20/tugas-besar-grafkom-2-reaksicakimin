@@ -229,9 +229,19 @@ class MaterialControls {
         this._textureIndex = 2;
         this._material._textureOption = 1;
         break;
+      case "stone":
+        this._material.setTextures(this._textures[3]);
+        this._textureIndex = 3;
+        this._material._textureOption = 1;
+        break;
+      case "metallic":
+        this._material.setTextures(this._textures[4]);
+        this._textureIndex = 4;
+        this._material._textureOption = 1;
+        break;
       case "environment":
         this._material._environment = this._textures[3];
-        this._textureIndex = 3;
+        this._textureIndex = 5;
         this._material._textureOption = 2;
         break;
       default:

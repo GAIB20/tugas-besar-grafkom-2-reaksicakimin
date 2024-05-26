@@ -40,13 +40,13 @@ light._position._x = 0;
 light._position._y = 0;
 light._position._z = 100;
 light._color = [0, 1, 1, 0.4];
-light._intensity = 0.2;
+light._intensity = 1;
 light2._name = "Light2";
 light2._position._x = 0;
 light2._position._y = 0;
 light2._position._z = -100;
 light2._color = [1, 1, 0, 0.4];
-light2._intensity = 0.2;
+light2._intensity = 1;
 scene.add(light);
 scene.add(light2);
 
@@ -160,6 +160,26 @@ const grassTexture = new NormalTexture(
 );
 grassTexture.load(webgl._gl);
 
+const metallicTexture = new NormalTexture(
+  [
+    "../../test/texture/metal/Normal.jpg",
+    "../../test/texture/metal/Bump.jpg",
+    "../../test/texture/metal/Diffuse.jpg",
+    "../../test/texture/metal/Specular.jpg"
+  ]
+);
+metallicTexture.load(webgl._gl);
+
+const stoneTexture = new NormalTexture(
+  [
+    "../../test/texture/stone/Normal.jpg",
+    "../../test/texture/stone/Bump.png",
+    "../../test/texture/stone/Diffuse.jpg",
+    "../../test/texture/stone/Specular.jpg"
+  ]
+);
+stoneTexture.load(webgl._gl);
+
 const environmentTexture = new EnvironmentTexture(
   [
     {src: '../../test/texture/pos-x.jpg',
@@ -190,7 +210,7 @@ const environmentTexture = new EnvironmentTexture(
 )
 environmentTexture.load(webgl._gl);
 
-let textures = [concreteTexture, mudTexture, grassTexture, environmentTexture];
+let textures = [concreteTexture, mudTexture, grassTexture, stoneTexture, metallicTexture, environmentTexture];
   
 // Create a mesh
 function loadTexture(mesh){
@@ -216,7 +236,6 @@ export function clearShapes() {
   scene._name = "Scene";
   const light = new DirectionalLight();
   light._name = "Light";
-  light._type = "Light";
   scene.add(light);
   let lightControls = new LightControls(scene,light);
   lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
@@ -343,7 +362,6 @@ __main__()
 // END OF PLAYGROUND
 buildHTML(scene.toJSON(), document.getElementById('container'));
 // let lightControls = new LightControls(scene, light);
-console.log("haloooo");
 // lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 // lightControls.buildLightHTML(scene.toJSON(), document.getElementById('container-light'));
 
